@@ -1,10 +1,19 @@
-# Windows thumbnail cache files
+# Windows image file caches
 Thumbs.db
 ehthumbs.db
-ehthumbs_vista.db
 
 # Folder config file
 Desktop.ini
+
+# VS Code
+.vscode/*
+
+# JetBrains
+.idea
+.project
+.settings
+.idea/*
+*.iml
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -21,3 +30,55 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Others such as NodeJS modules and logs
+*.log
+_node_modules/**
+node_modules/**
+
+# Ngc generated files
+**/*.ngfactory.ts
+
+# Build files
+dist/*
+
+# Old dev
+_libtest/*
+
+# Playground/build tmp files
+.playground
+.tmp
+test/build
+
+# TypeScript
+src/*.js
+src/*.map
+src/*.d.ts
+
+
+*.tgz
