@@ -1,0 +1,33 @@
+<div class="tour-wizard-overlay" [ngClass]="{'show': isActive}"></div>
+
+<ng-template [popper]="tourWizardPopper"
+             [popperTarget]="popperTarget"
+             [popperStyles]="{'max-width': '250px'}"
+             [popperPlacement]="'top'"
+             [popperTrigger]="'none'">
+
+</ng-template>
+
+<ng-template #defaultTemplate let-step="step">
+    <ng-container *ngIf="isActive">
+        <p class="tour-wizard-content-title">{{step?.title || "My Step Title"}}</p>
+        <p class="tour-wizard-content-text">{{step?.content || "My step Content"}}</p>
+        <div class="tour-step-navigation">
+            <button [hidden]="!tourWizardService.hasPrev(step)"
+                    class="tour-wizard-content-button btn-prev" (click)="tourWizardService.prev()">«
+                {{step?.prevBtnTitle || "Prev"}}
+            </button>
+            <button [hidden]="!tourWizardService.hasNext(step)"
+                    class="tour-wizard-content-button btn-next" (click)="tourWizardService.next()">
+                {{step?.nextBtnTitle || "Next"}} »
+            </button>
+            <button class="tour-wizard-content-button btn-end" (click)="tourWizardService.end()">
+                {{step?.endBtnTitle || "End"}}
+            </button>
+        </div>
+    </ng-container>
+</ng-template>
+
+<popper-content class="tour-wizard-content-wrap" #tourWizardPopper>
+    <ng-container *ngTemplateOutlet="stepTemplate || defaultTemplate; context: { step: step }"></ng-container>
+</popper-content>
