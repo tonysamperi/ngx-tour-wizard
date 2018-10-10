@@ -21,7 +21,6 @@ import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
         TourWizardKboardComponent
     ],
     exports: [
-        NgxPopperModule,
         TourWizardPopperComponent,
         TourWizardAnchorDirective,
         TourWizardKboardComponent

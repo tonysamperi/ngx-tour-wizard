@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "dependencies": {
     "@angular/animations": "^5.2.11",
     "@angular/common": "^5.2.11",

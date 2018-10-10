@@ -1,6 +1,6 @@
 import {
     Directive,
-    OnInit,
+    AfterViewInit,
     OnDestroy,
     Input,
     ComponentFactoryResolver,
@@ -12,8 +12,8 @@ import {
 import {TourWizardPopperComponent} from "./tour-wizard-popper.component";
 import {TourWizardStep} from "./tour-wizard.model";
 import {TourWizardService} from "./tour-wizard.service";
-import * as viewportUtils from "js-viewport-utils";
 import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
+import * as viewportUtils from "js-viewport-utils";
 
 @Directive({
     selector: "[tourWizardAnchor]",
@@ -22,7 +22,7 @@ import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
     }
 })
 
-export class TourWizardAnchorDirective implements OnInit, OnDestroy {
+export class TourWizardAnchorDirective implements AfterViewInit, OnDestroy {
 
     static nextId: number = 0;
 
@@ -49,11 +49,11 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         this._anchorPopper.hidePopper();
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         this._anchorPopper = this._constructPopper();
         this._anchorPopper.setTarget(this._elRef.nativeElement);
         this._tourWizardService.register(this.tourWizardAnchor, this);
-        // Attach listener only on first anchor
+        // Attach keyboard listener only on first anchor
         this._id === 1 && this._constructKboardListener();
     }
 
