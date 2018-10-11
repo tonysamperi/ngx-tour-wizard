@@ -17,7 +17,7 @@
                 {{step?.prevBtnTitle || "Prev"}}
             </button>
             <button *ngIf="step.showPauseButton">
-
+                {{step?.pauseBtnTitle || "Pause"}}
             </button>
             <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
                     class="tour-wizard-content-button btn-next" (click)="tourWizardService.next()">

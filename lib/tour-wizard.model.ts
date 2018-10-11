@@ -25,10 +25,12 @@ export interface TourWizardStep {
     prevStep?: number | string;
     preventScrolling?: boolean;
     prevBtnTitle?: string;
+    pauseBtnTitle?: string;
     nextBtnTitle?: string;
     endBtnTitle?: string;
     hidePrevButton?: boolean;
     hideNextButton?: boolean;
+    showPauseButton?: boolean;
     // Popper options
     placement?: Placement;
     popperSettings?: {

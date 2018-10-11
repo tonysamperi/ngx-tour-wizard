@@ -16,6 +16,7 @@ const stylesDistFolder = path.join(distFolder, "styles");
 gulp.task("build:scss", function (cb) {
     console.info("Build:SCSS");
     gulp.src([
+        `${srcFolder}/tour-wizard-vars.scss`,
         `${srcFolder}/tour-wizard.scss`,
     ])
     .pipe(sass({

@@ -18,3 +18,7 @@
 * Set optional next/prev buttons
 * Added pause button (optional, default hidden)
 * Refactor
+
+#1.0.4
+* Fixed missing SCSS dependency
+* Fixed missing text and options for PAUSE button
