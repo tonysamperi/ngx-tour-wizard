@@ -3,20 +3,24 @@ import {ComponentFactoryResolver} from "@angular/core";
 import {ApplicationRef} from "@angular/core";
 import {Injector} from "@angular/core";
 import {EmbeddedViewRef} from "@angular/core";
-import {TourWizardRefs} from "./tour-wizard.model";
+import {TourWizardRefs, TourWizardCompData} from "./tour-wizard.model";
+
 
 @Injectable()
 export class TourWizardDomService {
 
     private _refs: TourWizardRefs = {};
 
-    constructor(
-        private _componentFactoryResolver: ComponentFactoryResolver,
-        private _appRef: ApplicationRef,
-        private _injector: Injector) {
+    constructor(private _componentFactoryResolver: ComponentFactoryResolver,
+                private _appRef: ApplicationRef,
+                private _injector: Injector) {
     }
 
-    appendCompToBody(component: any, key?: string) {
+    appendComps(compsData: TourWizardCompData[]): void {
+        compsData.forEach((compData) => this.appendComp(compData.comp, compData.key, compData.targetSelector));
+    }
+
+    appendComp(component: any, key?: string, targetSelector: string = "body"): void {
         // 1. Create a component reference from the component
         const componentRef = this._componentFactoryResolver
         .resolveComponentFactory(component)
@@ -29,9 +33,6 @@ export class TourWizardDomService {
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
             .rootNodes[0] as HTMLElement;
 
-        // 4. Append DOM element to the body
-        document.body.appendChild(domElem);
-
         if (!!key) {
             !!this._refs[key] && console.warn("A ref with this key already exists and will be overwritten");
             this._refs[key] = componentRef;
@@ -40,16 +41,27 @@ export class TourWizardDomService {
             console.warn("Component appended, but key wasn't provided. It won't be possible to remove it from the DOM automagically");
         }
 
+        // 4. Append DOM element to the body
+        const targetEl = document.querySelector(targetSelector);
+        if (targetEl !== null) {
+            targetEl.appendChild(domElem);
+        }
+        else {
+            document.body.appendChild(domElem);
+        }
     }
 
-    removeCompFromBody(key: string) {
+
+    removeComp(key: string): boolean {
         if (!!this._refs[key]) {
             const componentRef = this._refs[key];
             this._appRef.detachView(componentRef.hostView);
             componentRef.destroy();
+            return true;
         }
         else {
             console.warn(`No ref found with key ${key}`);
+            return false;
         }
     }
 }

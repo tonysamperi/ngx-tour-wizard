@@ -45,9 +45,17 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         private _viewContainerRef: ViewContainerRef) {
 
         if (this._id === 1) {
-            console.info("FIRST ANCHOR");
-            this._tourWizardDomService.appendCompToBody(TourWizardKboardComponent, "TourWizardKboardComponent");
-            this._tourWizardDomService.appendCompToBody(TourWizardOverlayComponent, "TourWizardOverlayComponent");
+            this._tourWizardDomService.appendComps([
+                {
+                    comp: TourWizardKboardComponent,
+                    key: "TourWizardKboardComponent"
+                },
+                {
+                    comp: TourWizardOverlayComponent,
+                    key: "TourWizardOverlayComponent",
+                    targetSelector: this._tourWizardService.backdropTarget
+                }
+            ]);
         }
     }
 

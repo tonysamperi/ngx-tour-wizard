@@ -7,6 +7,24 @@ export enum TourWizardState {
     PAUSED
 }
 
+export interface TourWizardOptions {
+    backdropEnabled: boolean;
+    backdropTarget: string;
+    keyboardEnabled: boolean;
+}
+
+export const tourWizardDefaults = {
+    backdropEnabled: true,
+    backdropTarget: "body",
+    keyboardEnabled: true
+};
+
+export interface TourWizardCompData {
+    comp: any;
+    key?: string;
+    targetSelector?: string;
+}
+
 export interface TourWizardEvent {
     name: string;
     value: any;

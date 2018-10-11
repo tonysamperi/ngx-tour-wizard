@@ -9,7 +9,12 @@ import {TourWizardModule} from "ngx-tour-wizard";
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        TourWizardModule
+        // TourWizardModule,
+        TourWizardModule.forRoot({
+            backdropTarget: ".pippo",
+            backdropEnabled: true,
+            keyboardEnabled: false
+        })
     ],
     entryComponents: [TourWizardAppComponent],
     declarations: [TourWizardAppComponent],

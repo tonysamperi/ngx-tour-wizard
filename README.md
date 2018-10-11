@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.5
+# ngxTourWizard 1.0.6
 
 A cool Angular5+ module for intro tours!
 
@@ -31,7 +31,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import what you need from ngx-mat-lib
-import { NgxTourWizardModule } from 'ngx-tour-wizard';
+import { TourWizardModule } from 'ngx-tour-wizard';
 
 @NgModule({
   declarations: [
@@ -41,12 +41,26 @@ import { NgxTourWizardModule } from 'ngx-tour-wizard';
     BrowserModule,
 
     // Specify the import
-    NgxTourWizardModule
+    TourWizardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+```
+
+You can optionally use the `forRoot()` method and pass tourWizardDefaults as follows
+
+```js
+// ...
+providers: [
+    TourWizardModule.forRoot({
+        backdropTarget: ".my-selector",
+        backdropEnabled: true,
+        keyboardEnabled: false
+    })
+]
+// ...
 ```
 
 Once your library is imported, you can use its components, directives and pipes in your Angular application:

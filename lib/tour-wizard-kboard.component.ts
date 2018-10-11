@@ -3,10 +3,12 @@ import {TourWizardService} from "./tour-wizard.service";
 import {TourWizardState} from "./tour-wizard.model";
 
 @Component({
-    selector: "tour-wizard-overlay",
-    template: `<ng-content></ng-content>`
+    selector: "tour-wizard-kboard",
+    template: `
+        <ng-content></ng-content>`
 })
 export class TourWizardKboardComponent {
+
     constructor(private _tourWizardService: TourWizardService) {
     }
 

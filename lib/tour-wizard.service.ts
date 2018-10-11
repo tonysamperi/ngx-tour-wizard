@@ -1,6 +1,12 @@
-import {Injectable} from "@angular/core";
+import {Injectable, Optional} from "@angular/core";
 import {TourWizardAnchorDirective} from "./tour-wizard-anchor.directive";
-import {TourWizardState, TourWizardStep} from "./tour-wizard.model";
+import {
+    TourWizardState,
+    TourWizardStep,
+    TourWizardEvent,
+    TourWizardOptions,
+    tourWizardDefaults
+} from "./tour-wizard.model";
 import {merge as mergeStatic} from "rxjs/observable/merge";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
@@ -9,26 +15,34 @@ import {map} from "rxjs/operators";
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
-    public events$: Observable<{ name: string; value: any }>;
+    public events$: Observable<TourWizardEvent>;
 
     public anchors: { [anchorId: string]: TourWizardAnchorDirective } = {};
+    public backdropTarget: string;
     public currentStep: T;
-    public isHotKeysEnabled: boolean = true;
-    public isBackdropEnabled: boolean = true;
+    public isHotKeysEnabled: boolean;
+    public isBackdropEnabled: boolean;
     public steps: T[] = [];
 
     private _tourStatus: TourWizardState = TourWizardState.OFF;
-    // Events
-    private _stepShow$: Subject<T> = new Subject();
-    private _stepHide$: Subject<T> = new Subject();
-    private _start$: Subject<T> = new Subject();
-    private _end$: Subject<any> = new Subject();
-    private _pause$: Subject<T> = new Subject();
-    private _resume$: Subject<T> = new Subject();
-    private _anchorRegister$: Subject<string> = new Subject();
-    private _anchorUnregister$: Subject<string> = new Subject();
 
-    constructor() {
+    // Events
+    private _stepShow$: Subject<T> = new Subject<T>();
+    private _stepHide$: Subject<T> = new Subject<T>();
+    private _start$: Subject<T> = new Subject<T>();
+    private _end$: Subject<T> = new Subject<T>();
+    private _pause$: Subject<T> = new Subject<T>();
+    private _resume$: Subject<T> = new Subject<T>();
+    private _anchorRegister$: Subject<string> = new Subject<string>();
+    private _anchorUnregister$: Subject<string> = new Subject<string>();
+
+    // @Optional()
+    constructor(private _config: TourWizardOptions) {
+        if (!!_config) {
+            this.backdropTarget = _config.backdropTarget;
+            this.isBackdropEnabled = _config.backdropEnabled;
+            this.isHotKeysEnabled = _config.keyboardEnabled;
+        }
         this.events$ = mergeStatic(
             this._stepShow$.pipe(map(value => ({name: "stepShow", value}))),
             this._stepHide$.pipe(map(value => ({name: "stepHide", value}))),
@@ -39,6 +53,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this._anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
             this._anchorUnregister$.pipe(map(value => ({name: "anchorRegister", value})))
         );
+
     }
 
     public initialize(steps: T[], stepDefaults?: T): void {
@@ -113,7 +128,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     public prev(fromKeyboard: boolean = false): void {
         if (this.hasPrev(this.currentStep)) {
-            const targetStep = this._loadStep(this.currentStep.prevStep || this.steps.indexOf(this.currentStep) - 1)
+            const targetStep = this._loadStep(this.currentStep.prevStep || this.steps.indexOf(this.currentStep) - 1);
             this._goToStep(targetStep, fromKeyboard);
         }
     }
