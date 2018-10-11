@@ -4,7 +4,7 @@ import {TourWizardService, TourWizardStep} from "ngx-tour-wizard";
 @Component({
     selector: "tour-wizard-app",
     templateUrl: "tour-wizard-app.component.html",
-    styleUrls: ["tour-wizard-app.component.scss"],
+    styleUrls: ["./tour-wizard-app.component.scss"],
 })
 export class TourWizardAppComponent implements OnInit {
 

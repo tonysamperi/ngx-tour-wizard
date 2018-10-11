@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.2
+# ngxTourWizard 1.0.3
 
 A cool Angular5+ module for intro tours!
 
@@ -121,7 +121,6 @@ attribution, so you shouldn't need to do anything additional when using these
 files normally.
 
 # TODOS
-* Use unique component for backdrop?
-* Set backdrop optional
 * Link popper options with popper
+* Optional pause on click outside
 

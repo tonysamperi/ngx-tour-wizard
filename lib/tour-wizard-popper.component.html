@@ -1,9 +1,8 @@
-<div class="tour-wizard-overlay" [ngClass]="{'show': isActive}"></div>
-
 <ng-template [popper]="tourWizardPopper"
+             popperApplyClass="tourWizardPopper"
              [popperTarget]="popperTarget"
              [popperStyles]="{'max-width': '250px'}"
-             [popperPlacement]="'top'"
+             [popperPlacement]="popperPlacement"
              [popperTrigger]="'none'">
 
 </ng-template>
@@ -13,11 +12,14 @@
         <p class="tour-wizard-content-title">{{step?.title || "My Step Title"}}</p>
         <p class="tour-wizard-content-text">{{step?.content || "My step Content"}}</p>
         <div class="tour-step-navigation">
-            <button [hidden]="!tourWizardService.hasPrev(step)"
+            <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
                     class="tour-wizard-content-button btn-prev" (click)="tourWizardService.prev()">«
                 {{step?.prevBtnTitle || "Prev"}}
             </button>
-            <button [hidden]="!tourWizardService.hasNext(step)"
+            <button *ngIf="step.showPauseButton">
+
+            </button>
+            <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
                     class="tour-wizard-content-button btn-next" (click)="tourWizardService.next()">
                 {{step?.nextBtnTitle || "Next"}} »
             </button>

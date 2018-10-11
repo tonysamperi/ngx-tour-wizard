@@ -3,7 +3,7 @@ import {
     // Renderer2,
     TemplateRef
 } from "@angular/core";
-import {PopperContent} from "ngx-popper";
+import {PopperContent, Placements} from "ngx-popper";
 import {TourWizardService} from "./tour-wizard.service";
 import {TourWizardStep} from "./tour-wizard.model";
 
@@ -17,6 +17,7 @@ export class TourWizardPopperComponent implements OnDestroy {
     @ViewChild(PopperContent) tourWizardPopper: PopperContent;
 
     isActive: boolean = false;
+    popperPlacement: Placements = "top";
     popperTarget: HTMLElement;
     step: TourWizardStep;
     stepTemplate: TemplateRef<{ step: TourWizardStep }>;
@@ -47,6 +48,7 @@ export class TourWizardPopperComponent implements OnDestroy {
         if (!this.isActive) {
             this.isActive = true;
             this.tourWizardPopper.show();
+            window.dispatchEvent(new Event("resize"));
             // this._listener = this._renderer.listen("document", "click", this._popperClickHandler.bind(this));
         }
     }

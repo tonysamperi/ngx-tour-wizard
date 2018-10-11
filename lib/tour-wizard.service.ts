@@ -13,7 +13,8 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     public anchors: { [anchorId: string]: TourWizardAnchorDirective } = {};
     public currentStep: T;
-    public isHotKeysEnabled = true;
+    public isHotKeysEnabled: boolean = true;
+    public isBackdropEnabled: boolean = true;
     public steps: T[] = [];
 
     private _tourStatus: TourWizardState = TourWizardState.OFF;

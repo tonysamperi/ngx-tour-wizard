@@ -1,6 +1,6 @@
 import {
     Directive,
-    AfterViewInit,
+    OnInit,
     OnDestroy,
     Input,
     ComponentFactoryResolver,
@@ -12,7 +12,9 @@ import {
 import {TourWizardPopperComponent} from "./tour-wizard-popper.component";
 import {TourWizardStep} from "./tour-wizard.model";
 import {TourWizardService} from "./tour-wizard.service";
+import {TourWizardDomService} from "./tour-wizard-dom.service";
 import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
+import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
 import * as viewportUtils from "js-viewport-utils";
 
 @Directive({
@@ -22,7 +24,7 @@ import * as viewportUtils from "js-viewport-utils";
     }
 })
 
-export class TourWizardAnchorDirective implements AfterViewInit, OnDestroy {
+export class TourWizardAnchorDirective implements OnInit, OnDestroy {
 
     static nextId: number = 0;
 
@@ -32,8 +34,6 @@ export class TourWizardAnchorDirective implements AfterViewInit, OnDestroy {
 
     protected _id: number = ++TourWizardAnchorDirective.nextId;
     protected _anchorPopper: TourWizardPopperComponent;
-    protected _kboardClass: typeof TourWizardKboardComponent = TourWizardKboardComponent;
-    protected _kboardRef: ComponentRef<TourWizardKboardComponent>;
     protected _popperClass: typeof TourWizardPopperComponent = TourWizardPopperComponent;
     protected _popperRef: ComponentRef<TourWizardPopperComponent>;
 
@@ -41,7 +41,14 @@ export class TourWizardAnchorDirective implements AfterViewInit, OnDestroy {
         private _elRef: ElementRef,
         private _resolver: ComponentFactoryResolver,
         private _tourWizardService: TourWizardService,
+        private _tourWizardDomService: TourWizardDomService,
         private _viewContainerRef: ViewContainerRef) {
+
+        if (this._id === 1) {
+            console.info("FIRST ANCHOR");
+            this._tourWizardDomService.appendCompToBody(TourWizardKboardComponent, "TourWizardKboardComponent");
+            this._tourWizardDomService.appendCompToBody(TourWizardOverlayComponent, "TourWizardOverlayComponent");
+        }
     }
 
     hideTourStep(): void {
@@ -49,12 +56,11 @@ export class TourWizardAnchorDirective implements AfterViewInit, OnDestroy {
         this._anchorPopper.hidePopper();
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this._anchorPopper = this._constructPopper();
         this._anchorPopper.setTarget(this._elRef.nativeElement);
         this._tourWizardService.register(this.tourWizardAnchor, this);
         // Attach keyboard listener only on first anchor
-        this._id === 1 && this._constructKboardListener();
     }
 
     ngOnDestroy(): void {
@@ -91,9 +97,4 @@ export class TourWizardAnchorDirective implements AfterViewInit, OnDestroy {
         return this._popperRef.instance as TourWizardPopperComponent;
     }
 
-    protected _constructKboardListener(): TourWizardKboardComponent {
-        const factory = this._resolver.resolveComponentFactory(this._kboardClass);
-        this._kboardRef = this._viewContainerRef.createComponent(factory);
-        return this._kboardRef.instance as TourWizardKboardComponent;
-    }
 }

@@ -1,9 +1,19 @@
 import {Placement, Trigger} from "ngx-popper";
+import {ComponentRef} from "@angular/core";
 
 export enum TourWizardState {
     OFF,
     ON,
     PAUSED
+}
+
+export interface TourWizardEvent {
+    name: string;
+    value: any;
+}
+
+export interface TourWizardRefs<T = any> {
+    [key: string]: ComponentRef<T>;
 }
 
 export interface TourWizardStep {
@@ -17,6 +27,8 @@ export interface TourWizardStep {
     prevBtnTitle?: string;
     nextBtnTitle?: string;
     endBtnTitle?: string;
+    hidePrevButton?: boolean;
+    hideNextButton?: boolean;
     // Popper options
     placement?: Placement;
     popperSettings?: {
