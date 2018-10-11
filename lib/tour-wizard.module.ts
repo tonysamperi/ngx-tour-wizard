@@ -7,14 +7,12 @@ import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
 import {TourWizardAnchorDirective} from "./tour-wizard-anchor.directive";
 import {TourWizardService} from "./tour-wizard.service";
 import {TourWizardDomService} from "./tour-wizard-dom.service";
-import {tourWizardDefaults, TourWizardOptions} from "./tour-wizard.model";
+import {tourWizardDefaults, TourWizardOptions, TourWizardStep} from "./tour-wizard.model";
 
 // tslint:disable-next-line:naming-convention
 export const TOUR_WIZARD_DEFAULTS = new InjectionToken<TourWizardOptions>("TOUR_WIZARD_DEFAULTS");
 
-// export const TOUR_WIZARD_DEFAULTS = new InjectionToken<TourWizardOptions[][]>("TOUR_WIZARD_DEFAULTS");
-
-export function setupTourWizardService(config: TourWizardOptions) {
+export function setupTourWizardService(config: TourWizardOptions): TourWizardService<TourWizardStep> {
     return new TourWizardService(config);
 }
 

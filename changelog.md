@@ -29,3 +29,6 @@
 #1.0.6
 * Added optional forRoot method to be used in your root Module to pass options (see ReadMe)
 * Fixed readme wrong reference: NgxTourWizardModule instead of TourWizardModule
+
+#1.0.7
+* Missing type causing build issues fixed
