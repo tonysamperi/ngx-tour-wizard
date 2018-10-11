@@ -15,4 +15,6 @@
 * Added licence
 * Fixed package.json (license, keywords, etc)
 * Changed build:tour cmd to build:lib (consistent package style)
+* Set optional next/prev buttons
+* Added pause button (optional, default hidden)
 * Refactor
