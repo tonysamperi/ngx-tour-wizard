@@ -22,3 +22,6 @@
 #1.0.4
 * Fixed missing SCSS dependency
 * Fixed missing text and options for PAUSE button
+
+#1.0.5
+* Fixed wrong ref to SCSS
