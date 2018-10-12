@@ -39,3 +39,7 @@
 #1.0.9
 * Fixed missing implementation on pause button
 * Wrong CSS classname fixed
+
+#1.0.10
+* Fixed css rule messing with buttons style
+* Removed encapsulation for easier styling

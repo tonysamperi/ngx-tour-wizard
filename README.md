@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.9
+# ngxTourWizard 1.0.10
 
 A cool Angular5+ module for intro tours!
 

@@ -1,16 +1,14 @@
-import {
-    Component, OnDestroy, ViewChild,
-    // Renderer2,
-    TemplateRef
-} from "@angular/core";
-import {PopperContent, Placements} from "ngx-popper";
+import {Component, OnDestroy, TemplateRef, ViewChild} from "@angular/core";
+import {ViewEncapsulation} from "@angular/core";
+import {Placements, PopperContent} from "ngx-popper";
 import {TourWizardService} from "./tour-wizard.service";
 import {TourWizardStep} from "./tour-wizard.model";
 
 @Component({
     selector: "tour-wizard-popper-component",
     templateUrl: "./tour-wizard-popper.component.html",
-    styleUrls: ["./tour-wizard-popper.component.scss"]
+    styleUrls: ["./tour-wizard-popper.component.scss"],
+    encapsulation: ViewEncapsulation.None
 })
 export class TourWizardPopperComponent implements OnDestroy {
 
