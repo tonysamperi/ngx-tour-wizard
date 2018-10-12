@@ -8,6 +8,7 @@ import {TourWizardService, TourWizardStep} from "ngx-tour-wizard";
 })
 export class TourWizardAppComponent implements OnInit {
 
+    firstAnchor: string = "FOO_1";
 
     constructor(private _tourWizardService: TourWizardService) {
     }

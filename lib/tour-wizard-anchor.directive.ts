@@ -20,7 +20,8 @@ import * as viewportUtils from "js-viewport-utils";
 @Directive({
     selector: "[tourWizardAnchor]",
     host: {
-        "[class.show]": "isActive"
+        "[class.show]": "isActive",
+        "[attr.tourWizardAnchor]": "tourWizardAnchor"
     }
 })
 

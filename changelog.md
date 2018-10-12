@@ -32,3 +32,6 @@
 
 #1.0.7
 * Missing type causing build issues fixed
+
+#1.0.8
+* Added host attribute for tourWizardAnchor to keep styling when using attr binding
