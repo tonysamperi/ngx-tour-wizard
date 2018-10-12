@@ -35,3 +35,7 @@
 
 #1.0.8
 * Added host attribute for tourWizardAnchor to keep styling when using attr binding
+
+#1.0.9
+* Fixed missing implementation on pause button
+* Wrong CSS classname fixed

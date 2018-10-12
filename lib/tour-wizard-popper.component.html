@@ -13,17 +13,22 @@
         <p class="tour-wizard-content-text">{{step?.content || "My step Content"}}</p>
         <div class="tour-step-navigation">
             <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
-                    class="tour-wizard-content-button btn-prev" (click)="tourWizardService.prev()">«
+                    class="tour-wizard-content-button btn-prev"
+                    (click)="tourWizardService.prev()">«
                 {{step?.prevBtnTitle || "Prev"}}
             </button>
-            <button *ngIf="step.showPauseButton">
+            <button *ngIf="step.showPauseButton"
+                    class="tour-wizard-content-button btn-pause"
+                    (click)="tourWizardService.pause()">
                 {{step?.pauseBtnTitle || "Pause"}}
             </button>
             <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
-                    class="tour-wizard-content-button btn-next" (click)="tourWizardService.next()">
+                    class="tour-wizard-content-button btn-next"
+                    (click)="tourWizardService.next()">
                 {{step?.nextBtnTitle || "Next"}} »
             </button>
-            <button class="tour-wizard-content-button btn-end" (click)="tourWizardService.end()">
+            <button class="tour-wizard-content-button btn-end"
+                    (click)="tourWizardService.end()">
                 {{step?.endBtnTitle || "End"}}
             </button>
         </div>
