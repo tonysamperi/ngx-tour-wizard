@@ -17,6 +17,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     public events$: Observable<TourWizardEvent>;
 
+    public additionalViewports: string[];
     public anchors: { [anchorId: string]: TourWizardAnchorDirective } = {};
     public backdropTarget: string;
     public currentStep: T;
@@ -42,6 +43,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.backdropTarget = _config.backdropTarget;
             this.isBackdropEnabled = _config.backdropEnabled;
             this.isHotKeysEnabled = _config.keyboardEnabled;
+            this.additionalViewports = _config.additionalViewports;
         }
         this.events$ = mergeStatic(
             this._stepShow$.pipe(map(value => ({name: "stepShow", value}))),

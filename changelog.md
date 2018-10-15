@@ -43,3 +43,7 @@
 #1.0.10
 * Fixed css rule messing with buttons style
 * Removed encapsulation for easier styling
+
+#1.0.11
+* Added additionalViewports to module options, to check other viewports other than window
+* Fixed z-index for popper and anchor (popper must be over everything)

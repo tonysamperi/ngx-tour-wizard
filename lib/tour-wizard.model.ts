@@ -11,9 +11,10 @@ export interface TourWizardOptions {
     backdropEnabled: boolean;
     backdropTarget: string;
     keyboardEnabled: boolean;
+    additionalViewports?: string[];
 }
 
-export const tourWizardDefaults = {
+export const tourWizardDefaults: TourWizardOptions = {
     backdropEnabled: true,
     backdropTarget: "body",
     keyboardEnabled: true

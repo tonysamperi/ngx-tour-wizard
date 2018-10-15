@@ -34,9 +34,15 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     public isActive: boolean;
 
     protected _id: number = ++TourWizardAnchorDirective.nextId;
+    protected _addedViewports: string[];
     protected _anchorPopper: TourWizardPopperComponent;
     protected _popperClass: typeof TourWizardPopperComponent = TourWizardPopperComponent;
     protected _popperRef: ComponentRef<TourWizardPopperComponent>;
+    protected _viewPortOptions: ScrollIntoViewOptions = {
+        inline: "start",
+        block: "start",
+        behavior: "smooth"
+    };
 
     constructor(
         private _elRef: ElementRef,
@@ -70,6 +76,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         this._anchorPopper.setTarget(this._elRef.nativeElement);
         this._tourWizardService.register(this.tourWizardAnchor, this);
         // Attach keyboard listener only on first anchor
+        Array.isArray(this._tourWizardService.additionalViewports) && (this._addedViewports = this._tourWizardService.additionalViewports);
     }
 
     ngOnDestroy(): void {
@@ -83,11 +90,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         this._anchorPopper.step = step;
         if (!step.preventScrolling) {
             if (!viewportUtils.inViewportBottom(el)) {
-                el.scrollIntoView(fromKeyboard ? true : {
-                    inline: "start",
-                    block: "start",
-                    behavior: "smooth"
-                });
+                el.scrollIntoView(fromKeyboard ? true : this._viewPortOptions);
             }
             else if (!viewportUtils.inViewport(el, {sides: "left top right"})) {
                 el.scrollIntoView(fromKeyboard ? false : {
@@ -95,6 +98,17 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                     block: "end",
                     behavior: "smooth"
                 });
+            }
+            else if (!!this._addedViewports) {
+                let i = this._addedViewports.length + 1;
+                while (--i) {
+                    const vp = document.querySelector(this._addedViewports[i]);
+                    if (!!vp && !viewportUtils.inViewport(vp)) {
+                        // Breaks at first scroll
+                        el.scrollIntoView(fromKeyboard ? false : this._viewPortOptions);
+                        break;
+                    }
+                }
             }
         }
         this._anchorPopper.showPopper();
