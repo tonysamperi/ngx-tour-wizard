@@ -80,7 +80,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this._subs.unsubscribe();
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
-        this.currentStep = undefined;
+        this.currentStep = void 0;
         this._end$.next();
     }
 
@@ -124,6 +124,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
                 // Start listening
                 this._subs = this.currentStep.subjectForNext.subscribe((value: boolean) => {
                     if (value) {
+                        this.currentStep = void 0;
                         this._goToStep(targetStep);
                     }
                 });
@@ -140,8 +141,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             return false;
         }
         return (
-            step.nextStep !== undefined ||
-            this.steps.indexOf(step) < this.steps.length - 1
+            step.nextStep !== undefined || this.steps.indexOf(step) < this.steps.length - 1
         );
     }
 
@@ -199,8 +199,8 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     private _setCurrentStep(step: T): void {
+        this._subs.unsubscribe();
         if (this.currentStep) {
-            this._subs.unsubscribe();
             this._hideStep(this.currentStep);
         }
         this.currentStep = step;
@@ -210,9 +210,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     private _showStep(step: T): void {
         const anchor = this.anchors[step && step.anchorId];
         if (!anchor) {
-            console.warn(
-                "Can\"t attach to unregistered anchor with id " + step.anchorId
-            );
+            console.warn("Can\"t attach to unregistered anchor with id " + step.anchorId);
             this.end();
             return;
         }

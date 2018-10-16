@@ -52,3 +52,7 @@
 * Added nextSubject to handle async step loading
 * Added nextCallback on single step
 * Fixed smooth scroll issue on keyboard navigation
+
+#1.0.13
+* Fixed double hide when using nextSubject
+* Refactor
