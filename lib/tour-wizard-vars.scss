@@ -1,7 +1,8 @@
-$popper-color: #FFF !default;
-$popper-text-color: #444 !default;
+$tour-popper-color: #FFF !default;
+$tour-popper-text-color: #444 !default;
 $tour-default-zindex: 999 !default;
-$pad-factor: 8px !default;
+$tour-pad-factor: 8px !default;
+$tour-popper-width: 250px !default;
 
 @font-face {
   font-family: 'Gloria Hallelujah';

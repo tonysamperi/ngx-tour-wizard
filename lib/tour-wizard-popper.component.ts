@@ -1,8 +1,10 @@
 import {Component, OnDestroy, TemplateRef, ViewChild} from "@angular/core";
 import {ViewEncapsulation} from "@angular/core";
-import {Placements, PopperContent} from "ngx-popper";
+import {PopperContent} from "ngx-popper";
 import {TourWizardService} from "./tour-wizard.service";
-import {TourWizardStep} from "./tour-wizard.model";
+import {TourWizardStep, TourWizardPopperSettings} from "./tour-wizard.model";
+import * as _ from "lodash";
+import {Placement} from "ngx-popper";
 
 @Component({
     selector: "tour-wizard-popper-component",
@@ -15,16 +17,22 @@ export class TourWizardPopperComponent implements OnDestroy {
     @ViewChild(PopperContent) tourWizardPopper: PopperContent;
 
     isActive: boolean = false;
-    popperPlacement: Placements = "top";
+    popperPlacement: Placement = "top";
     popperTarget: HTMLElement;
     step: TourWizardStep;
     stepTemplate: TemplateRef<{ step: TourWizardStep }>;
 
     // private _listener: () => void;
 
-    constructor(public tourWizardService: TourWizardService,
-                // private _renderer: Renderer2
-    ) {
+    // private _renderer: Renderer2
+    constructor(public tourWizardService: TourWizardService) {
+    }
+
+    applySettings(settings: TourWizardPopperSettings) {
+        if (!settings) {
+            return;
+        }
+        _.merge(this.tourWizardPopper.popperOptions, settings);
     }
 
     hidePopper(): void {
@@ -33,12 +41,11 @@ export class TourWizardPopperComponent implements OnDestroy {
         // (typeof this._listener === typeof isNaN) && this._listener();
     }
 
-
     ngOnDestroy(): void {
         this.hidePopper();
     }
 
-    setTarget($target: any) {
+    setTarget($target: HTMLElement) {
         this.popperTarget = $target;
     }
 

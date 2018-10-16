@@ -1,8 +1,7 @@
 <ng-template [popper]="tourWizardPopper"
+             [popperPlacement]="popperPlacement"
              popperApplyClass="tourWizardPopper"
              [popperTarget]="popperTarget"
-             [popperStyles]="{'max-width': '250px'}"
-             [popperPlacement]="popperPlacement"
              [popperTrigger]="'none'">
 
 </ng-template>
@@ -14,22 +13,22 @@
         <div class="tour-step-navigation">
             <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
                     class="tour-wizard-content-button btn-prev"
-                    (click)="tourWizardService.prev()">«
-                {{step?.prevBtnTitle || "Prev"}}
+                    [innerHTML]="step?.prevBtnTitle || '« Prev'"
+                    (click)="tourWizardService.prev()">
             </button>
             <button *ngIf="step.showPauseButton"
+                    [innerHTML]="step?.pauseBtnTitle || 'Pause'"
                     class="tour-wizard-content-button btn-pause"
                     (click)="tourWizardService.pause()">
-                {{step?.pauseBtnTitle || "Pause"}}
             </button>
             <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
                     class="tour-wizard-content-button btn-next"
+                    [innerHTML]="step?.nextBtnTitle || 'Next »'"
                     (click)="tourWizardService.next()">
-                {{step?.nextBtnTitle || "Next"}} »
             </button>
             <button class="tour-wizard-content-button btn-end"
+                    [innerHtml]="step?.endBtnTitle || 'End'"
                     (click)="tourWizardService.end()">
-                {{step?.endBtnTitle || "End"}}
             </button>
         </div>
     </ng-container>

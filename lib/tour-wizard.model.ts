@@ -1,4 +1,4 @@
-import {Placement, Trigger} from "ngx-popper";
+import {Placement} from "ngx-popper";
 import {ComponentRef} from "@angular/core";
 import {Subject} from "rxjs/Subject";
 
@@ -36,6 +36,26 @@ export interface TourWizardRefs<T = any> {
     [key: string]: ComponentRef<T>;
 }
 
+export interface TourWizardPopperSettings {
+    showDelay?: number;
+    disableAnimation?: boolean;
+    disableDefaultStyling?: boolean;
+    placement?: Placement;
+    boundariesElement?: string;
+    // trigger?: Trigger; // Trigger cannot be changed
+    positionFixed?: boolean;
+    // hideOnClickOutside?: boolean; // Still to develop
+    // hideOnMouseLeave?: boolean; // Maybe to develop
+    // hideOnScroll?: boolean; // Maybe to develop
+    // popperModifiers?: {}; // Not sure if this has a real utility
+    ariaRole?: string;
+    ariaDescribe?: string;
+    applyClass?: string;
+    applyArrowClass?: string;
+    styles?: Object;
+    appendTo?: string;
+}
+
 export interface TourWizardStep {
     subjectForNext?: Subject<boolean>;
     onNextClick?: () => void;
@@ -53,26 +73,7 @@ export interface TourWizardStep {
     hidePrevButton?: boolean;
     hideNextButton?: boolean;
     showPauseButton?: boolean;
+    targetElement?: HTMLElement;
     // Popper options
-    placement?: Placement;
-    popperSettings?: {
-        boundariesElement?: string;
-        closeOnClickOutside?: boolean;
-        disableAnimation?: boolean;
-        disabled?: boolean;
-        disableStyle?: boolean;
-        forceDetection?: boolean;
-        hideOnClickOutside?: boolean;
-        hideOnScroll?: boolean;
-        hideTimeout?: number;
-        popperModifiers?: any;
-        popperOnHidden?: any;
-        popperOnShown?: any;
-        positionFixed?: boolean;
-        showDelay?: number;
-        showOnStart?: boolean;
-        showTrigger?: Trigger;
-        targetElement?: HTMLElement;
-        timeoutAfterShow?: number;
-    };
+    popperSettings?: TourWizardPopperSettings;
 }

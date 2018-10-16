@@ -6,7 +6,7 @@
     font-size: 18px;
     font-weight: bold;
     font-family: 'Gloria Hallelujah', cursive;
-    margin: 0 0 $pad-factor 0;
+    margin: 0 0 $tour-pad-factor 0;
   }
 
   .tour-wizard-content-content {
@@ -16,14 +16,8 @@
 
   .tour-wizard-content-button {
     border: none;
-    margin-top: $pad-factor;
-    margin-bottom: $pad-factor;
+    margin-top: $tour-pad-factor;
+    margin-bottom: $tour-pad-factor;
   }
 }
 
-[tourWizardKboard] {
-  //display: none;
-  //opacity: 0;
-  padding: 8px;
-  border: 2px solid red;
-}

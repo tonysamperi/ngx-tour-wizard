@@ -16,6 +16,7 @@ import {TourWizardDomService} from "./tour-wizard-dom.service";
 import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
 import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
 import * as viewportUtils from "js-viewport-utils";
+import * as _ from "lodash";
 
 @Directive({
     selector: "[tourWizardAnchor]",
@@ -88,12 +89,16 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         // const el = document.querySelector(`[tourWizardAnchor="${this.tourWizardAnchor}"]`);
         this.isActive = true;
         this._anchorPopper.step = step;
+        if (!!step.targetElement) {
+            this._anchorPopper.setTarget(step.targetElement);
+        }
+        this._anchorPopper.applySettings(step.popperSettings);
         if (!step.preventScrolling) {
             if (!viewportUtils.inViewportBottom(el)) {
                 el.scrollIntoView(this._viewPortOptions);
             }
             else if (!viewportUtils.inViewport(el, {sides: "left top right"})) {
-                el.scrollIntoView( {
+                el.scrollIntoView({
                     inline: "start",
                     block: "end",
                     behavior: "smooth"

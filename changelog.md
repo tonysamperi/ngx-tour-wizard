@@ -56,3 +56,13 @@
 #1.0.13
 * Fixed double hide when using nextSubject
 * Refactor
+
+#1.0.14
+* Linked missing popper options
+* Allowed override of target
+* Removed fixed arrows from buttons
+* Changed BtnContent to be HTML
+* Moved popper max-width to styles
+* Removed useless CSS rules for [tourKboard]
+* Removed unused placement prop in Step (use popperSettings instead)
+* Refactor
