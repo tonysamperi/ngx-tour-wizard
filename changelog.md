@@ -47,3 +47,8 @@
 #1.0.11
 * Added additionalViewports to module options, to check other viewports other than window
 * Fixed z-index for popper and anchor (popper must be over everything)
+
+#1.0.12
+* Added nextSubject to handle async step loading
+* Added nextCallback on single step
+* Fixed smooth scroll issue on keyboard navigation

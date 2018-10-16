@@ -1,5 +1,6 @@
 import {Placement, Trigger} from "ngx-popper";
 import {ComponentRef} from "@angular/core";
+import {Subject} from "rxjs/Subject";
 
 export enum TourWizardState {
     OFF,
@@ -36,6 +37,8 @@ export interface TourWizardRefs<T = any> {
 }
 
 export interface TourWizardStep {
+    subjectForNext?: Subject<boolean>;
+    onNextClick?: () => void;
     stepId?: string;
     anchorId?: string;
     title?: string;

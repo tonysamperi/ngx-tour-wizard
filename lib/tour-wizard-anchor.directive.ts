@@ -83,17 +83,24 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         this._tourWizardService.unregister(this.tourWizardAnchor);
     }
 
-    showTourStep(step: TourWizardStep, fromKeyboard: boolean = false): void {
+    showTourStep(step: TourWizardStep): void {
         const el = this._elRef.nativeElement as HTMLElement;
         // const el = document.querySelector(`[tourWizardAnchor="${this.tourWizardAnchor}"]`);
         this.isActive = true;
         this._anchorPopper.step = step;
         if (!step.preventScrolling) {
             if (!viewportUtils.inViewportBottom(el)) {
-                el.scrollIntoView(fromKeyboard ? true : this._viewPortOptions);
+                el.scrollIntoView(this._viewPortOptions);
             }
             else if (!viewportUtils.inViewport(el, {sides: "left top right"})) {
-                el.scrollIntoView(fromKeyboard ? false : {
+                el.scrollIntoView( {
+                    inline: "start",
+                    block: "end",
+                    behavior: "smooth"
+                });
+            }
+            else if (!viewportUtils.inViewportTop(el)) {
+                el.scrollIntoView({
                     inline: "start",
                     block: "end",
                     behavior: "smooth"
@@ -105,7 +112,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                     const vp = document.querySelector(this._addedViewports[i]);
                     if (!!vp && !viewportUtils.inViewport(vp)) {
                         // Breaks at first scroll
-                        el.scrollIntoView(fromKeyboard ? false : this._viewPortOptions);
+                        el.scrollIntoView(this._viewPortOptions);
                         break;
                     }
                 }

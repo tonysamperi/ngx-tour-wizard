@@ -29,7 +29,10 @@ export class TourWizardKboardComponent {
             this._tourWizardService.hasNext(this._tourWizardService.currentStep) &&
             this._tourWizardService.isHotKeysEnabled
         ) {
-            this._tourWizardService.next(true);
+            // Timeout resolves smooth scrolling issue
+            setTimeout(() => {
+                this._tourWizardService.next();
+            });
         }
     }
 
@@ -40,7 +43,11 @@ export class TourWizardKboardComponent {
             this._tourWizardService.hasPrev(this._tourWizardService.currentStep) &&
             this._tourWizardService.isHotKeysEnabled
         ) {
-            this._tourWizardService.prev(true);
+            // Timeout resolves smooth scrolling issue
+            setTimeout(() => {
+                this._tourWizardService.prev();
+            });
         }
     }
+
 }

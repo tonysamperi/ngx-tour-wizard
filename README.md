@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.11
+# ngxTourWizard 1.0.12
 
 A cool Angular5+ module for intro tours!
 
@@ -135,6 +135,8 @@ attribution, so you shouldn't need to do anything additional when using these
 files normally.
 
 # TODOS
-* Link popper options with popper
+* Link missing popper options with popper
 * Optional pause on click outside
-
+* Add prevSubject
+* Add prevCallback
+* Add option to remove backdrop and kboard on end?

@@ -1,16 +1,16 @@
-import {Injectable, Optional} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {TourWizardAnchorDirective} from "./tour-wizard-anchor.directive";
 import {
     TourWizardState,
     TourWizardStep,
     TourWizardEvent,
-    TourWizardOptions,
-    tourWizardDefaults
+    TourWizardOptions
 } from "./tour-wizard.model";
 import {merge as mergeStatic} from "rxjs/observable/merge";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {map} from "rxjs/operators";
+import {Subscription} from "rxjs/Subscription";
 
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
@@ -25,6 +25,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     public isBackdropEnabled: boolean;
     public steps: T[] = [];
 
+    private _subs: Subscription = new Subscription();
     private _tourStatus: TourWizardState = TourWizardState.OFF;
 
     // Events
@@ -76,6 +77,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     public end(): void {
+        this._subs.unsubscribe();
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
         this.currentStep = undefined;
@@ -110,10 +112,25 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         }
     }
 
-    public next(fromKeyboard: boolean = false): void {
+    public next(): void {
+        if (typeof this.currentStep.onNextClick === typeof isNaN) {
+            this.currentStep.onNextClick();
+        }
         if (this.hasNext(this.currentStep)) {
             const targetStep = this._loadStep(this.currentStep.nextStep || this.steps.indexOf(this.currentStep) + 1);
-            this._goToStep(targetStep, fromKeyboard);
+            if (!!this.currentStep && !!this.currentStep.subjectForNext) {
+                // Hide current step
+                this._hideStep(this.currentStep);
+                // Start listening
+                this._subs = this.currentStep.subjectForNext.subscribe((value: boolean) => {
+                    if (value) {
+                        this._goToStep(targetStep);
+                    }
+                });
+            }
+            else {
+                this._goToStep(targetStep);
+            }
         }
     }
 
@@ -128,10 +145,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         );
     }
 
-    public prev(fromKeyboard: boolean = false): void {
+    public prev(): void {
         if (this.hasPrev(this.currentStep)) {
             const targetStep = this._loadStep(this.currentStep.prevStep || this.steps.indexOf(this.currentStep) - 1);
-            this._goToStep(targetStep, fromKeyboard);
+            this._goToStep(targetStep);
         }
     }
 
@@ -164,13 +181,13 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         return this._tourStatus;
     }
 
-    private _goToStep(step: T, fromKeyboard: boolean = false): void {
+    private _goToStep(step: T): void {
         if (!step) {
             console.warn("Can\"t go to non-existent step");
             this.end();
             return;
         }
-        this._setCurrentStep(step, fromKeyboard);
+        this._setCurrentStep(step);
     }
 
     private _loadStep(stepId: number | string): T {
@@ -181,15 +198,16 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         }
     }
 
-    private _setCurrentStep(step: T, fromKeyboard: boolean = false): void {
+    private _setCurrentStep(step: T): void {
         if (this.currentStep) {
+            this._subs.unsubscribe();
             this._hideStep(this.currentStep);
         }
         this.currentStep = step;
-        this._showStep(this.currentStep, fromKeyboard);
+        this._showStep(this.currentStep);
     }
 
-    private _showStep(step: T, fromKeyboard: boolean = false): void {
+    private _showStep(step: T): void {
         const anchor = this.anchors[step && step.anchorId];
         if (!anchor) {
             console.warn(
@@ -198,7 +216,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.end();
             return;
         }
-        anchor.showTourStep(step, fromKeyboard);
+        anchor.showTourStep(step);
         this._stepShow$.next(step);
     }
 
