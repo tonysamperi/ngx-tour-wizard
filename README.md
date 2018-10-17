@@ -4,6 +4,15 @@ A cool Angular5+ module for intro tours!
 
 # Before starting
 
+##IMPORTANT for IE
+
+This library use CustomEvents. If you want compatibility with IE,
+you should add a polyfill to your app polyfills.ts.
+
+See polyfill on [gist](https://gist.github.com/tonysamperi/0e73f8489000e8261600a92af92748c1)
+
+##Styling
+
 As you may know directives don't have a "Styles" property.
 So it's impossible to let them style your markup,
 **unless** you include an external CSS.

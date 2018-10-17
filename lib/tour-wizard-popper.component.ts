@@ -53,7 +53,7 @@ export class TourWizardPopperComponent implements OnDestroy {
         if (!this.isActive) {
             this.isActive = true;
             this.tourWizardPopper.show();
-            window.dispatchEvent(new Event("resize"));
+            window.dispatchEvent(new CustomEvent("resize"));
             // this._listener = this._renderer.listen("document", "click", this._popperClickHandler.bind(this));
         }
     }

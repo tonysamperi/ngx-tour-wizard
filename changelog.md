@@ -66,3 +66,6 @@
 * Removed useless CSS rules for [tourKboard]
 * Removed unused placement prop in Step (use popperSettings instead)
 * Refactor
+
+#1.0.15
+* Switched to CustomEvent for IE Compatibility (polyfill required - see ReadMe)
