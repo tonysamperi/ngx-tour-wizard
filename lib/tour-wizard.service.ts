@@ -146,9 +146,25 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     public prev(): void {
+        if (typeof this.currentStep.onPrevClick === typeof isNaN) {
+            this.currentStep.onPrevClick();
+        }
         if (this.hasPrev(this.currentStep)) {
             const targetStep = this._loadStep(this.currentStep.prevStep || this.steps.indexOf(this.currentStep) - 1);
-            this._goToStep(targetStep);
+            if (!!this.currentStep && !!this.currentStep.subjectForPrev) {
+                // Hide current step
+                this._hideStep(this.currentStep);
+                // Start listening
+                this._subs = this.currentStep.subjectForPrev.subscribe((value: boolean) => {
+                    if (value) {
+                        this.currentStep = void 0;
+                        this._goToStep(targetStep);
+                    }
+                });
+            }
+            else {
+                this._goToStep(targetStep);
+            }
         }
     }
 

@@ -58,7 +58,9 @@ export interface TourWizardPopperSettings {
 
 export interface TourWizardStep {
     subjectForNext?: Subject<boolean>;
+    subjectForPrev?: Subject<boolean>;
     onNextClick?: () => void;
+    onPrevClick?: () => void;
     stepId?: string;
     anchorId?: string;
     title?: string;

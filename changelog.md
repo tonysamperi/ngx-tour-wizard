@@ -69,3 +69,9 @@
 
 #1.0.15
 * Switched to CustomEvent for IE Compatibility (polyfill required - see ReadMe)
+
+#1.0.16
+* Added prevSubject and prevCallback
+* package.json improved
+* Fixed linting config
+* Refactor

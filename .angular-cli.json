@@ -1,5 +1,16 @@
 {
   "name": "ngx-tour-wizard",
+  "lint": [
+    {
+      "files": "src/**/*.ts",
+      "project": "src/tsconfig.app.json",
+      "exclude": "src/typings.d.ts"
+    },
+    {
+      "files": "lib/**/*.ts",
+      "project": "lib/tsconfig.lib.json"
+    }
+  ],
   "apps": [
     {
       "version": "0.0.1",

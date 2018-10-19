@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {TourWizardService, TourWizardStep} from "ngx-tour-wizard";
-import {Subject} from "rxjs";
+import {Subject} from "rxjs/Subject";
 
 @Component({
     selector: "tour-wizard-app",
@@ -12,6 +12,7 @@ export class TourWizardAppComponent implements OnInit {
     firstAnchor: string = "FOO_1";
 
     private _fooTwo$: Subject<boolean> = new Subject();
+    private _fooThree$: Subject<boolean> = new Subject();
 
     constructor(private _tourWizardService: TourWizardService) {
 
@@ -36,7 +37,11 @@ export class TourWizardAppComponent implements OnInit {
             {
                 anchorId: "FOO_3",
                 content: "Let's finish this up!!!",
-                title: "Third"
+                title: "Third",
+                subjectForPrev: this._fooThree$,
+                onPrevClick: () => {
+                    this._onFooThreePrev();
+                }
             },
         ] as TourWizardStep[]);
     }
@@ -45,11 +50,18 @@ export class TourWizardAppComponent implements OnInit {
         this._tourWizardService.start();
     }
 
+    private _onFooThreePrev(): void {
+        setTimeout(() => {
+            this._fooThree$.next(true);
+        }, 2000);
+    }
+
     private _onFooTwoNext(): void {
         setTimeout(() => {
             this._fooTwo$.next(true);
         }, 2000);
     }
+
 }
 
 
