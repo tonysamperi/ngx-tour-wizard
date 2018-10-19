@@ -16,7 +16,6 @@ import {TourWizardDomService} from "./tour-wizard-dom.service";
 import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
 import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
 import * as viewportUtils from "js-viewport-utils";
-import * as _ from "lodash";
 
 @Directive({
     selector: "[tourWizardAnchor]",
