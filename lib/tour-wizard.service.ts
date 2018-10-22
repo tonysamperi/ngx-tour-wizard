@@ -1,11 +1,6 @@
 import {Injectable} from "@angular/core";
 import {TourWizardAnchorDirective} from "./tour-wizard-anchor.directive";
-import {
-    TourWizardState,
-    TourWizardStep,
-    TourWizardEvent,
-    TourWizardOptions
-} from "./tour-wizard.model";
+import {TourWizardEvent, TourWizardOptions, TourWizardState, TourWizardStep} from "./tour-wizard.model";
 import {merge as mergeStatic} from "rxjs/observable/merge";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
@@ -38,7 +33,6 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     private _anchorRegister$: Subject<string> = new Subject<string>();
     private _anchorUnregister$: Subject<string> = new Subject<string>();
 
-    // @Optional()
     constructor(private _config: TourWizardOptions) {
         if (!!_config) {
             this.backdropTarget = _config.backdropTarget;
@@ -59,24 +53,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     }
 
-    public initialize(steps: T[], stepDefaults?: T): void {
-        if (steps && steps.length > 0) {
-            this._tourStatus = TourWizardState.OFF;
-            this.steps = steps.map(step => Object.assign({}, stepDefaults, step));
-        }
-    }
-
-    public start(): void {
-        this.startAt(0);
-    }
-
-    public startAt(stepId: number | string): void {
-        this._tourStatus = TourWizardState.ON;
-        this._goToStep(this._loadStep(stepId));
-        this._start$.next();
-    }
-
-    public end(): void {
+    end(): void {
         this._subs.unsubscribe();
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
@@ -84,35 +61,39 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this._end$.next();
     }
 
-    public pause(): void {
-        this._tourStatus = TourWizardState.PAUSED;
-        this._hideStep(this.currentStep);
-        this._pause$.next();
+    getStatus(): TourWizardState {
+        return this._tourStatus;
     }
 
-    public resume(): void {
-        this._tourStatus = TourWizardState.ON;
-        this._showStep(this.currentStep);
-        this._resume$.next();
+    goto(stepId: number | string): void {
+        this._goToStep(this._loadStep(stepId));
     }
 
-    public toggle(pause?: boolean): void {
-        if (pause) {
-            if (this.currentStep) {
-                this.pause();
-            } else {
-                this.resume();
-            }
-        } else {
-            if (this.currentStep) {
-                this.end();
-            } else {
-                this.start();
-            }
+    hasNext(step: T): boolean {
+        if (!step) {
+            console.warn("Can\"t get next step. No currentStep.");
+            return false;
+        }
+        return (
+            step.nextStep !== undefined || this.steps.indexOf(step) < this.steps.length - 1
+        );
+    }
+
+    hasPrev(step: T): boolean {
+        if (!step) {
+            console.warn("Can\"t get previous step. No currentStep.");
+            return false;
+        }
+        return step.prevStep !== undefined || this.steps.indexOf(step) > 0;
+    }
+
+    initialize(steps: T[], stepDefaults?: T): void {
+        if (steps && steps.length > 0) {
+            this.steps = steps.map(step => Object.assign({}, stepDefaults, step));
         }
     }
 
-    public next(): void {
+    next(): void {
         if (typeof this.currentStep.onNextClick === typeof isNaN) {
             this.currentStep.onNextClick();
         }
@@ -135,17 +116,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         }
     }
 
-    public hasNext(step: T): boolean {
-        if (!step) {
-            console.warn("Can\"t get next step. No currentStep.");
-            return false;
-        }
-        return (
-            step.nextStep !== undefined || this.steps.indexOf(step) < this.steps.length - 1
-        );
-    }
-
-    public prev(): void {
+    prev(): void {
         if (typeof this.currentStep.onPrevClick === typeof isNaN) {
             this.currentStep.onPrevClick();
         }
@@ -168,19 +139,14 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         }
     }
 
-    public hasPrev(step: T): boolean {
-        if (!step) {
-            console.warn("Can\"t get previous step. No currentStep.");
-            return false;
-        }
-        return step.prevStep !== undefined || this.steps.indexOf(step) > 0;
+    pause(): void {
+        this._tourStatus = TourWizardState.PAUSED;
+        this._hideStep(this.currentStep);
+        this._pause$.next();
     }
 
-    public goto(stepId: number | string): void {
-        this._goToStep(this._loadStep(stepId));
-    }
 
-    public register(anchorId: string, anchor: TourWizardAnchorDirective): void {
+    register(anchorId: string, anchor: TourWizardAnchorDirective): void {
         if (this.anchors[anchorId]) {
             throw new Error("anchorId " + anchorId + " already registered!");
         }
@@ -188,14 +154,45 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this._anchorRegister$.next(anchorId);
     }
 
-    public unregister(anchorId: string): void {
+    resume(): void {
+        this._tourStatus = TourWizardState.ON;
+        this._showStep(this.currentStep);
+        this._resume$.next();
+    }
+
+    start(): void {
+        this.startAt(0);
+    }
+
+    startAt(stepId: number | string): void {
+        this._tourStatus = TourWizardState.ON;
+        this._goToStep(this._loadStep(stepId));
+        this._start$.next();
+    }
+
+    unregister(anchorId: string): void {
         delete this.anchors[anchorId];
         this._anchorUnregister$.next(anchorId);
     }
 
-    public getStatus(): TourWizardState {
-        return this._tourStatus;
+
+    toggle(pause?: boolean): void {
+        if (pause) {
+            if (this.currentStep) {
+                this.pause();
+            } else {
+                this.resume();
+            }
+        } else {
+            if (this.currentStep) {
+                this.end();
+            } else {
+                this.start();
+            }
+        }
     }
+
+    // Private methods
 
     private _goToStep(step: T): void {
         if (!step) {
@@ -204,6 +201,15 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             return;
         }
         this._setCurrentStep(step);
+    }
+
+    private _hideStep(step: T): void {
+        const anchor = this.anchors[step && step.anchorId];
+        if (!anchor) {
+            return;
+        }
+        anchor.hideTourStep();
+        this._stepHide$.next(step);
     }
 
     private _loadStep(stepId: number | string): T {
@@ -234,12 +240,4 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this._stepShow$.next(step);
     }
 
-    private _hideStep(step: T): void {
-        const anchor = this.anchors[step && step.anchorId];
-        if (!anchor) {
-            return;
-        }
-        anchor.hideTourStep();
-        this._stepHide$.next(step);
-    }
 }

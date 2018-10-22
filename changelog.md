@@ -75,3 +75,8 @@
 * package.json improved
 * Fixed linting config
 * Refactor
+
+#1.0.17
+* Set node-sass version to 4.9.3
+* Fixed tour state change on initialize (It's possible to update steps even with active tour)
+* Refactor
