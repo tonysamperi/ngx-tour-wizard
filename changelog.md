@@ -85,3 +85,6 @@
 * Fixed loosing currentStep reference when calling initialize
 * Changed access modifiers on TourWizardEvents (made public to avoid filtering events$)
 * Refactor
+
+#1.0.19
+* Used lodash to avoid step reference issues

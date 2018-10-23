@@ -76,9 +76,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             console.warn("Can\"t get next step. No currentStep.");
             return false;
         }
-        return (
-            step.nextStep !== undefined || this.steps.indexOf(step) < this.steps.length - 1
-        );
+        return step.nextStep !== undefined || _.findIndex(this.steps, step) < this.steps.length - 1;
     }
 
     hasPrev(step: T): boolean {
@@ -86,16 +84,12 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             console.warn("Can\"t get previous step. No currentStep.");
             return false;
         }
-        return step.prevStep !== undefined || this.steps.indexOf(step) > 0;
+        return step.prevStep !== undefined || _.findIndex(this.steps, step) > 0;
     }
 
     initialize(steps: T[], stepDefaults?: T): void {
         if (steps && steps.length > 0) {
             this.steps = steps.map(step => Object.assign({}, stepDefaults, step));
-            // Updates current step with new reference
-            if (!!this.currentStep) {
-                this.currentStep = _.find(this.steps, (step: T) => step.anchorId === this.currentStep.anchorId);
-            }
         }
     }
 
@@ -104,7 +98,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.currentStep.onNextClick();
         }
         if (this.hasNext(this.currentStep)) {
-            const targetStep = this._loadStep(this.currentStep.nextStep || this.steps.indexOf(this.currentStep) + 1);
+            const targetStep = this._loadStep(this.currentStep.nextStep || _.findIndex(this.steps, this.currentStep) + 1);
             if (!!this.currentStep && !!this.currentStep.subjectForNext) {
                 // Hide current step
                 this._hideStep(this.currentStep);
@@ -127,7 +121,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.currentStep.onPrevClick();
         }
         if (this.hasPrev(this.currentStep)) {
-            const targetStep = this._loadStep(this.currentStep.prevStep || this.steps.indexOf(this.currentStep) - 1);
+            const targetStep = this._loadStep(this.currentStep.prevStep || _.findIndex(this.steps, this.currentStep) - 1);
             if (!!this.currentStep && !!this.currentStep.subjectForPrev) {
                 // Hide current step
                 this._hideStep(this.currentStep);
