@@ -88,3 +88,7 @@
 
 #1.0.19
 * Used lodash to avoid step reference issues
+
+#1.0.20
+* Added TourWizardService.unregisterAll to clear all anchors at once
+* Added TourWizardService.navigating to handle pending navigation and prevent keyboard issues

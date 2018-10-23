@@ -19,6 +19,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     currentStep: T;
     isHotKeysEnabled: boolean;
     isBackdropEnabled: boolean;
+    navigating: boolean = !1;
     steps: T[] = [];
 
 
@@ -57,6 +58,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     end(): void {
         this._subs.unsubscribe();
+        this.navigating = !1;
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
         this.currentStep = void 0;
@@ -94,6 +96,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     next(): void {
+        if (this.navigating) {
+            return;
+        }
+        this.navigating = !0;
         if (typeof this.currentStep.onNextClick === typeof isNaN) {
             this.currentStep.onNextClick();
         }
@@ -117,6 +123,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     prev(): void {
+        if (this.navigating) {
+            return;
+        }
+        this.navigating = !0;
         if (typeof this.currentStep.onPrevClick === typeof isNaN) {
             this.currentStep.onPrevClick();
         }
@@ -141,6 +151,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     pause(): void {
         this._tourStatus = TourWizardState.PAUSED;
+        this.navigating = !1;
         this._hideStep(this.currentStep);
         this.pause$.next();
     }
@@ -173,6 +184,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     unregister(anchorId: string): void {
         delete this.anchors[anchorId];
         this.anchorUnregister$.next(anchorId);
+    }
+
+    unregisterAll(): void {
+        this.anchors = {};
     }
 
 
@@ -222,6 +237,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     private _setCurrentStep(step: T): void {
         this._subs.unsubscribe();
+        this.navigating = !1;
         if (this.currentStep) {
             this._hideStep(this.currentStep);
         }
