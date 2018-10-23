@@ -6,32 +6,34 @@ import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {map} from "rxjs/operators";
 import {Subscription} from "rxjs/Subscription";
+import * as _ from "lodash";
 
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
-    public events$: Observable<TourWizardEvent>;
+    events$: Observable<TourWizardEvent>;
 
-    public additionalViewports: string[];
-    public anchors: { [anchorId: string]: TourWizardAnchorDirective } = {};
-    public backdropTarget: string;
-    public currentStep: T;
-    public isHotKeysEnabled: boolean;
-    public isBackdropEnabled: boolean;
-    public steps: T[] = [];
+    additionalViewports: string[];
+    anchors: { [anchorId: string]: TourWizardAnchorDirective } = {};
+    backdropTarget: string;
+    currentStep: T;
+    isHotKeysEnabled: boolean;
+    isBackdropEnabled: boolean;
+    steps: T[] = [];
+
+
+    // Events
+    stepShow$: Subject<T> = new Subject<T>();
+    stepHide$: Subject<T> = new Subject<T>();
+    start$: Subject<T> = new Subject<T>();
+    end$: Subject<T> = new Subject<T>();
+    pause$: Subject<T> = new Subject<T>();
+    resume$: Subject<T> = new Subject<T>();
+    anchorRegister$: Subject<string> = new Subject<string>();
+    anchorUnregister$: Subject<string> = new Subject<string>();
 
     private _subs: Subscription = new Subscription();
     private _tourStatus: TourWizardState = TourWizardState.OFF;
-
-    // Events
-    private _stepShow$: Subject<T> = new Subject<T>();
-    private _stepHide$: Subject<T> = new Subject<T>();
-    private _start$: Subject<T> = new Subject<T>();
-    private _end$: Subject<T> = new Subject<T>();
-    private _pause$: Subject<T> = new Subject<T>();
-    private _resume$: Subject<T> = new Subject<T>();
-    private _anchorRegister$: Subject<string> = new Subject<string>();
-    private _anchorUnregister$: Subject<string> = new Subject<string>();
 
     constructor(private _config: TourWizardOptions) {
         if (!!_config) {
@@ -41,14 +43,14 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.additionalViewports = _config.additionalViewports;
         }
         this.events$ = mergeStatic(
-            this._stepShow$.pipe(map(value => ({name: "stepShow", value}))),
-            this._stepHide$.pipe(map(value => ({name: "stepHide", value}))),
-            this._start$.pipe(map(value => ({name: "start", value}))),
-            this._end$.pipe(map(value => ({name: "end", value}))),
-            this._pause$.pipe(map(value => ({name: "pause", value}))),
-            this._resume$.pipe(map(value => ({name: "resume", value}))),
-            this._anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
-            this._anchorUnregister$.pipe(map(value => ({name: "anchorRegister", value})))
+            this.stepShow$.pipe(map(value => ({name: "stepShow", value}))),
+            this.stepHide$.pipe(map(value => ({name: "stepHide", value}))),
+            this.start$.pipe(map(value => ({name: "start", value}))),
+            this.end$.pipe(map(value => ({name: "end", value}))),
+            this.pause$.pipe(map(value => ({name: "pause", value}))),
+            this.resume$.pipe(map(value => ({name: "resume", value}))),
+            this.anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
+            this.anchorUnregister$.pipe(map(value => ({name: "anchorRegister", value})))
         );
 
     }
@@ -58,7 +60,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
         this.currentStep = void 0;
-        this._end$.next();
+        this.end$.next();
     }
 
     getStatus(): TourWizardState {
@@ -90,6 +92,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     initialize(steps: T[], stepDefaults?: T): void {
         if (steps && steps.length > 0) {
             this.steps = steps.map(step => Object.assign({}, stepDefaults, step));
+            // Updates current step with new reference
+            if (!!this.currentStep) {
+                this.currentStep = _.find(this.steps, (step: T) => step.anchorId === this.currentStep.anchorId);
+            }
         }
     }
 
@@ -142,7 +148,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     pause(): void {
         this._tourStatus = TourWizardState.PAUSED;
         this._hideStep(this.currentStep);
-        this._pause$.next();
+        this.pause$.next();
     }
 
 
@@ -151,13 +157,13 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             throw new Error("anchorId " + anchorId + " already registered!");
         }
         this.anchors[anchorId] = anchor;
-        this._anchorRegister$.next(anchorId);
+        this.anchorRegister$.next(anchorId);
     }
 
     resume(): void {
         this._tourStatus = TourWizardState.ON;
         this._showStep(this.currentStep);
-        this._resume$.next();
+        this.resume$.next();
     }
 
     start(): void {
@@ -167,12 +173,12 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     startAt(stepId: number | string): void {
         this._tourStatus = TourWizardState.ON;
         this._goToStep(this._loadStep(stepId));
-        this._start$.next();
+        this.start$.next();
     }
 
     unregister(anchorId: string): void {
         delete this.anchors[anchorId];
-        this._anchorUnregister$.next(anchorId);
+        this.anchorUnregister$.next(anchorId);
     }
 
 
@@ -209,7 +215,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             return;
         }
         anchor.hideTourStep();
-        this._stepHide$.next(step);
+        this.stepHide$.next(step);
     }
 
     private _loadStep(stepId: number | string): T {
@@ -237,7 +243,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             return;
         }
         anchor.showTourStep(step);
-        this._stepShow$.next(step);
+        this.stepShow$.next(step);
     }
 
 }

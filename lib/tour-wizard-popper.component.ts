@@ -3,8 +3,8 @@ import {ViewEncapsulation} from "@angular/core";
 import {PopperContent} from "ngx-popper";
 import {TourWizardService} from "./tour-wizard.service";
 import {TourWizardStep, TourWizardPopperSettings} from "./tour-wizard.model";
-import * as _ from "lodash";
 import {Placement} from "ngx-popper";
+import * as _ from "lodash";
 
 @Component({
     selector: "tour-wizard-popper-component",
