@@ -83,4 +83,5 @@
 
 #1.0.18
 * Fixed loosing currentStep reference when calling initialize
+* Changed access modifiers on TourWizardEvents (made public to avoid filtering events$)
 * Refactor
