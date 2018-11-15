@@ -17,6 +17,6 @@
   }
   &.show > .tour-wizard-overlay {
     opacity: 1;
-    z-index: $tour-default-zindex - 10;
+    z-index: $tour-default-zindex - $tour-zindex-factor;
   }
 }

@@ -92,3 +92,7 @@
 #1.0.20
 * Added TourWizardService.unregisterAll to clear all anchors at once
 * Added TourWizardService.navigating to handle pending navigation and prevent keyboard issues
+
+#1.0.21
+* Added $tour-zindex-factor to enable customization
+* Increased zindex-factor to 100
