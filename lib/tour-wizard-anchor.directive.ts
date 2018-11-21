@@ -50,7 +50,15 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         private _tourWizardService: TourWizardService,
         private _tourWizardDomService: TourWizardDomService,
         private _viewContainerRef: ViewContainerRef) {
+    }
 
+    hideTourStep(): void {
+        this.isActive = false;
+        this._anchorPopper.hidePopper();
+    }
+
+    ngOnInit() {
+        // Prevents adding layers multiple times
         if (this._id === 1) {
             this._tourWizardDomService.appendComps([
                 {
@@ -64,14 +72,6 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 }
             ]);
         }
-    }
-
-    hideTourStep(): void {
-        this.isActive = false;
-        this._anchorPopper.hidePopper();
-    }
-
-    ngOnInit() {
         this._anchorPopper = this._constructPopper();
         this._anchorPopper.setTarget(this._elRef.nativeElement);
         this._tourWizardService.register(this.tourWizardAnchor, this);

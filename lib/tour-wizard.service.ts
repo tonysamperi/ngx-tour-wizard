@@ -51,7 +51,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.pause$.pipe(map(value => ({name: "pause", value}))),
             this.resume$.pipe(map(value => ({name: "resume", value}))),
             this.anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
-            this.anchorUnregister$.pipe(map(value => ({name: "anchorRegister", value})))
+            this.anchorUnregister$.pipe(map(value => ({name: "anchorUnregister", value})))
         );
 
     }

@@ -1,13 +1,11 @@
-import {
-    Component
-} from "@angular/core";
+import {Component} from "@angular/core";
 import {TourWizardService} from "./tour-wizard.service";
 import {TourWizardEvent} from "./tour-wizard.model";
 
 @Component({
     selector: "tour-wizard-overlay",
     host: {
-        "[class.show]": "showOverlay || null"
+        "[class.show]": "showOverlay"
     },
     template: `
         <div class="tour-wizard-overlay"></div>

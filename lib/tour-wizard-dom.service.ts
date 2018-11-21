@@ -51,7 +51,6 @@ export class TourWizardDomService {
         }
     }
 
-
     removeComp(key: string): boolean {
         if (!!this._refs[key]) {
             const componentRef = this._refs[key];

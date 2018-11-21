@@ -32,11 +32,18 @@ gulp.task("build:scss", function (cb) {
 
 gulp.task("packagr", function (cb) {
     exec("ng-packagr -p ng-package.json", function (err, stdout, stderr) {
-        console.info("packed");
+        console.info("packagred.");
         cb(err);
     });
 });
 
-gulp.task("build", function (callback) {
-    runSequence("packagr", "build:scss", callback);
+gulp.task("build", function (cb) {
+    runSequence("packagr", "build:scss", cb);
+});
+
+gulp.task("pack", function (cb) {
+    exec("npm pack ./dist", function (err, stdout, stderr) {
+        console.info("packed.");
+        cb(err);
+    });
 });
