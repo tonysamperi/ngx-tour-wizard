@@ -145,6 +145,4 @@ files normally.
 
 # TODOS
 * Optional pause on click outside
-* Add prevSubject
-* Add prevCallback
 * Add option to remove backdrop and kboard on end?
