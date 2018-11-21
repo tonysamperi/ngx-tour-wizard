@@ -97,7 +97,7 @@
 * Added $tour-zindex-factor to enable customization
 * Increased zindex-factor to 100
 
-#1.0.22
+#1.0.22-1.0.23
 * Removed expression from @hostBinding in TourWizardOverlayComponent to avoid "dirty checked warning"
 * Fixed ng-packagr version due to dependency issues
 * Removed package-lock
@@ -105,4 +105,5 @@
 * Added pack task in gulpfile and package.json
 * Refactor
 
-
+#1.0.24
+* Replaced carets (^) in package with tildes (~)
