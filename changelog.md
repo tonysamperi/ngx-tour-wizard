@@ -111,3 +111,6 @@
 #1.0.25
 * Improved step options "targetElement" to allow string selector (lazy loaded elements)
 * Added step option for "customPopperContent", to pass an elementRef
+
+#1.0.26
+* Fixed handling of "targetElement" (removed overwriting)

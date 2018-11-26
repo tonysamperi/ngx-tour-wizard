@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.25
+# ngxTourWizard 1.0.26
 
 A cool Angular5+ module for intro tours!
 
@@ -146,6 +146,3 @@ files normally.
 # TODOS
 * Optional pause on click outside
 * Add option to remove backdrop and kboard on end?
-
-# WORK IN PROGRESS
-* 

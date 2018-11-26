@@ -92,7 +92,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 // Replace el to scroll to targetElement instead
                 !!step.targetElement && (el = step.targetElement);
             }
-            this._anchorPopper.setTarget(step.targetElement);
+            this._anchorPopper.setTarget(el);
         }
         if (!!step.customPopperContent) {
             this._anchorPopper.setTemplate(step.customPopperContent);
