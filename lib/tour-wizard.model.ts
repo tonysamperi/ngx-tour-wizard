@@ -1,6 +1,7 @@
 import {Placement} from "ngx-popper";
 import {ComponentRef} from "@angular/core";
 import {Subject} from "rxjs/Subject";
+import {TemplateRef} from "@angular/core";
 
 export enum TourWizardState {
     OFF,
@@ -56,6 +57,10 @@ export interface TourWizardPopperSettings {
     appendTo?: string;
 }
 
+export interface TourWizardPopperFace {
+    step: TourWizardStep;
+}
+
 export interface TourWizardStep {
     subjectForNext?: Subject<boolean>;
     subjectForPrev?: Subject<boolean>;
@@ -75,7 +80,9 @@ export interface TourWizardStep {
     hidePrevButton?: boolean;
     hideNextButton?: boolean;
     showPauseButton?: boolean;
-    targetElement?: HTMLElement;
+    targetElement?: string | HTMLElement;
+    customPopperContent?: TemplateRef<TourWizardPopperFace>;
     // Popper options
     popperSettings?: TourWizardPopperSettings;
 }
+

@@ -44,12 +44,11 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         behavior: "smooth"
     };
 
-    constructor(
-        private _elRef: ElementRef,
-        private _resolver: ComponentFactoryResolver,
-        private _tourWizardService: TourWizardService,
-        private _tourWizardDomService: TourWizardDomService,
-        private _viewContainerRef: ViewContainerRef) {
+    constructor(private _elRef: ElementRef,
+                private _resolver: ComponentFactoryResolver,
+                private _tourWizardService: TourWizardService,
+                private _tourWizardDomService: TourWizardDomService,
+                private _viewContainerRef: ViewContainerRef) {
     }
 
     hideTourStep(): void {
@@ -75,7 +74,6 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         this._anchorPopper = this._constructPopper();
         this._anchorPopper.setTarget(this._elRef.nativeElement);
         this._tourWizardService.register(this.tourWizardAnchor, this);
-        // Attach keyboard listener only on first anchor
         Array.isArray(this._tourWizardService.additionalViewports) && (this._addedViewports = this._tourWizardService.additionalViewports);
     }
 
@@ -84,12 +82,20 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     }
 
     showTourStep(step: TourWizardStep): void {
-        const el = this._elRef.nativeElement as HTMLElement;
+        let el = this._elRef.nativeElement as HTMLElement;
         // const el = document.querySelector(`[tourWizardAnchor="${this.tourWizardAnchor}"]`);
         this.isActive = true;
         this._anchorPopper.step = step;
         if (!!step.targetElement) {
+            if (typeof step.targetElement === "string") {
+                step.targetElement = document.querySelector(step.targetElement) as HTMLElement;
+                // Replace el to scroll to targetElement instead
+                !!step.targetElement && (el = step.targetElement);
+            }
             this._anchorPopper.setTarget(step.targetElement);
+        }
+        if (!!step.customPopperContent) {
+            this._anchorPopper.setTemplate(step.customPopperContent);
         }
         this._anchorPopper.applySettings(step.popperSettings);
         if (!step.preventScrolling) {

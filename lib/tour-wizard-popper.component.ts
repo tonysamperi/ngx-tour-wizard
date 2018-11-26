@@ -2,7 +2,7 @@ import {Component, OnDestroy, TemplateRef, ViewChild} from "@angular/core";
 import {ViewEncapsulation} from "@angular/core";
 import {PopperContent} from "ngx-popper";
 import {TourWizardService} from "./tour-wizard.service";
-import {TourWizardStep, TourWizardPopperSettings} from "./tour-wizard.model";
+import {TourWizardStep, TourWizardPopperSettings, TourWizardPopperFace} from "./tour-wizard.model";
 import {Placement} from "ngx-popper";
 import * as _ from "lodash";
 
@@ -20,7 +20,7 @@ export class TourWizardPopperComponent implements OnDestroy {
     popperPlacement: Placement = "top";
     popperTarget: HTMLElement;
     step: TourWizardStep;
-    stepTemplate: TemplateRef<{ step: TourWizardStep }>;
+    stepTemplate: TemplateRef<TourWizardPopperFace>;
 
     // private _listener: () => void;
 
@@ -47,6 +47,10 @@ export class TourWizardPopperComponent implements OnDestroy {
 
     setTarget($target: HTMLElement) {
         this.popperTarget = $target;
+    }
+
+    setTemplate(newTemplate: TemplateRef<TourWizardPopperFace>) {
+        this.stepTemplate = newTemplate;
     }
 
     showPopper(): void {

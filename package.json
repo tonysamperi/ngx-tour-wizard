@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "scripts": {
     "build:lib": "gulp build",
     "pack:lib": "gulp pack",
