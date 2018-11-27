@@ -4,6 +4,7 @@
   "scripts": {
     "build:lib": "gulp build",
     "pack:lib": "gulp pack",
+    "packagr": "ng-packagr -p ng-package.json",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
