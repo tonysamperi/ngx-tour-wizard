@@ -114,3 +114,6 @@
 
 #1.0.26
 * Fixed handling of "targetElement" (removed overwriting)
+
+#1.0.27
+* Consistent style for gulpfile

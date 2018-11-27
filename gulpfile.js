@@ -3,7 +3,6 @@ const gulp = require("gulp"),
     runSequence = require("run-sequence"),
     exec = require("child_process").exec,
     sass = require("gulp-sass")
-    // tildeImporter = require("node-sass-tilde-importer")
 ;
 
 const rootFolder = path.join(__dirname);
@@ -12,9 +11,15 @@ const distFolder = path.join(rootFolder, "dist");
 
 //TS
 const stylesDistFolder = path.join(distFolder, "styles");
+const tasks = {
+    compile: "packagr",
+    main: "build",
+    pack: "pack",
+    stylesBuild: "build:scss"
+};
 
-gulp.task("build:scss", function (cb) {
-    console.info("Build:SCSS");
+gulp.task(tasks.stylesBuild, function (cb) {
+    console.info("***** Task '" + tasks.stylesBuild + "' started *****");
     gulp.src([
         `${srcFolder}/tour-wizard.scss`,
     ])
@@ -27,23 +32,34 @@ gulp.task("build:scss", function (cb) {
         `${srcFolder}/tour-wizard.scss`,
     ])
     .pipe(gulp.dest(stylesDistFolder));
+    console.info("***** Task '" + tasks.stylesBuild + "' finished *****");
     cb();
 });
 
-gulp.task("packagr", function (cb) {
+gulp.task(tasks.compile, function (cb) {
+    console.info("***** Task '" + tasks.compile + "' started *****");
     exec("ng-packagr -p ng-package.json", function (err, stdout, stderr) {
-        console.info("packagred.");
+        console.log(stdout);
+        console.log(stderr);
+        console.info("***** Task '" + tasks.compile + "' finished *****");
         cb(err);
     });
 });
 
-gulp.task("build", function (cb) {
-    runSequence("packagr", "build:scss", cb);
+gulp.task(tasks.main, function (cb) {
+    console.info("***** Task '" + tasks.compile + "' started *****");
+    runSequence(tasks.compile, tasks.stylesBuild, function (err) {
+        console.info("***** Task '" + tasks.compile + "' finished *****");
+        cb(err);
+    });
 });
 
-gulp.task("pack", function (cb) {
+gulp.task(tasks.pack, function (cb) {
+    console.info("***** Task '" + tasks.pack + "' started *****");
     exec("npm pack ./dist", function (err, stdout, stderr) {
-        console.info("packed.");
+        console.log(stdout);
+        console.log(stderr);
+        console.info("***** Task '" + tasks.pack + "' finished *****");
         cb(err);
     });
 });
