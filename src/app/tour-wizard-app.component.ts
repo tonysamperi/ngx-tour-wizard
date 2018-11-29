@@ -30,6 +30,7 @@ export class TourWizardAppComponent implements OnInit {
                 content: "Some other stuff for FOO 2",
                 title: "Second",
                 subjectForNext: this._fooTwo$,
+                targetElement: ".tour-wizard-my-target",
                 onNextClick: () => {
                     this._onFooTwoNext();
                 }

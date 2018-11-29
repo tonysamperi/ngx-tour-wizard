@@ -18,7 +18,6 @@ export class TourWizardPopperComponent implements OnDestroy {
 
     isActive: boolean = false;
     popperPlacement: Placement = "top";
-    popperTarget: HTMLElement;
     step: TourWizardStep;
     stepTemplate: TemplateRef<TourWizardPopperFace>;
 
@@ -45,15 +44,13 @@ export class TourWizardPopperComponent implements OnDestroy {
         this.hidePopper();
     }
 
-    setTarget($target: HTMLElement) {
-        this.popperTarget = $target;
-    }
-
     setTemplate(newTemplate: TemplateRef<TourWizardPopperFace>) {
         this.stepTemplate = newTemplate;
     }
 
-    showPopper(): void {
+    showPopper(popperTarget?: HTMLElement): void {
+        // this.popperTarget = popperTarget;
+        this.tourWizardPopper.referenceObject = popperTarget;
         if (!this.isActive) {
             this.isActive = true;
             this.tourWizardPopper.show();

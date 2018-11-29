@@ -117,3 +117,6 @@
 
 #1.0.27
 * Consistent style for gulpfile
+
+#1.0.28
+* Fixed remote anchor target

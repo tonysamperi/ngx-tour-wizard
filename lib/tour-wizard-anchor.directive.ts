@@ -17,10 +17,12 @@ import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
 import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
 import * as viewportUtils from "js-viewport-utils";
 
+const remoteAnchorShowClassname: string = "tour-wizard-anchor-show";
+
 @Directive({
     selector: "[tourWizardAnchor]",
     host: {
-        "[class.show]": "isActive",
+        "[class.show]": "isActive && !_hasRemoteTarget",
         "[attr.tourWizardAnchor]": "tourWizardAnchor"
     }
 })
@@ -37,7 +39,9 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     protected _addedViewports: string[];
     protected _anchorPopper: TourWizardPopperComponent;
     protected _popperClass: typeof TourWizardPopperComponent = TourWizardPopperComponent;
+    protected _hasRemoteTarget: boolean = !1;
     protected _popperRef: ComponentRef<TourWizardPopperComponent>;
+    protected _remoteTarget: HTMLElement;
     protected _viewPortOptions: ScrollIntoViewOptions = {
         inline: "start",
         block: "start",
@@ -49,14 +53,6 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 private _tourWizardService: TourWizardService,
                 private _tourWizardDomService: TourWizardDomService,
                 private _viewContainerRef: ViewContainerRef) {
-    }
-
-    hideTourStep(): void {
-        this.isActive = false;
-        this._anchorPopper.hidePopper();
-    }
-
-    ngOnInit() {
         // Prevents adding layers multiple times
         if (this._id === 1) {
             this._tourWizardDomService.appendComps([
@@ -71,8 +67,16 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 }
             ]);
         }
+    }
+
+    hideTourStep(): void {
+        this.isActive = false;
+        this._hasRemoteTarget && this._remoteTarget.classList.remove(remoteAnchorShowClassname);
+        this._anchorPopper.hidePopper();
+    }
+
+    ngOnInit() {
         this._anchorPopper = this._constructPopper();
-        this._anchorPopper.setTarget(this._elRef.nativeElement);
         this._tourWizardService.register(this.tourWizardAnchor, this);
         Array.isArray(this._tourWizardService.additionalViewports) && (this._addedViewports = this._tourWizardService.additionalViewports);
     }
@@ -82,17 +86,26 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     }
 
     showTourStep(step: TourWizardStep): void {
+        this._hasRemoteTarget = !1;
         let el = this._elRef.nativeElement as HTMLElement;
         // const el = document.querySelector(`[tourWizardAnchor="${this.tourWizardAnchor}"]`);
         this.isActive = true;
         this._anchorPopper.step = step;
+        this._remoteTarget = void 0;
         if (!!step.targetElement) {
             if (typeof step.targetElement === "string") {
                 step.targetElement = document.querySelector(step.targetElement) as HTMLElement;
-                // Replace el to scroll to targetElement instead
-                !!step.targetElement && (el = step.targetElement);
             }
-            this._anchorPopper.setTarget(el);
+            if (this._isDOMElement(step.targetElement)) {
+                // Replace el to also scroll to targetElement
+                this._hasRemoteTarget = !0;
+                step.targetElement.classList.add(remoteAnchorShowClassname);
+                el = step.targetElement;
+                this._remoteTarget = el;
+            }
+            else {
+                step.targetElement = void 0;
+            }
         }
         if (!!step.customPopperContent) {
             this._anchorPopper.setTemplate(step.customPopperContent);
@@ -128,13 +141,25 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 }
             }
         }
-        this._anchorPopper.showPopper();
+        this._anchorPopper.showPopper(step.targetElement || this._elRef.nativeElement);
     }
 
     protected _constructPopper(): TourWizardPopperComponent {
         const factory = this._resolver.resolveComponentFactory(this._popperClass);
         this._popperRef = this._viewContainerRef.createComponent(factory);
         return this._popperRef.instance as TourWizardPopperComponent;
+    }
+
+    // Returns true if it is a DOM element
+    protected _isDOMElement(entity): boolean {
+        if (!entity) {
+            return false;
+        }
+        if (typeof HTMLElement === "object") {
+            return entity instanceof HTMLElement;
+        }
+        return entity.nodeType === 1 && typeof entity.nodeName === "string";
+
     }
 
 }
