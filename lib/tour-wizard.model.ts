@@ -65,6 +65,7 @@ export interface TourWizardStep {
     subjectForNext?: Subject<boolean>;
     subjectForPrev?: Subject<boolean>;
     onNextClick?: () => void;
+    onPauseClick?: () => void;
     onPrevClick?: () => void;
     stepId?: string;
     anchorId?: string;

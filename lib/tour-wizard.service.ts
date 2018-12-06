@@ -150,10 +150,13 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     pause(): void {
+        if (typeof this.currentStep.onPauseClick === typeof isNaN) {
+            this.currentStep.onPauseClick();
+        }
         this._tourStatus = TourWizardState.PAUSED;
         this.navigating = !1;
         this._hideStep(this.currentStep);
-        this.pause$.next();
+        this.pause$.next(this.currentStep);
     }
 
 

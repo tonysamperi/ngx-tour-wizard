@@ -120,3 +120,7 @@
 
 #1.0.28
 * Fixed remote anchor target
+
+#1.0.29
+* Added data to pause$ event in tour-wizard.service
+* Added "onPauseClick" in TourWizardStep
