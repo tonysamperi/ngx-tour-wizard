@@ -16,11 +16,11 @@ export class TourWizardDomService {
                 private _injector: Injector) {
     }
 
-    appendComps(compsData: TourWizardCompData[]): void {
-        compsData.forEach((compData) => this.appendComp(compData.comp, compData.key, compData.targetSelector));
+    appendComps(compsData: TourWizardCompData[], delay: number = 0): void {
+        compsData.forEach((compData) => this.appendComp(compData.comp, compData.key, compData.targetSelector, delay));
     }
 
-    appendComp(component: any, key?: string, targetSelector: string = "body"): void {
+    appendComp(component: any, key?: string, targetSelector: string = "body", delay: number = 0): void {
         // 1. Create a component reference from the component
         const componentRef = this._componentFactoryResolver
         .resolveComponentFactory(component)
@@ -41,14 +41,16 @@ export class TourWizardDomService {
             console.warn("Component appended, but key wasn't provided. It won't be possible to remove it from the DOM automagically");
         }
 
-        // 4. Append DOM element to the body
-        const targetEl = document.querySelector(targetSelector);
-        if (targetEl !== null) {
-            targetEl.appendChild(domElem);
-        }
-        else {
-            document.body.appendChild(domElem);
-        }
+        setTimeout(() => {
+            // 4. Append DOM element to the body
+            const targetEl = document.querySelector(targetSelector);
+            if (targetEl !== null) {
+                targetEl.appendChild(domElem);
+            }
+            else {
+                document.body.appendChild(domElem);
+            }
+        }, delay);
     }
 
     removeComp(key: string): boolean {

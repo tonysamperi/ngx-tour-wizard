@@ -14,6 +14,7 @@ export interface TourWizardOptions {
     backdropTarget: string;
     keyboardEnabled: boolean;
     additionalViewports?: string[];
+    appendDelay?: number;
 }
 
 export const tourWizardDefaults: TourWizardOptions = {

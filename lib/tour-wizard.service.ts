@@ -15,6 +15,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
 
     additionalViewports: string[];
     anchors: { [anchorId: string]: TourWizardAnchorDirective } = {};
+    appendDelay: number = 0;
     backdropTarget: string;
     currentStep: T;
     isHotKeysEnabled: boolean;
@@ -39,9 +40,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     constructor(private _config: TourWizardOptions) {
         if (!!_config) {
             this.backdropTarget = _config.backdropTarget;
-            this.isBackdropEnabled = _config.backdropEnabled;
-            this.isHotKeysEnabled = _config.keyboardEnabled;
-            this.additionalViewports = _config.additionalViewports;
+            this.isBackdropEnabled = !!_config.backdropEnabled;
+            this.isHotKeysEnabled = !!_config.keyboardEnabled;
+            this.additionalViewports = _config.additionalViewports || [];
+            this.appendDelay = _config.appendDelay || 0;
         }
         this.events$ = mergeStatic(
             this.stepShow$.pipe(map(value => ({name: "stepShow", value}))),
@@ -61,8 +63,9 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this.navigating = !1;
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
+        const currentStepBak = _.cloneDeep(this.currentStep);
         this.currentStep = void 0;
-        this.end$.next();
+        this.end$.next(currentStepBak);
     }
 
     getStatus(): TourWizardState {

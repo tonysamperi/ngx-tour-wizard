@@ -3,37 +3,39 @@
              popperApplyClass="tourWizardPopper"
              [popperTrigger]="'none'">
 
-             <!--[popperTarget]="popperTarget"-->
+    <!--[popperTarget]="popperTarget"-->
 </ng-template>
 
 <ng-template #defaultTemplate let-step="step">
-    <ng-container *ngIf="isActive">
-        <p class="tour-wizard-content-title">{{step?.title || "My Step Title"}}</p>
-        <p class="tour-wizard-content-text">{{step?.content || "My step Content"}}</p>
-        <div class="tour-step-navigation">
-            <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
-                    class="tour-wizard-content-button btn-prev"
-                    [innerHTML]="step?.prevBtnTitle || '« Prev'"
-                    (click)="tourWizardService.prev()">
-            </button>
-            <button *ngIf="step.showPauseButton"
-                    [innerHTML]="step?.pauseBtnTitle || 'Pause'"
-                    class="tour-wizard-content-button btn-pause"
-                    (click)="tourWizardService.pause()">
-            </button>
-            <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
-                    class="tour-wizard-content-button btn-next"
-                    [innerHTML]="step?.nextBtnTitle || 'Next »'"
-                    (click)="tourWizardService.next()">
-            </button>
-            <button class="tour-wizard-content-button btn-end"
-                    [innerHtml]="step?.endBtnTitle || 'End'"
-                    (click)="tourWizardService.end()">
-            </button>
-        </div>
-    </ng-container>
+    <p class="tour-wizard-content-title">{{step?.title}}</p>
+    <p class="tour-wizard-content-text">{{step?.content}}</p>
+    <div class="tour-step-navigation">
+        <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
+                class="tour-wizard-content-button btn-prev"
+                [innerHTML]="step?.prevBtnTitle || '« Prev'"
+                (click)="tourWizardService.prev()">
+        </button>
+        <button *ngIf="step.showPauseButton"
+                [innerHTML]="step?.pauseBtnTitle || 'Pause'"
+                class="tour-wizard-content-button btn-pause"
+                (click)="tourWizardService.pause()">
+        </button>
+        <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
+                class="tour-wizard-content-button btn-next"
+                [innerHTML]="step?.nextBtnTitle || 'Next »'"
+                (click)="tourWizardService.next()">
+        </button>
+        <button class="tour-wizard-content-button btn-end"
+                [innerHtml]="step?.endBtnTitle || 'End'"
+                (click)="tourWizardService.end()">
+        </button>
+    </div>
 </ng-template>
 
 <popper-content class="tour-wizard-content-wrap" #tourWizardPopper>
-    <ng-container *ngTemplateOutlet="stepTemplate || defaultTemplate; context: { step: step }"></ng-container>
+    <ng-container *ngIf="isActive">
+        <ng-container *ngTemplateOutlet="stepTemplate || defaultTemplate; context: { step: step }">
+
+        </ng-container>
+    </ng-container>
 </popper-content>

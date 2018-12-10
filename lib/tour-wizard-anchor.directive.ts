@@ -65,7 +65,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                     key: "TourWizardOverlayComponent",
                     targetSelector: this._tourWizardService.backdropTarget
                 }
-            ]);
+            ], this._tourWizardService.appendDelay);
         }
     }
 

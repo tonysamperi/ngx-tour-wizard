@@ -124,3 +124,7 @@
 #1.0.29
 * Added data to pause$ event in tour-wizard.service
 * Added "onPauseClick" in TourWizardStep
+
+#1.0.30
+* Added last step data to end$ event
+* Added option to delay append of backdrop component and keyboard component
