@@ -128,3 +128,6 @@
 #1.0.30
 * Added last step data to end$ event
 * Added option to delay append of backdrop component and keyboard component
+
+#1.0.31
+* Changed interpolation to [innerHTML] to allow static HTML as popper content

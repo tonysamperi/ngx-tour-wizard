@@ -8,7 +8,7 @@
 
 <ng-template #defaultTemplate let-step="step">
     <p class="tour-wizard-content-title">{{step?.title}}</p>
-    <p class="tour-wizard-content-text">{{step?.content}}</p>
+    <p class="tour-wizard-content-text" [innerHTML]="step?.content"></p>
     <div class="tour-step-navigation">
         <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
                 class="tour-wizard-content-button btn-prev"

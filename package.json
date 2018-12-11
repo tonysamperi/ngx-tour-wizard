@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "scripts": {
     "build:lib": "gulp build",
     "sass:lib": "gulp build:scss",
