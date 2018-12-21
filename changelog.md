@@ -131,3 +131,6 @@
 
 #1.0.31
 * Changed interpolation to [innerHTML] to allow static HTML as popper content
+
+#1.0.32
+* Fixed usage of protected member in hostBinding

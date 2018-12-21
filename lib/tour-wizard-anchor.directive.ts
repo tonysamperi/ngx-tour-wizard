@@ -22,7 +22,7 @@ const remoteAnchorShowClassname: string = "tour-wizard-anchor-show";
 @Directive({
     selector: "[tourWizardAnchor]",
     host: {
-        "[class.show]": "isActive && !_hasRemoteTarget",
+        "[class.show]": "isActive && !hasRemoteTarget",
         "[attr.tourWizardAnchor]": "tourWizardAnchor"
     }
 })
@@ -34,12 +34,12 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     @Input() public tourWizardAnchor: string;
 
     public isActive: boolean;
+    hasRemoteTarget: boolean = !1;
 
     protected _id: number = ++TourWizardAnchorDirective.nextId;
     protected _addedViewports: string[];
     protected _anchorPopper: TourWizardPopperComponent;
     protected _popperClass: typeof TourWizardPopperComponent = TourWizardPopperComponent;
-    protected _hasRemoteTarget: boolean = !1;
     protected _popperRef: ComponentRef<TourWizardPopperComponent>;
     protected _remoteTarget: HTMLElement;
     protected _viewPortOptions: ScrollIntoViewOptions = {
@@ -71,7 +71,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
 
     hideTourStep(): void {
         this.isActive = false;
-        this._hasRemoteTarget && this._remoteTarget.classList.remove(remoteAnchorShowClassname);
+        this.hasRemoteTarget && this._remoteTarget.classList.remove(remoteAnchorShowClassname);
         this._anchorPopper.hidePopper();
     }
 
@@ -86,7 +86,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     }
 
     showTourStep(step: TourWizardStep): void {
-        this._hasRemoteTarget = !1;
+        this.hasRemoteTarget = !1;
         let el = this._elRef.nativeElement as HTMLElement;
         // const el = document.querySelector(`[tourWizardAnchor="${this.tourWizardAnchor}"]`);
         this.isActive = true;
@@ -98,7 +98,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
             }
             if (this._isDOMElement(step.targetElement)) {
                 // Replace el to also scroll to targetElement
-                this._hasRemoteTarget = !0;
+                this.hasRemoteTarget = !0;
                 step.targetElement.classList.add(remoteAnchorShowClassname);
                 el = step.targetElement;
                 this._remoteTarget = el;
