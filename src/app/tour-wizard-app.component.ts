@@ -27,7 +27,7 @@ export class TourWizardAppComponent implements OnInit {
             },
             {
                 anchorId: "FOO_2",
-                content: "Some other stuff for FOO 2",
+                content: "Some other stuff for FOO 2. Next anchor will fire after 2 seconds!!",
                 title: "Second",
                 subjectForNext: this._fooTwo$,
                 targetElement: ".tour-wizard-my-target",
@@ -64,8 +64,3 @@ export class TourWizardAppComponent implements OnInit {
     }
 
 }
-
-
-/**  Copyright 2018 Google Inc. All Rights Reserved.
- Use of this source code is governed by an MIT-style license that
- can be found in the LICENSE file at http://angular.io/license */

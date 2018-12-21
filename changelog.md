@@ -134,3 +134,6 @@
 
 #1.0.32
 * Fixed usage of protected member in hostBinding
+
+#1.0.33
+* Added vars to change "Gloria Halleluja" font url and format in tour-wizard-vars.scss
