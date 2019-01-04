@@ -137,3 +137,6 @@
 
 #1.0.33
 * Added vars to change "Gloria Halleluja" font url and format in tour-wizard-vars.scss
+
+#1.0.34
+* Exported missing components to be used manually
