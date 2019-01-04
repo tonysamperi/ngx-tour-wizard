@@ -140,3 +140,6 @@
 
 #1.0.34
 * Exported missing components to be used manually
+
+#1.0.35
+* Added missing listing in TourWizardModule exports
