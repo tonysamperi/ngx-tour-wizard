@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.35
+# ngxTourWizard 1.0.36
 
 A cool Angular5+ module for intro tours!
 
@@ -144,5 +144,6 @@ attribution, so you shouldn't need to do anything additional when using these
 files normally.
 
 # TODOS
+* IMPORTANT!! Add optional ID for backdrop, or custom backdrop
 * Optional pause on click outside
 * Add option to remove backdrop and kboard on end?

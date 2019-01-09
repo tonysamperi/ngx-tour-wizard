@@ -6,6 +6,7 @@ import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {map} from "rxjs/operators";
 import {Subscription} from "rxjs/Subscription";
+import {Inject} from "@angular/core";
 import * as _ from "lodash";
 
 @Injectable()
@@ -37,7 +38,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     private _subs: Subscription = new Subscription();
     private _tourStatus: TourWizardState = TourWizardState.OFF;
 
-    constructor(private _config: TourWizardOptions) {
+    constructor(@Inject("TOUR_WIZARD_DEFAULTS") private _config: TourWizardOptions) {
         if (!!_config) {
             this.backdropTarget = _config.backdropTarget;
             this.isBackdropEnabled = !!_config.backdropEnabled;
