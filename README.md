@@ -1,4 +1,4 @@
-# ngxTourWizard 1.0.36
+# ngxTourWizard 1.0.37
 
 A cool Angular5+ module for intro tours!
 
@@ -138,10 +138,9 @@ MIT © [Tony Samperi](mailto:github@tonysamperi.it)
 This library is free, open source, and GPL friendly. You can use it for
 commercial projects, open source projects, or really almost whatever you want.
 
-Attribution is required by MIT, SIL OLF, and CC BY licenses. Downloaded files already
-contain embedded comments with sufficient
-attribution, so you shouldn't need to do anything additional when using these
-files normally.
+Attribution is required by MIT, SIL OLF, and CC BY licenses.
+Downloaded files already contain embedded comments with sufficient attribution,
+so you shouldn't need to do anything additional when using these files normally.
 
 # TODOS
 * IMPORTANT!! Add optional ID for backdrop, or custom backdrop

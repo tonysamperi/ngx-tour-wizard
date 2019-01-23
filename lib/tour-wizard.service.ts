@@ -8,6 +8,7 @@ import {map} from "rxjs/operators";
 import {Subscription} from "rxjs/Subscription";
 import {Inject} from "@angular/core";
 import * as _ from "lodash";
+import {TourWizardPopperSettings} from "./tour-wizard.model";
 
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
@@ -22,6 +23,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     isHotKeysEnabled: boolean;
     isBackdropEnabled: boolean;
     navigating: boolean = !1;
+    popperDefaults: TourWizardPopperSettings = {};
     steps: T[] = [];
 
 
@@ -45,6 +47,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.isHotKeysEnabled = !!_config.keyboardEnabled;
             this.additionalViewports = _config.additionalViewports || [];
             this.appendDelay = _config.appendDelay || 0;
+            _.merge(this.popperDefaults, _config.popperDefaults || {});
         }
         this.events$ = mergeStatic(
             this.stepShow$.pipe(map(value => ({name: "stepShow", value}))),

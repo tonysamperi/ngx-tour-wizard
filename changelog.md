@@ -147,3 +147,6 @@
 #1.0.36
 * TourWizardModule config param was meant to be optional, "?" added in forRoot()
 * Added missing @Inject in TourWizardService constructor resolving a warning when using AOT in my app
+
+#1.0.37
+* Added popperDefaults in TourWizardOptions

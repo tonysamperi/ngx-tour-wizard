@@ -37,13 +37,24 @@ export class TourWizardAppComponent implements OnInit {
             },
             {
                 anchorId: "FOO_3",
-                content: "Let's finish this up!!!",
+                content: "Prev anchor will fire after 2 seconds!! One more next...",
                 title: "Third",
                 subjectForPrev: this._fooThree$,
                 onPrevClick: () => {
                     this._onFooThreePrev();
                 }
             },
+            {
+                anchorId: "FOO_4",
+                content: "Let's finish this up!!!",
+                title: "Fourth",
+                popperSettings: {
+                    styles: {
+                        maxWidth: 190,
+                        backgroundColor: "green"
+                    }
+                }
+            }
         ] as TourWizardStep[]);
     }
 

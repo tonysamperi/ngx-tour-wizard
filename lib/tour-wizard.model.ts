@@ -15,6 +15,7 @@ export interface TourWizardOptions {
     keyboardEnabled: boolean;
     additionalViewports?: string[];
     appendDelay?: number;
+    popperDefaults?: TourWizardPopperSettings;
 }
 
 export const tourWizardDefaults: TourWizardOptions = {

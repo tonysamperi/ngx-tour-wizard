@@ -27,11 +27,9 @@ export class TourWizardPopperComponent implements OnDestroy {
     constructor(public tourWizardService: TourWizardService) {
     }
 
-    applySettings(settings: TourWizardPopperSettings) {
-        if (!settings) {
-            return;
-        }
-        _.merge(this.tourWizardPopper.popperOptions, settings);
+    applySettings(settings: TourWizardPopperSettings = {}) {
+        // Bug when merging step options due to issue https://github.com/MrFrankel/ngx-popper/issues/107
+        _.merge(this.tourWizardPopper.popperOptions, this.tourWizardService.popperDefaults, settings);
     }
 
     hidePopper(): void {

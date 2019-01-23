@@ -13,7 +13,13 @@ import {TourWizardModule} from "ngx-tour-wizard";
         TourWizardModule.forRoot({
             backdropTarget: ".pippo",
             backdropEnabled: true,
-            keyboardEnabled: true
+            keyboardEnabled: true,
+            popperDefaults: {
+                appendTo: "body",
+                styles: {
+                    backgroundColor: "red"
+                }
+            }
         })
     ],
     entryComponents: [TourWizardAppComponent],

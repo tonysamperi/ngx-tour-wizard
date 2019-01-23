@@ -66,7 +66,7 @@ export class TourWizardModule {
             ngModule: TourWizardModule,
             providers: [
                 TOUR_WIZARD_PROVIDERS,
-                provideTourWizardConfig(config),
+                provideTourWizardConfig(config)
             ]
         };
     }
