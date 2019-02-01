@@ -21,9 +21,6 @@ export class TourWizardPopperComponent implements OnDestroy {
     step: TourWizardStep;
     stepTemplate: TemplateRef<TourWizardPopperFace>;
 
-    // private _listener: () => void;
-
-    // private _renderer: Renderer2
     constructor(public tourWizardService: TourWizardService) {
     }
 
@@ -47,24 +44,13 @@ export class TourWizardPopperComponent implements OnDestroy {
     }
 
     showPopper(popperTarget?: HTMLElement): void {
-        // this.popperTarget = popperTarget;
         this.tourWizardPopper.referenceObject = popperTarget;
         if (!this.isActive) {
             this.isActive = true;
             this.tourWizardPopper.show();
             window.dispatchEvent(new CustomEvent("resize"));
-            // this._listener = this._renderer.listen("document", "click", this._popperClickHandler.bind(this));
         }
     }
 
-    /* private _popperClickHandler($event: MouseEvent): void {
-         const popperNative = this.tourWizardPopper.elemRef.nativeElement;
-         if ($event.srcElement &&
-             $event.srcElement === popperNative ||
-             popperNative.contains($event.srcElement)) {
-             return;
-         }
-         this.hidePopper();
-     } */
 }
 
