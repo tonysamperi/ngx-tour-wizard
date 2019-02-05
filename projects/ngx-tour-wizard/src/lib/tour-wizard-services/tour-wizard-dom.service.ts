@@ -3,7 +3,7 @@ import {ComponentFactoryResolver} from "@angular/core";
 import {ApplicationRef} from "@angular/core";
 import {Injector} from "@angular/core";
 import {EmbeddedViewRef} from "@angular/core";
-import {TourWizardRefs, TourWizardCompData} from "./tour-wizard.model";
+import {TourWizardRefs, TourWizardCompData} from "../tour-wizard-models/tour-wizard.model";
 
 
 @Injectable()

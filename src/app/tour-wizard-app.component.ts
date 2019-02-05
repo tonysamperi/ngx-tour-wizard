@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {TourWizardService, TourWizardStep} from "ngx-tour-wizard";
-import {Subject} from "rxjs/Subject";
+import {Subject} from "rxjs";
 
 @Component({
     selector: "tour-wizard-app",

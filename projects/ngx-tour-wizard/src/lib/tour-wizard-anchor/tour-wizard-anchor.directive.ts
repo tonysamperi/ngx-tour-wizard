@@ -9,12 +9,12 @@ import {
     ElementRef
 } from "@angular/core";
 
-import {TourWizardPopperComponent} from "./tour-wizard-popper.component";
-import {TourWizardStep} from "./tour-wizard.model";
-import {TourWizardService} from "./tour-wizard.service";
-import {TourWizardDomService} from "./tour-wizard-dom.service";
-import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
-import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
+import {TourWizardPopperComponent} from "../tour-wizard-popper/tour-wizard-popper.component";
+import {TourWizardStep} from "../tour-wizard-models/tour-wizard.model";
+import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
+import {TourWizardDomService} from "../tour-wizard-services/tour-wizard-dom.service";
+import {TourWizardKboardComponent} from "../tour-wizard-kboard/tour-wizard-kboard.component";
+import {TourWizardOverlayComponent} from "../tour-wizard-overlay/tour-wizard-overlay.component";
 import * as viewportUtils from "js-viewport-utils";
 
 const remoteAnchorShowClassname: string = "tour-wizard-anchor-show";

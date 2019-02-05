@@ -1,14 +1,16 @@
-import {Injectable} from "@angular/core";
-import {TourWizardAnchorDirective} from "./tour-wizard-anchor.directive";
-import {TourWizardEvent, TourWizardOptions, TourWizardState, TourWizardStep} from "./tour-wizard.model";
-import {merge as mergeStatic} from "rxjs/observable/merge";
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
-import {map} from "rxjs/operators";
-import {Subscription} from "rxjs/Subscription";
-import {Inject} from "@angular/core";
+import { Injectable } from "@angular/core";
+import { TourWizardAnchorDirective } from "../tour-wizard-anchor/tour-wizard-anchor.directive";
+import {
+    TourWizardEvent,
+    TourWizardOptions,
+    TourWizardState,
+    TourWizardStep,
+    TourWizardPopperSettings
+} from "../tour-wizard-models/tour-wizard.model";
+import { merge as mergeStatic, Subject, Observable, Subscription } from "rxjs";
+import { map } from "rxjs/operators";
+import { Inject } from "@angular/core";
 import * as _ from "lodash";
-import {TourWizardPopperSettings} from "./tour-wizard.model";
 
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
@@ -50,14 +52,14 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             _.merge(this.popperDefaults, _config.popperDefaults || {});
         }
         this.events$ = mergeStatic(
-            this.stepShow$.pipe(map(value => ({name: "stepShow", value}))),
-            this.stepHide$.pipe(map(value => ({name: "stepHide", value}))),
-            this.start$.pipe(map(value => ({name: "start", value}))),
-            this.end$.pipe(map(value => ({name: "end", value}))),
-            this.pause$.pipe(map(value => ({name: "pause", value}))),
-            this.resume$.pipe(map(value => ({name: "resume", value}))),
-            this.anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
-            this.anchorUnregister$.pipe(map(value => ({name: "anchorUnregister", value})))
+            this.stepShow$.pipe(map(value => ({ name: "stepShow", value }))),
+            this.stepHide$.pipe(map(value => ({ name: "stepHide", value }))),
+            this.start$.pipe(map(value => ({ name: "start", value }))),
+            this.end$.pipe(map(value => ({ name: "end", value }))),
+            this.pause$.pipe(map(value => ({ name: "pause", value }))),
+            this.resume$.pipe(map(value => ({ name: "resume", value }))),
+            this.anchorRegister$.pipe(map(value => ({ name: "anchorRegister", value }))),
+            this.anchorUnregister$.pipe(map(value => ({ name: "anchorUnregister", value })))
         );
 
     }

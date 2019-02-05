@@ -150,3 +150,6 @@
 
 #1.0.37
 * Added popperDefaults in TourWizardOptions
+
+#6.1.10
+* Upgrade to Angular 6

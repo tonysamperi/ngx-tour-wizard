@@ -1,65 +1,93 @@
+"use strict";
+
+function logStart(msg) {
+    console.info("***** Task '" + msg + "' started *****");
+}
+
+function logEnd(msg) {
+    console.info("***** Task '" + msg + "' finished *****");
+}
+
 const gulp = require("gulp"),
     path = require("path"),
     runSequence = require("run-sequence"),
     exec = require("child_process").exec,
-    sass = require("gulp-sass")
+    sass = require("gulp-sass"),
+    tildeImporter = require("node-sass-tilde-importer")
 ;
 
+const libName = "ngx-tour-wizard";
 const rootFolder = path.join(__dirname);
-const srcFolder = path.join(rootFolder, "lib");
-const distFolder = path.join(rootFolder, "dist");
+const srcFolder = path.join(rootFolder, `projects/${libName}/src/lib`);
+const distFolder = path.join(rootFolder, `dist/${libName}`);
 
 //TS
-const stylesDistFolder = path.join(distFolder, "styles");
-const tasks = {
-    compile: "packagr",
+const taskNames = {
+    ngBuild: "ngBuild",
     main: "build",
+    mdsCopy: "mdsCopy",
     pack: "pack",
-    stylesBuild: "build:scss"
+    handleStyles: "build:scss"
 };
 
-gulp.task(tasks.stylesBuild, function (cb) {
-    console.info("***** Task '" + tasks.stylesBuild + "' started *****");
+gulp.task(taskNames.ngBuild, function (cb) {
+    logStart(taskNames.ngBuild);
+    exec(`ng build ${libName}`, function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        logEnd(taskNames.ngBuild);
+        cb(err);
+    });
+});
+
+gulp.task(taskNames.handleStyles, function (cb) {
+    logStart(taskNames.handleStyles);
+    // SASS BUILD SCSS SOURCES
     gulp.src([
-        `${srcFolder}/tour-wizard.scss`,
+        path.join(srcFolder, "scss/tour-wizard.scss"),
     ])
     .pipe(sass({
-        // importer: tildeImporter
+        importer: tildeImporter
     }))
-    .pipe(gulp.dest(stylesDistFolder));
+    .pipe(gulp.dest(path.join(distFolder, "css")));
+
+    // COPY SCSS SOURCES
     gulp.src([
-        `${srcFolder}/tour-wizard-vars.scss`,
-        `${srcFolder}/tour-wizard.scss`,
+        path.join(srcFolder, "scss/*.scss"),
     ])
-    .pipe(gulp.dest(stylesDistFolder));
-    console.info("***** Task '" + tasks.stylesBuild + "' finished *****");
+    .pipe(gulp.dest(path.join(distFolder, "scss")));
+    logEnd(taskNames.handleStyles);
     cb();
 });
 
-gulp.task(tasks.compile, function (cb) {
-    console.info("***** Task '" + tasks.compile + "' started *****");
-    exec("ng-packagr -p ng-package.json", function (err, stdout, stderr) {
+gulp.task(taskNames.mdsCopy, (cb) => {
+    logStart(taskNames.mdsCopy);
+    gulp.src([
+        path.join(rootFolder, "changelog.md"),
+        path.join(rootFolder, "README.md")
+    ])
+    .pipe(gulp.dest(distFolder));
+    logEnd(taskNames.mdsCopy);
+    cb();
+});
+
+// PACK
+gulp.task(taskNames.pack, function (cb) {
+    logStart(taskNames.pack);
+    exec(`npm pack ./dist/${libName}`, function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
-        console.info("***** Task '" + tasks.compile + "' finished *****");
+        logEnd(taskNames.pack);
         cb(err);
     });
 });
 
-gulp.task(tasks.main, function (cb) {
-    console.info("***** Task '" + tasks.compile + "' started *****");
-    runSequence(tasks.compile, tasks.stylesBuild, function (err) {
-        console.info("***** Task '" + tasks.compile + "' finished *****");
+//MAIN
+gulp.task(taskNames.main, function (cb) {
+    logStart(taskNames.main);
+    runSequence(taskNames.ngBuild, taskNames.handleStyles, taskNames.mdsCopy, function (err) {
+        logEnd(taskNames.main);
         cb(err);
     });
 });
 
-gulp.task(tasks.pack, function (cb) {
-    console.info("***** Task '" + tasks.pack + "' started *****");
-    exec("npm pack ./dist", function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        console.info("***** Task '" + tasks.pack + "' finished *****");
-        cb(err);
-    });
-});

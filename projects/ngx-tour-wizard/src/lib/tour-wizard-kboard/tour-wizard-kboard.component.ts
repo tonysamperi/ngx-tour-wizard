@@ -1,6 +1,6 @@
 import {Component, HostListener} from "@angular/core";
-import {TourWizardService} from "./tour-wizard.service";
-import {TourWizardState} from "./tour-wizard.model";
+import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
+import {TourWizardState} from "../tour-wizard-models/tour-wizard.model";
 
 @Component({
     selector: "tour-wizard-kboard",

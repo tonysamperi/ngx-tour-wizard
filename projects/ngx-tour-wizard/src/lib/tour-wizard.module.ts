@@ -1,13 +1,13 @@
 import {NgModule, ModuleWithProviders, Provider, InjectionToken} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {NgxPopperModule} from "ngx-popper";
-import {TourWizardPopperComponent} from "./tour-wizard-popper.component";
-import {TourWizardKboardComponent} from "./tour-wizard-kboard.component";
-import {TourWizardOverlayComponent} from "./tour-wizard-overlay.component";
-import {TourWizardAnchorDirective} from "./tour-wizard-anchor.directive";
-import {TourWizardService} from "./tour-wizard.service";
-import {TourWizardDomService} from "./tour-wizard-dom.service";
-import {tourWizardDefaults, TourWizardOptions, TourWizardStep} from "./tour-wizard.model";
+import {TourWizardPopperComponent} from "./tour-wizard-popper/tour-wizard-popper.component";
+import {TourWizardKboardComponent} from "./tour-wizard-kboard/tour-wizard-kboard.component";
+import {TourWizardOverlayComponent} from "./tour-wizard-overlay/tour-wizard-overlay.component";
+import {TourWizardAnchorDirective} from "./tour-wizard-anchor/tour-wizard-anchor.directive";
+import {TourWizardService} from "./tour-wizard-services/tour-wizard.service";
+import {TourWizardDomService} from "./tour-wizard-services/tour-wizard-dom.service";
+import {tourWizardDefaults, TourWizardOptions, TourWizardStep} from "./tour-wizard-models/tour-wizard.model";
 
 // tslint:disable-next-line:naming-convention
 export const TOUR_WIZARD_DEFAULTS = new InjectionToken<TourWizardOptions>("TOUR_WIZARD_DEFAULTS");

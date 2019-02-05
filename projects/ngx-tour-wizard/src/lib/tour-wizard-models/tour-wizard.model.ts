@@ -1,7 +1,6 @@
-import {Placement} from "ngx-popper";
-import {ComponentRef} from "@angular/core";
-import {Subject} from "rxjs/Subject";
-import {TemplateRef} from "@angular/core";
+import { Placement } from "ngx-popper";
+import { ComponentRef, TemplateRef } from "@angular/core";
+import { Subject } from "rxjs";
 
 export enum TourWizardState {
     OFF,

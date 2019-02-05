@@ -1,8 +1,8 @@
 import {Component, OnDestroy, TemplateRef, ViewChild} from "@angular/core";
 import {ViewEncapsulation} from "@angular/core";
 import {PopperContent} from "ngx-popper";
-import {TourWizardService} from "./tour-wizard.service";
-import {TourWizardStep, TourWizardPopperSettings, TourWizardPopperFace} from "./tour-wizard.model";
+import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
+import {TourWizardStep, TourWizardPopperSettings, TourWizardPopperFace} from "../tour-wizard-models/tour-wizard.model";
 import {Placement} from "ngx-popper";
 import * as _ from "lodash";
 

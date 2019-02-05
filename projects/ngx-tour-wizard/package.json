@@ -1,0 +1,11 @@
+{
+  "name": "ngx-tour-wizard",
+  "version": "6.1.10",
+  "peerDependencies": {
+    "@angular/common": "~6.1.10",
+    "@angular/core": "~6.1.10",
+    "js-viewport-utils": "^1.0.2",
+    "ngx-popper": "^6.0.6",
+    "popper.js": "^1.14.7"
+  }
+}
