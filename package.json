@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "build:lib": "gulp build",
     "sass:lib": "gulp build:scss",
-    "pack:lib": "gulp pack"
+    "pack:lib": "gulp pack",
+    "publish:lib": "npm publish ./dist/ngx-tour-wizard"
   },
   "private": true,
   "dependencies": {
