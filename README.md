@@ -1,6 +1,6 @@
-# ngxTourWizard 6.1.10
+# ngxTourWizard 7.2.0
 
-A cool Angular6+ module for intro tours!
+A cool Angular7+ module for intro tours!
 
 # Before starting
 

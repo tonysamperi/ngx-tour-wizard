@@ -153,3 +153,9 @@
 
 #6.1.10
 * Upgrade to Angular 6
+
+#6.1.11
+* Fixed missing info in lib package
+
+#7.2.0
+* Upgrade to Angular 7
