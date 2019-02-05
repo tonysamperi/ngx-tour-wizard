@@ -1,11 +1,33 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "6.1.10",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonysamperi/ngx-tour-wizard"
+  },
+  "author": {
+    "name": "Tony Samperi",
+    "email": "tonysamperibg89@gmail.com"
+  },
+  "version": "6.1.11",
   "peerDependencies": {
     "@angular/common": "~6.1.10",
     "@angular/core": "~6.1.10",
     "js-viewport-utils": "^1.0.2",
     "ngx-popper": "^6.0.6",
     "popper.js": "^1.14.7"
+  },
+  "keywords": [
+    "Angular",
+    "Angular6",
+    "Material",
+    "Material6",
+    "Library",
+    "Angular6+",
+    "Extended",
+    "Framework"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tonysamperi/ngx-tour-wizard/issues"
   }
 }
