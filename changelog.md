@@ -164,3 +164,6 @@
 * Solved performance issue when using custom template in popper 
 * Events subscriptions managed through "takeUntil"
 * Misc and refactor
+
+#7.2.2
+* Version bump
