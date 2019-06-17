@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { TourWizardAnchorDirective } from "../tour-wizard-anchor/tour-wizard-anchor.directive";
+import {Injectable} from "@angular/core";
+import {TourWizardAnchorDirective} from "../tour-wizard-anchor/tour-wizard-anchor.directive";
 import {
     TourWizardEvent,
     TourWizardOptions,
@@ -7,9 +7,9 @@ import {
     TourWizardStep,
     TourWizardPopperSettings
 } from "../tour-wizard-models/tour-wizard.model";
-import { merge as mergeStatic, Subject, Observable, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
-import { Inject } from "@angular/core";
+import {merge as mergeStatic, Subject, Observable} from "rxjs";
+import {map, takeUntil} from "rxjs/operators";
+import {Inject} from "@angular/core";
 import * as _ from "lodash";
 
 @Injectable()
@@ -39,7 +39,8 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     anchorRegister$: Subject<string> = new Subject<string>();
     anchorUnregister$: Subject<string> = new Subject<string>();
 
-    private _subs: Subscription = new Subscription();
+    private _stepIndex: number = void 0;
+    private _subsCtrl$: Subject<boolean> = new Subject<boolean>();
     private _tourStatus: TourWizardState = TourWizardState.OFF;
 
     constructor(@Inject("TOUR_WIZARD_DEFAULTS") private _config: TourWizardOptions) {
@@ -52,25 +53,25 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             _.merge(this.popperDefaults, _config.popperDefaults || {});
         }
         this.events$ = mergeStatic(
-            this.stepShow$.pipe(map(value => ({ name: "stepShow", value }))),
-            this.stepHide$.pipe(map(value => ({ name: "stepHide", value }))),
-            this.start$.pipe(map(value => ({ name: "start", value }))),
-            this.end$.pipe(map(value => ({ name: "end", value }))),
-            this.pause$.pipe(map(value => ({ name: "pause", value }))),
-            this.resume$.pipe(map(value => ({ name: "resume", value }))),
-            this.anchorRegister$.pipe(map(value => ({ name: "anchorRegister", value }))),
-            this.anchorUnregister$.pipe(map(value => ({ name: "anchorUnregister", value })))
+            this.stepShow$.pipe(map(value => ({name: "stepShow", value}))),
+            this.stepHide$.pipe(map(value => ({name: "stepHide", value}))),
+            this.start$.pipe(map(value => ({name: "start", value}))),
+            this.end$.pipe(map(value => ({name: "end", value}))),
+            this.pause$.pipe(map(value => ({name: "pause", value}))),
+            this.resume$.pipe(map(value => ({name: "resume", value}))),
+            this.anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
+            this.anchorUnregister$.pipe(map(value => ({name: "anchorUnregister", value})))
         );
 
     }
 
     end(): void {
-        this._subs.unsubscribe();
+        this._subsCtrl$.next(!0);
         this.navigating = !1;
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
         const currentStepBak = _.cloneDeep(this.currentStep);
-        this.currentStep = void 0;
+        this._voidTour();
         this.end$.next(currentStepBak);
     }
 
@@ -87,7 +88,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             console.warn("Can\"t get next step. No currentStep.");
             return false;
         }
-        return step.nextStep !== undefined || _.findIndex(this.steps, step) < this.steps.length - 1;
+        return step.nextStep !== undefined || this._stepIndex < this.steps.length - 1;
     }
 
     hasPrev(step: T): boolean {
@@ -95,7 +96,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             console.warn("Can\"t get previous step. No currentStep.");
             return false;
         }
-        return step.prevStep !== undefined || _.findIndex(this.steps, step) > 0;
+        return step.prevStep !== undefined || this._stepIndex > 0;
     }
 
     initialize(steps: T[], stepDefaults?: T): void {
@@ -113,14 +114,16 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.currentStep.onNextClick();
         }
         if (this.hasNext(this.currentStep)) {
-            const targetStep = this._loadStep(this.currentStep.nextStep || _.findIndex(this.steps, this.currentStep) + 1);
+            const targetStep = this._loadStep(this.currentStep.nextStep || this._stepIndex + 1);
             if (!!this.currentStep && !!this.currentStep.subjectForNext) {
                 // Hide current step
                 this._hideStep(this.currentStep);
                 // Start listening
-                this._subs = this.currentStep.subjectForNext.subscribe((value: boolean) => {
+                this.currentStep.subjectForNext
+                .pipe(takeUntil(this._subsCtrl$))
+                .subscribe((value: boolean) => {
                     if (value) {
-                        this.currentStep = void 0;
+                        this._voidTour();
                         this._goToStep(targetStep);
                     }
                 });
@@ -140,14 +143,16 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.currentStep.onPrevClick();
         }
         if (this.hasPrev(this.currentStep)) {
-            const targetStep = this._loadStep(this.currentStep.prevStep || _.findIndex(this.steps, this.currentStep) - 1);
+            const targetStep = this._loadStep(this.currentStep.prevStep || this._stepIndex - 1);
             if (!!this.currentStep && !!this.currentStep.subjectForPrev) {
                 // Hide current step
                 this._hideStep(this.currentStep);
                 // Start listening
-                this._subs = this.currentStep.subjectForPrev.subscribe((value: boolean) => {
+                this.currentStep.subjectForPrev
+                .pipe(takeUntil(this._subsCtrl$))
+                .subscribe((value: boolean) => {
                     if (value) {
-                        this.currentStep = void 0;
+                        this._voidTour();
                         this._goToStep(targetStep);
                     }
                 });
@@ -248,12 +253,13 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     private _setCurrentStep(step: T): void {
-        this._subs.unsubscribe();
+        this._subsCtrl$.next();
         this.navigating = !1;
         if (this.currentStep) {
             this._hideStep(this.currentStep);
         }
         this.currentStep = step;
+        this._stepIndex = _.findIndex(this.steps, (s) => s.anchorId === step.anchorId);
         this._showStep(this.currentStep);
     }
 
@@ -266,6 +272,11 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         }
         anchor.showTourStep(step);
         this.stepShow$.next(step);
+    }
+
+    private _voidTour(): void {
+        this.currentStep = void 0;
+        this._stepIndex = void 0;
     }
 
 }

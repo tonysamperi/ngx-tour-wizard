@@ -159,3 +159,8 @@
 
 #7.2.0
 * Upgrade to Angular 7
+
+#7.2.1
+* Solved performance issue when using custom template in popper 
+* Events subscriptions managed through "takeUntil"
+* Misc and refactor

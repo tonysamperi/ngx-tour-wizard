@@ -109,6 +109,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         }
         if (!!step.customPopperContent) {
             this._anchorPopper.setTemplate(step.customPopperContent);
+            step.customPopperContent = void 0; // REMOVE REF TO AVOID PERFORMANCE ISSUES
         }
         this._anchorPopper.applySettings(step.popperSettings);
         if (!step.preventScrolling) {

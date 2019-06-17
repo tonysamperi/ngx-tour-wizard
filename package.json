@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wrap",
-  "version": "7.2.0",
+  "version": "7.2.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,8 +24,10 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@types/lodash": "^4.14.120",
     "core-js": "^2.5.4",
     "js-viewport-utils": "^1.0.2",
+    "lodash": "~4.17.11",
     "ngx-popper": "^6.0.6",
     "popper.js": "^1.14.7",
     "rxjs": "~6.3.3",
