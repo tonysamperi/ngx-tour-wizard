@@ -167,3 +167,6 @@
 
 #7.2.2
 * Version bump
+
+#7.2.3
+* Fixed keyboard listener behaviour
