@@ -14,21 +14,18 @@ export class TourWizardKboardComponent {
 
     @HostListener("window:keydown.Escape")
     public onEscapeKey(): void {
-        if (
-            this._tourWizardService.getStatus() === TourWizardState.ON &&
-            this._tourWizardService.isHotKeysEnabled
-        ) {
+        if (this._tourWizardService.isHotKeysEnabled &&
+            this._tourWizardService.getStatus() === TourWizardState.ON) {
             this._tourWizardService.end();
         }
     }
 
     @HostListener("window:keydown.ArrowRight")
     public onArrowRightKey(): void {
-        if (
+        if (this._tourWizardService.isHotKeysEnabled &&
+            !this._tourWizardService.currentStep.hideNextButton &&
             this._tourWizardService.getStatus() === TourWizardState.ON &&
-            this._tourWizardService.hasNext(this._tourWizardService.currentStep) &&
-            this._tourWizardService.isHotKeysEnabled
-        ) {
+            this._tourWizardService.hasNext(this._tourWizardService.currentStep)) {
             // Timeout resolves smooth scrolling issue
             setTimeout(() => {
                 this._tourWizardService.next();
@@ -38,11 +35,10 @@ export class TourWizardKboardComponent {
 
     @HostListener("window:keydown.ArrowLeft")
     public onArrowLeftKey(): void {
-        if (
+        if (this._tourWizardService.isHotKeysEnabled &&
+            !this._tourWizardService.currentStep.hidePrevButton &&
             this._tourWizardService.getStatus() === TourWizardState.ON &&
-            this._tourWizardService.hasPrev(this._tourWizardService.currentStep) &&
-            this._tourWizardService.isHotKeysEnabled
-        ) {
+            this._tourWizardService.hasPrev(this._tourWizardService.currentStep)) {
             // Timeout resolves smooth scrolling issue
             setTimeout(() => {
                 this._tourWizardService.prev();
