@@ -1,4 +1,4 @@
-# ngxTourWizard 7.2.2
+# ngxTourWizard 7.2.4
 
 A cool Angular7+ module for intro tours!
 
@@ -120,7 +120,7 @@ ngOnInit(): void {
 ```
 
 Versioning
-Font Awesome will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered with the following format:
+NgxTourWizard will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered with the following format:
 
 <major>.<minor>.<patch>
 

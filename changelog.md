@@ -170,3 +170,6 @@
 
 #7.2.3
 * Fixed keyboard listener behaviour
+
+#7.2.4
+* Updated js-viewport-utils
