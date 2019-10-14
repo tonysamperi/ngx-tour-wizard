@@ -79,8 +79,8 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         if (this._tourStatus !== TourWizardState.ON || !this.currentStep) {
             console.warn("Couldn't get anchor client rect, tour wasn't active");
         }
-        const $target = this.anchors[this.currentStep.anchorId].getPopperTarget() || {} as HTMLElement;
-        return $target.getBoundingClientRect();
+        const $target = this.anchors[this.currentStep.anchorId].getPopperTarget();
+        return $target ? $target.getBoundingClientRect() : void 0;
     }
 
     getStatus(): TourWizardState {

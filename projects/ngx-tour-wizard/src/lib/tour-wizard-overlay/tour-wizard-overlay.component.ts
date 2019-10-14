@@ -47,7 +47,7 @@ export class TourWizardOverlayComponent {
                     this.showOverlay = !0;
                 }
                 if (event.name === "stepHide") {
-                    // this._deleteStyles();
+                    this._hideAnchor();
                 }
                 if (event.name === "stepShow") {
                     this._calcStyles();
@@ -61,8 +61,33 @@ export class TourWizardOverlayComponent {
         });
     }
 
+    protected _hideAnchor(): void {
+        const rect = this._tourWizardService.getActiveAnchorBoundaries();
+        if (!rect) {
+            console.warn("COULDN'T GET RECT");
+            return this._deleteStyles();
+        }
+        this.topStyle = extend({}, {
+            width: `calc(100% - ${rect.left}px`,
+            top: "initial",
+            bottom: `calc(100% - ${rect.top + window.pageYOffset}px)`,
+            left: `${rect.left + rect.width}px`,
+            // "background-color": `rgba(255, 0, 0, 0.5)`
+        });
+        this.leftStyle = extend({}, {
+            top: "auto",
+            right: `calc(100% - ${rect.left + rect.width}px)`,
+            // "background-color": `rgba(120, 120, 0, 0.5)`,
+            bottom: `calc(100% - ${rect.top + rect.height + window.pageYOffset}px)`,
+            left: "auto"
+        });
+    }
+
     protected _calcStyles(): void {
         const rect = this._tourWizardService.getActiveAnchorBoundaries();
+        if (!rect) {
+            return this._deleteStyles();
+        }
         this.topStyle = extend({}, {
             width: `calc(100% - ${rect.left}px`,
             top: "initial",
@@ -86,7 +111,6 @@ export class TourWizardOverlayComponent {
             // "background-color": `rgba(0, 0, 255, 0.5)`,
             left: "auto"
         });
-
         this.leftStyle = extend({}, {
             top: "auto",
             right: `calc(100% - ${rect.left}px)`,

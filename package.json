@@ -11,7 +11,8 @@
     "build:lib": "gulp build",
     "sass:lib": "gulp build:scss",
     "pack:lib": "gulp pack",
-    "publish:lib": "npm publish ./dist/ngx-tour-wizard"
+    "publish:lib": "npm publish ./dist/ngx-tour-wizard",
+    "publish:lib:beta": "npm publish ./dist/ngx-tour-wizard --tag  beta"
   },
   "private": true,
   "dependencies": {
