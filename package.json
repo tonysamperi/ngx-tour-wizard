@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wrap",
-  "version": "7.2.4",
+  "version": "7.2.5-beta.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
