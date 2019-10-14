@@ -1,4 +1,4 @@
-# ngxTourWizard 7.2.5-beta.0
+# ngxTourWizard 7.2.5-beta.1
 
 A cool Angular7+ module for intro tours!
 
