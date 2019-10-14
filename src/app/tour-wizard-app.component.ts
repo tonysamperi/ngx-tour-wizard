@@ -58,6 +58,10 @@ export class TourWizardAppComponent implements OnInit {
         ] as TourWizardStep[]);
     }
 
+    someAction($event: MouseEvent): void {
+        console.info("BUTTON CLICKED", $event);
+    }
+
     startTour(): void {
         this._tourWizardService.start();
     }

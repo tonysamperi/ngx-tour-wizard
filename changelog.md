@@ -173,3 +173,9 @@
 
 #7.2.4
 * Updated js-viewport-utils
+
+#7.2.5-beta.0
+* Changed overlay behaviour to grant compatibility with Safari (mainly on iOS)
+* Handled overlay with resize
+* Removed unnecessary styles
+* Misc and refactor

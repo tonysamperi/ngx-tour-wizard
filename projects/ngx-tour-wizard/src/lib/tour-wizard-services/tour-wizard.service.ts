@@ -10,7 +10,7 @@ import {
 import {merge as mergeStatic, Subject, Observable} from "rxjs";
 import {map, takeUntil} from "rxjs/operators";
 import {Inject} from "@angular/core";
-import * as _ from "lodash";
+import {merge, cloneDeep, findIndex} from "lodash";
 
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
@@ -50,17 +50,17 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.isHotKeysEnabled = !!_config.keyboardEnabled;
             this.additionalViewports = _config.additionalViewports || [];
             this.appendDelay = _config.appendDelay || 0;
-            _.merge(this.popperDefaults, _config.popperDefaults || {});
+            merge(this.popperDefaults, _config.popperDefaults || {});
         }
         this.events$ = mergeStatic(
-            this.stepShow$.pipe(map(value => ({name: "stepShow", value}))),
-            this.stepHide$.pipe(map(value => ({name: "stepHide", value}))),
-            this.start$.pipe(map(value => ({name: "start", value}))),
-            this.end$.pipe(map(value => ({name: "end", value}))),
-            this.pause$.pipe(map(value => ({name: "pause", value}))),
-            this.resume$.pipe(map(value => ({name: "resume", value}))),
-            this.anchorRegister$.pipe(map(value => ({name: "anchorRegister", value}))),
-            this.anchorUnregister$.pipe(map(value => ({name: "anchorUnregister", value})))
+            this.stepShow$.pipe(map(value => ({name: "stepShow", value} as TourWizardEvent))),
+            this.stepHide$.pipe(map(value => ({name: "stepHide", value} as TourWizardEvent))),
+            this.start$.pipe(map(value => ({name: "start", value} as TourWizardEvent))),
+            this.end$.pipe(map(value => ({name: "end", value} as TourWizardEvent))),
+            this.pause$.pipe(map(value => ({name: "pause", value} as TourWizardEvent))),
+            this.resume$.pipe(map(value => ({name: "resume", value} as TourWizardEvent))),
+            this.anchorRegister$.pipe(map(value => ({name: "anchorRegister", value} as TourWizardEvent))),
+            this.anchorUnregister$.pipe(map(value => ({name: "anchorUnregister", value} as TourWizardEvent)))
         );
 
     }
@@ -70,9 +70,17 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this.navigating = !1;
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
-        const currentStepBak = _.cloneDeep(this.currentStep);
+        const currentStepBak = cloneDeep(this.currentStep);
         this._voidTour();
         this.end$.next(currentStepBak);
+    }
+
+    getActiveAnchorBoundaries(): ClientRect {
+        if (this._tourStatus !== TourWizardState.ON || !this.currentStep) {
+            console.warn("Couldn't get anchor client rect, tour wasn't active");
+        }
+        const $target = this.anchors[this.currentStep.anchorId].getPopperTarget() || {} as HTMLElement;
+        return $target.getBoundingClientRect();
     }
 
     getStatus(): TourWizardState {
@@ -212,13 +220,16 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         if (pause) {
             if (this.currentStep) {
                 this.pause();
-            } else {
+            }
+            else {
                 this.resume();
             }
-        } else {
+        }
+        else {
             if (this.currentStep) {
                 this.end();
-            } else {
+            }
+            else {
                 this.start();
             }
         }
@@ -247,7 +258,8 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     private _loadStep(stepId: number | string): T {
         if (typeof stepId === "number") {
             return this.steps[stepId];
-        } else {
+        }
+        else {
             return this.steps.find(step => step.stepId === stepId);
         }
     }
@@ -259,7 +271,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this._hideStep(this.currentStep);
         }
         this.currentStep = step;
-        this._stepIndex = _.findIndex(this.steps, (s) => s.anchorId === step.anchorId);
+        this._stepIndex = findIndex(this.steps, (s) => s.anchorId === step.anchorId);
         this._showStep(this.currentStep);
     }
 

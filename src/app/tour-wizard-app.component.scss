@@ -1,12 +1,12 @@
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
-    -webkit-box-shadow: inset $top $left $blur $color;
-    -moz-box-shadow: inset $top $left $blur $color;
-    box-shadow: inset $top $left $blur $color;
+	-webkit-box-shadow: inset $top $left $blur $color;
+	-moz-box-shadow: inset $top $left $blur $color;
+	box-shadow: inset $top $left $blur $color;
   } @else {
-    -webkit-box-shadow: $top $left $blur $color;
-    -moz-box-shadow: $top $left $blur $color;
-    box-shadow: $top $left $blur $color;
+	-webkit-box-shadow: $top $left $blur $color;
+	-moz-box-shadow: $top $left $blur $color;
+	box-shadow: $top $left $blur $color;
   }
 }
 
@@ -18,40 +18,50 @@
 
 $wizard-green: #8dd000;
 
-.tour-wizard-test {
-  box-sizing: border-box;
-  text-align: center;
-  width: 100%;
-  background: #e2e2e2;
-  padding: 16px;
-  > .tour-wizard-button {
-    display: inline-block;
-    border-radius: 5px;
-    padding: 8px 16px;
-    background-color: $wizard-green;
-    cursor: pointer;
-    text-transform: uppercase;
-    &:hover {
-      @include box-shadow(0, 0, 10px, #AAA);
-      background-color: lighten($wizard-green, 25);
-    }
-  }
-  hr {
-    margin: 20px 0;
-  }
-  .tour-wizard-spacer {
-    width: 100%;
-    height: 350px;
-  }
-  > span {
-    background: white;
-    display: inline-block;
-    padding: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-  }
-  .tour-wizard-my-target {
-    background: #8dd000;
-    color: #000;
-    float: right;
+.main-wrap {
+  position: relative;
+
+  .tour-wizard-test {
+	box-sizing: border-box;
+	text-align: center;
+	width: 100%;
+	background: #e2e2e2;
+	padding: 16px;
+
+	> .tour-wizard-button {
+	  display: inline-block;
+	  border-radius: 5px;
+	  padding: 8px 16px;
+	  background-color: $wizard-green;
+	  cursor: pointer;
+	  text-transform: uppercase;
+
+	  &:hover {
+		@include box-shadow(0, 0, 10px, #AAA);
+		background-color: lighten($wizard-green, 25);
+	  }
+	}
+
+	hr {
+	  margin: 20px 0;
+	}
+
+	.tour-wizard-spacer {
+	  width: 100%;
+	  height: 350px;
+	}
+
+	> span {
+	  background: white;
+	  display: inline-block;
+	  padding: 16px;
+	  border: 1px solid rgba(0, 0, 0, 0.5);
+	}
+
+	.tour-wizard-my-target {
+	  background: #8dd000;
+	  color: #000;
+	  float: right;
+	}
   }
 }

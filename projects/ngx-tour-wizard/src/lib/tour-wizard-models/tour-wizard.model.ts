@@ -1,6 +1,6 @@
-import { Placement } from "ngx-popper";
-import { ComponentRef, TemplateRef } from "@angular/core";
-import { Subject } from "rxjs";
+import {Placement} from "ngx-popper";
+import {ComponentRef, TemplateRef} from "@angular/core";
+import {Subject} from "rxjs";
 
 export enum TourWizardState {
     OFF,
@@ -29,8 +29,18 @@ export interface TourWizardCompData {
     targetSelector?: string;
 }
 
+export type TourWizardEventNames =
+    "start"
+    | "resume"
+    | "pause"
+    | "end"
+    | "stepShow"
+    | "stepHide"
+    | "anchorRegister"
+    | "anchorUnregister";
+
 export interface TourWizardEvent {
-    name: string;
+    name: TourWizardEventNames;
     value: any;
 }
 
@@ -88,3 +98,11 @@ export interface TourWizardStep {
     popperSettings?: TourWizardPopperSettings;
 }
 
+export interface TourWizardOverlayStyle {
+    width?: string;
+    height?: string;
+    top?: string;
+    left?: string;
+    bottom?: string;
+    right?: string;
+}

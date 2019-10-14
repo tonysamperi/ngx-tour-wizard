@@ -1,6 +1,11 @@
-<div class="pippo">
+<div class="main-wrap">
 
     <div class="tour-wizard-test">
+
+        <h4 style="margin-top: 1em;" class="">
+            <span class="whats-new-circle whats-new-item-title-circle"></span>
+            Hello, bonjour, こんにちは!
+        </h4>
 
         <span class="tour-wizard-button tour-wizard-text-gloria"
               (click)="startTour()">
@@ -10,6 +15,10 @@
         <hr />
 
         <span class="tour-wizard-text-gloria" [tourWizardAnchor]="firstAnchor">MY ANCHOR 1</span>
+
+        <div class="tour-wizard-spacer"></div>
+
+        <span class="tour-wizard-button" (click)="someAction($event)">SOME BUTTON HERE</span>
 
         <div class="tour-wizard-spacer"></div>
 

@@ -4,7 +4,7 @@ import {PopperContent} from "ngx-popper";
 import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
 import {TourWizardStep, TourWizardPopperSettings, TourWizardPopperFace} from "../tour-wizard-models/tour-wizard.model";
 import {Placement} from "ngx-popper";
-import * as _ from "lodash";
+import {merge} from "lodash";
 
 @Component({
     selector: "tour-wizard-popper-component",
@@ -26,7 +26,7 @@ export class TourWizardPopperComponent implements OnDestroy {
 
     applySettings(settings: TourWizardPopperSettings = {}) {
         // Bug when merging step options due to issue https://github.com/MrFrankel/ngx-popper/issues/107
-        _.merge(this.tourWizardPopper.popperOptions, this.tourWizardService.popperDefaults, settings);
+        merge(this.tourWizardPopper.popperOptions, this.tourWizardService.popperDefaults, settings);
     }
 
     hidePopper(): void {
