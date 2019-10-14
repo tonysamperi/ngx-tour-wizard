@@ -105,4 +105,5 @@ export interface TourWizardOverlayStyle {
     left?: string;
     bottom?: string;
     right?: string;
+    display?: string;
 }

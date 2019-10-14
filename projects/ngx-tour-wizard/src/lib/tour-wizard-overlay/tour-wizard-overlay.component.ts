@@ -6,12 +6,15 @@ import {extend} from "lodash";
 import {debounceTime} from "rxjs/operators";
 import {fromEvent} from "rxjs";
 
+const overlayInitStyle = (): TourWizardOverlayStyle => ({display: "none"});
+
 @Component({
     selector: "tour-wizard-overlay",
     host: {
         "[class.show]": "showOverlay"
     },
     template: `
+        <div class="tour-wizard-cover" [ngClass]="{'hide': !showCover}"></div>
         <div class="tour-wizard-overlay top" [ngStyle]="topStyle"></div>
         <div class="tour-wizard-overlay right" [ngStyle]="rightStyle"></div>
         <div class="tour-wizard-overlay bottom" [ngStyle]="bottomStyle"></div>
@@ -21,15 +24,16 @@ import {fromEvent} from "rxjs";
 })
 export class TourWizardOverlayComponent {
 
-    showOverlay: boolean = false;
-    topStyle: TourWizardOverlayStyle = {};
-    bottomStyle: TourWizardOverlayStyle = {};
-    leftStyle: TourWizardOverlayStyle = {};
-    rightStyle: TourWizardOverlayStyle = {};
+    showOverlay: boolean = !1;
+    topStyle: TourWizardOverlayStyle;
+    bottomStyle: TourWizardOverlayStyle;
+    leftStyle: TourWizardOverlayStyle;
+    rightStyle: TourWizardOverlayStyle;
+    showCover: boolean = !0;
 
     constructor(private _elRef: ElementRef,
                 private _tourWizardService: TourWizardService) {
-
+        this._deleteStyles();
         this._handleResize();
         this._handleWizardEvents();
     }
@@ -47,7 +51,7 @@ export class TourWizardOverlayComponent {
                     this.showOverlay = !0;
                 }
                 if (event.name === "stepHide") {
-                    this._hideAnchor();
+                    this._deleteStyles();
                 }
                 if (event.name === "stepShow") {
                     this._calcStyles();
@@ -58,28 +62,6 @@ export class TourWizardOverlayComponent {
                 this._deleteStyles();
                 this.showOverlay = !1;
             }
-        });
-    }
-
-    protected _hideAnchor(): void {
-        const rect = this._tourWizardService.getActiveAnchorBoundaries();
-        if (!rect) {
-            console.warn("COULDN'T GET RECT");
-            return this._deleteStyles();
-        }
-        this.topStyle = extend({}, {
-            width: `calc(100% - ${rect.left}px`,
-            top: "initial",
-            bottom: `calc(100% - ${rect.top + window.pageYOffset}px)`,
-            left: `${rect.left + rect.width}px`,
-            // "background-color": `rgba(255, 0, 0, 0.5)`
-        });
-        this.leftStyle = extend({}, {
-            top: "auto",
-            right: `calc(100% - ${rect.left + rect.width}px)`,
-            // "background-color": `rgba(120, 120, 0, 0.5)`,
-            bottom: `calc(100% - ${rect.top + rect.height + window.pageYOffset}px)`,
-            left: "auto"
         });
     }
 
@@ -118,13 +100,12 @@ export class TourWizardOverlayComponent {
             bottom: `calc(100% - ${rect.top + rect.height + window.pageYOffset}px)`,
             left: "auto"
         });
+        this.showCover = !1;
     }
 
     protected _deleteStyles(): void {
-        this.topStyle = {};
-        this.bottomStyle = {};
-        this.leftStyle = {};
-        this.rightStyle = {};
+        this.topStyle = this.rightStyle = this.bottomStyle = this.leftStyle = overlayInitStyle();
+        this.showCover = !0;
     }
 
     protected _handleResize(): void {
