@@ -183,3 +183,8 @@
 #7.2.5-beta.1
 * Improved overlay handling on step change
 * Misc and refactor
+
+#8.0.0 
+* Update to Angular 8
+* Switched to ngx-popperjs
+* Update to gulp 4 (dev only)

@@ -1,26 +1,30 @@
+@import "~ngx-popperjs/scss/theme";
 @import "tour-wizard-vars";
 
 .tour-wizard-text-gloria {
   font-family: 'Gloria Hallelujah', cursive;
 }
 
-.ngxp__container {
-  background: $tour-popper-color;
-  color: $tour-popper-text-color;
-  border: 0;
-  max-width: $tour-popper-width;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12);
-  z-index: $tour-default-zindex + $tour-zindex-factor;
-  &[x-placement^="top"] .ngxp__arrow {
-    border-color: $tour-popper-color transparent transparent transparent;
-  }
-  &[x-placement^="right"] .ngxp__arrow {
-    border-color: transparent $tour-popper-color transparent transparent;
-  }
-  &[x-placement^="bottom"] .ngxp__arrow {
-    border-color: transparent transparent $tour-popper-color transparent;
-  }
-  &[x-placement^="left"] .ngxp__arrow {
-    border-color: transparent transparent transparent $tour-popper-color;
-  }
-}
+@include ngx-popperjs-theme($tour-popper-color, $tour-popper-text-color, $tour-popper-width, $tour-default-zindex + $tour-zindex-factor);
+//
+
+//.ngxp__container {
+//  background: $tour-popper-color;
+//  color: $tour-popper-text-color;
+//  border: 0;
+//  max-width: $tour-popper-width;
+//  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12);
+//  z-index: $tour-default-zindex + $tour-zindex-factor;
+//  &[x-placement^="top"] .ngxp__arrow {
+//    border-color: $tour-popper-color transparent transparent transparent;
+//  }
+//  &[x-placement^="right"] .ngxp__arrow {
+//    border-color: transparent $tour-popper-color transparent transparent;
+//  }
+//  &[x-placement^="bottom"] .ngxp__arrow {
+//    border-color: transparent transparent $tour-popper-color transparent;
+//  }
+//  &[x-placement^="left"] .ngxp__arrow {
+//    border-color: transparent transparent transparent $tour-popper-color;
+//  }
+//}

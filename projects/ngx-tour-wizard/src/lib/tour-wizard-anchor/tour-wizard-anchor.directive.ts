@@ -43,9 +43,10 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     protected _popperRef: ComponentRef<TourWizardPopperComponent>;
     protected _popperTarget: HTMLElement;
     protected _remoteTarget: HTMLElement;
+    // 2020-09-16 changing viewPortOptions because Chrome/Edge 85 are probably bugged
     protected _viewPortOptions: ScrollIntoViewOptions = {
         inline: "start",
-        block: "start",
+        block: "end",
         behavior: "smooth"
     };
 
@@ -108,8 +109,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 step.targetElement.classList.add(remoteAnchorShowClassname);
                 el = step.targetElement;
                 this._remoteTarget = el;
-            }
-            else {
+            } else {
                 step.targetElement = void 0;
             }
         }
@@ -121,22 +121,19 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
         if (!step.preventScrolling) {
             if (!inViewportBottom(el)) {
                 el.scrollIntoView(this._viewPortOptions);
-            }
-            else if (!inViewport(el, {sides: [JsViewportSides.LEFT, JsViewportSides.TOP, JsViewportSides.RIGHT]})) {
+            } else if (!inViewport(el, {sides: [JsViewportSides.LEFT, JsViewportSides.TOP, JsViewportSides.RIGHT]})) {
                 el.scrollIntoView({
                     inline: "start",
                     block: "end",
                     behavior: "smooth"
                 });
-            }
-            else if (!inViewportTop(el)) {
+            } else if (!inViewportTop(el)) {
                 el.scrollIntoView({
                     inline: "start",
                     block: "end",
                     behavior: "smooth"
                 });
-            }
-            else if (!!this._addedViewports) {
+            } else if (!!this._addedViewports) {
                 let i = this._addedViewports.length + 1;
                 while (--i) {
                     const vp = document.querySelector(this._addedViewports[i]) as HTMLElement;

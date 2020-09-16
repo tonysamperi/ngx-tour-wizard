@@ -1,4 +1,4 @@
-import {Placement} from "ngx-popper";
+import {NgxPopperjsPlacements} from "ngx-popperjs";
 import {ComponentRef, TemplateRef} from "@angular/core";
 import {Subject} from "rxjs";
 
@@ -52,7 +52,7 @@ export interface TourWizardPopperSettings {
     showDelay?: number;
     disableAnimation?: boolean;
     disableDefaultStyling?: boolean;
-    placement?: Placement;
+    placement?: NgxPopperjsPlacements;
     boundariesElement?: string;
     // trigger?: Trigger; // Trigger cannot be changed
     positionFixed?: boolean;

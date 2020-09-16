@@ -1,6 +1,6 @@
 import {NgModule, ModuleWithProviders, Provider, InjectionToken} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {NgxPopperModule} from "ngx-popper";
+import {NgxPopperjsModule} from "ngx-popperjs";
 import {TourWizardPopperComponent} from "./tour-wizard-popper/tour-wizard-popper.component";
 import {TourWizardKboardComponent} from "./tour-wizard-kboard/tour-wizard-kboard.component";
 import {TourWizardOverlayComponent} from "./tour-wizard-overlay/tour-wizard-overlay.component";
@@ -34,7 +34,7 @@ export const TOUR_WIZARD_PROVIDERS: Provider[] = [
 @NgModule({
     imports: [
         CommonModule,
-        NgxPopperModule
+        NgxPopperjsModule
     ],
     declarations: [
         TourWizardPopperComponent,

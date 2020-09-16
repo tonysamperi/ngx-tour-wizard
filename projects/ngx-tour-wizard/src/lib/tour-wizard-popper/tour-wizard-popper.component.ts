@@ -1,9 +1,7 @@
-import {Component, OnDestroy, TemplateRef, ViewChild} from "@angular/core";
-import {ViewEncapsulation} from "@angular/core";
-import {PopperContent} from "ngx-popper";
+import {Component, OnDestroy, TemplateRef, ViewChild, ViewEncapsulation} from "@angular/core";
+import {NgxPopperjsContentComponent, NgxPopperjsPlacements} from "ngx-popperjs";
 import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
-import {TourWizardStep, TourWizardPopperSettings, TourWizardPopperFace} from "../tour-wizard-models/tour-wizard.model";
-import {Placement} from "ngx-popper";
+import {TourWizardPopperFace, TourWizardPopperSettings, TourWizardStep} from "../tour-wizard-models/tour-wizard.model";
 import {merge} from "lodash";
 
 @Component({
@@ -14,10 +12,10 @@ import {merge} from "lodash";
 })
 export class TourWizardPopperComponent implements OnDestroy {
 
-    @ViewChild(PopperContent) tourWizardPopper: PopperContent;
+    @ViewChild(NgxPopperjsContentComponent, {static: !0}) tourWizardPopper: NgxPopperjsContentComponent;
 
     isActive: boolean = false;
-    popperPlacement: Placement = "top";
+    popperPlacement: NgxPopperjsPlacements = NgxPopperjsPlacements.TOP;
     step: TourWizardStep;
     stepTemplate: TemplateRef<TourWizardPopperFace>;
 
@@ -25,14 +23,13 @@ export class TourWizardPopperComponent implements OnDestroy {
     }
 
     applySettings(settings: TourWizardPopperSettings = {}) {
-        // Bug when merging step options due to issue https://github.com/MrFrankel/ngx-popper/issues/107
+        // Always start from defaults and add specific settings
         merge(this.tourWizardPopper.popperOptions, this.tourWizardService.popperDefaults, settings);
     }
 
     hidePopper(): void {
         this.tourWizardPopper.hide();
         this.isActive = false;
-        // (typeof this._listener === typeof isNaN) && this._listener();
     }
 
     ngOnDestroy(): void {
@@ -47,8 +44,10 @@ export class TourWizardPopperComponent implements OnDestroy {
         this.tourWizardPopper.referenceObject = popperTarget;
         if (!this.isActive) {
             this.isActive = true;
-            this.tourWizardPopper.show();
-            window.dispatchEvent(new CustomEvent("resize"));
+            setTimeout(() => {
+                this.tourWizardPopper.show();
+                window.dispatchEvent(new CustomEvent("resize"));
+            });
         }
     }
 
