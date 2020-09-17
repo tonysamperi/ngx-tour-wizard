@@ -21,14 +21,15 @@ export class TourWizardAppComponent implements OnInit {
     ngOnInit(): void {
         this._tourWizardService.initialize([
             {
-                anchorId: "FOO_1",
-                content: "Some text for FOO 1",
-                title: "First"
+                anchorId: this.firstAnchor,
+                content: `Define in your class an array (TourWizardStep[ ]) with your steps, setting at least <strong>anchorId</strong> and <strong>content</strong>.
+<br />The <em>content property can contain a HTML string</em>`,
+                title: "1) SET UP THE DATA"
             },
             {
                 anchorId: "FOO_2",
-                content: "Some other stuff for FOO 2. Next anchor will fire after 2 seconds!!",
-                title: "Second",
+                content: "call the TourWizardService <strong>initialize</strong> method and provide the previously defined array",
+                title: "2) Init the tour",
                 subjectForNext: this._fooTwo$,
                 targetElement: ".tour-wizard-my-target",
                 onNextClick: () => {
@@ -37,8 +38,8 @@ export class TourWizardAppComponent implements OnInit {
             },
             {
                 anchorId: "FOO_3",
-                content: "Prev anchor will fire after 2 seconds!! One more next...",
-                title: "Third",
+                content: "Bind anchor IDs on your anchors with the [tourWizardAnchor] attribute",
+                title: "3) HTML markup",
                 subjectForPrev: this._fooThree$,
                 onPrevClick: () => {
                     this._onFooThreePrev();
@@ -46,20 +47,16 @@ export class TourWizardAppComponent implements OnInit {
             },
             {
                 anchorId: "FOO_4",
-                content: "Let's finish this up!!!",
-                title: "Fourth",
+                content: "To start the tour call the <strong>start</strong> method of the <strong>TourWizardService</strong>",
+                title: "4) Start the tour",
                 popperSettings: {
                     styles: {
                         maxWidth: 190,
-                        backgroundColor: "green"
+                        backgroundColor: "#002143"
                     }
                 }
             }
         ] as TourWizardStep[]);
-    }
-
-    someAction($event: MouseEvent): void {
-        console.info("BUTTON CLICKED", $event);
     }
 
     startTour(): void {

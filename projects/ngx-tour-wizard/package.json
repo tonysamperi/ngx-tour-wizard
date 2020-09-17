@@ -1,5 +1,6 @@
 {
   "name": "ngx-tour-wizard",
+  "version": "8.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/tonysamperi/ngx-tour-wizard"
@@ -8,7 +9,6 @@
     "name": "Tony Samperi",
     "email": "tonysamperibg89@gmail.com"
   },
-  "version": "8.0.0",
   "peerDependencies": {
     "@angular/common": "~8.2.14",
     "@angular/core": "~8.2.14",

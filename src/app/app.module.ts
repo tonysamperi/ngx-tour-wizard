@@ -17,7 +17,8 @@ import {TourWizardModule} from "ngx-tour-wizard";
             popperDefaults: {
                 appendTo: "body",
                 styles: {
-                    backgroundColor: "#da8834"
+                    backgroundColor: "#642f45",
+                    color: "#FFF"
                 }
             }
         })

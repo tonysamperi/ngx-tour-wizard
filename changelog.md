@@ -188,3 +188,11 @@
 * Update to Angular 8
 * Switched to ngx-popperjs
 * Update to gulp 4 (dev only)
+
+#8.0.1
+* Version bump to fix Readme
+
+#8.0.2
+* Improved appearance
+* Refactor and cleanup
+* Created a proper demo and demo site inspired to ngx-popperjs
