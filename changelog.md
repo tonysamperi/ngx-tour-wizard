@@ -183,3 +183,10 @@
 #7.2.5-beta.1
 * Improved overlay handling on step change
 * Misc and refactor
+
+#7.2.6
+* Update to latest Angular 7
+* Misc and refactor
+
+#7.2.7
+* Version bump
