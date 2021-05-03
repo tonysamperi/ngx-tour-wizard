@@ -7,10 +7,33 @@
     margin: 0 0 $tour-pad-factor 0;
   }
 
+  .tour-wizard-step-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .tour-wizard-content-button {
     border: none;
     margin-top: $tour-pad-factor;
     margin-right: $tour-pad-factor;
+    padding: 0.5 * $tour-pad-factor $tour-pad-factor;
+    border-radius: 0.5 * $tour-pad-factor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: #FFF;
+
+    > svg {
+      &.icon-left {
+        margin-right: 0.5 * $tour-pad-factor;
+      }
+      &.icon-right {
+        margin-left: 0.5 * $tour-pad-factor;
+      }
+    }
+
     &:last-child{
       margin-right: 0;
     }

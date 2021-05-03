@@ -9,24 +9,24 @@
 <ng-template #defaultTemplate let-step="step">
     <p class="tour-wizard-content-title">{{step?.title}}</p>
     <p class="tour-wizard-content-text" [innerHTML]="step?.content"></p>
-    <div class="tour-step-navigation">
+    <div class="tour-wizard-step-navigation">
         <button *ngIf="!step.hidePrevButton && tourWizardService.hasPrev(step)"
                 class="tour-wizard-content-button btn-prev"
-                [innerHTML]="step?.prevBtnTitle || '« Prev'"
+                [innerHTML]="step?.prevBtnTitle || defaultPrevBtn"
                 (click)="tourWizardService.prev()">
         </button>
         <button *ngIf="step.showPauseButton"
-                [innerHTML]="step?.pauseBtnTitle || 'Pause'"
+                [innerHTML]="step?.pauseBtnTitle || defaultPauseBtn"
                 class="tour-wizard-content-button btn-pause"
                 (click)="tourWizardService.pause()">
         </button>
         <button *ngIf="!step.hideNextButton && tourWizardService.hasNext(step)"
                 class="tour-wizard-content-button btn-next"
-                [innerHTML]="step?.nextBtnTitle || 'Next »'"
+                [innerHTML]="step?.nextBtnTitle || defaultNextBtn"
                 (click)="tourWizardService.next()">
         </button>
         <button class="tour-wizard-content-button btn-end"
-                [innerHtml]="step?.endBtnTitle || 'End'"
+                [innerHtml]="step?.endBtnTitle || defaultEndBtn"
                 (click)="tourWizardService.end()">
         </button>
     </div>

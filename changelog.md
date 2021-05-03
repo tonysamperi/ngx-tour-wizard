@@ -199,3 +199,7 @@
 
 #8.0.3
 * Dependencies updated
+
+#9.0.0
+* Updated deps for Angular 9
+* Improved basic appearance of popper buttons

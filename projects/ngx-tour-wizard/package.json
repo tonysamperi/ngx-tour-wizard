@@ -1,20 +1,20 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/tonysamperi/ngx-tour-wizard"
   },
   "author": {
     "name": "Tony Samperi",
-    "email": "tonysamperibg89@gmail.com"
+    "email": "github@tonysamperi.it"
   },
   "peerDependencies": {
-    "@angular/common": "~8.2.14",
-    "@angular/core": "~8.2.14",
+    "@angular/common": "~9.1.13",
+    "@angular/core": "~9.1.13",
     "js-viewport-utils": "^2.0.0",
     "lodash": "~4.17.20",
-    "ngx-popperjs": "~8.0.6",
+    "ngx-popperjs": "~9.0.7",
     "@popperjs/core": "~2.4.4"
   },
   "keywords": [
