@@ -26,7 +26,6 @@ const remoteAnchorShowClassname: string = "tour-wizard-anchor-show";
         "[attr.tourWizardAnchor]": "tourWizardAnchor"
     }
 })
-
 export class TourWizardAnchorDirective implements OnInit, OnDestroy {
 
     static nextId: number = 0;
