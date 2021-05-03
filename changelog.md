@@ -203,3 +203,9 @@
 #9.0.0
 * Updated deps for Angular 9
 * Improved basic appearance of popper buttons
+
+#10.0.0
+* Updated deps for Angular 10
+
+#11.0.0
+* Updated deps for Angular 11

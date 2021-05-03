@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wrap",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,29 +24,29 @@
     "email": "github@tonysamperi.it"
   },
   "dependencies": {
-    "@angular/animations": "~9.1.13",
-    "@angular/common": "~9.1.13",
-    "@angular/compiler": "~9.1.13",
-    "@angular/core": "~9.1.13",
-    "@angular/forms": "~9.1.13",
-    "@angular/platform-browser": "~9.1.13",
-    "@angular/platform-browser-dynamic": "~9.1.13",
-    "@angular/router": "~9.1.13",
+    "@angular/animations": "~10.2.5",
+    "@angular/common": "~10.2.5",
+    "@angular/compiler": "~10.2.5",
+    "@angular/core": "~10.2.5",
+    "@angular/forms": "~10.2.5",
+    "@angular/platform-browser": "~10.2.5",
+    "@angular/platform-browser-dynamic": "~10.2.5",
+    "@angular/router": "~10.2.5",
     "@popperjs/core": "~2.4.4",
     "@types/lodash": "~4.14.120",
     "core-js": "~2.6.11",
     "js-viewport-utils": "^2.0.0",
     "lodash": "~4.17.20",
-    "ngx-popperjs": "~9.0.7",
+    "ngx-popperjs": "~10.0.4",
     "rxjs": "~6.4.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.29",
     "@angular-devkit/build-ng-packagr": "~0.803.29",
-    "@angular/cli": "~9.1.15",
-    "@angular/compiler-cli": "~9.1.13",
-    "@angular/language-service": "~9.1.13",
+    "@angular/cli": "~10.2.3",
+    "@angular/compiler-cli": "~10.2.5",
+    "@angular/language-service": "~10.2.5",
     "@types/node": "~8.9.4",
     "codelyzer": "~6.0.1",
     "gulp": "~4.0.2",
@@ -58,6 +58,6 @@
     "tsickle": "^0.37.0",
     "tslint": "~6.1.2",
     "tslint-consistent-codestyle": "^1.16.0",
-    "typescript": "~3.8.3"
+    "typescript": "~4.0.7"
   }
 }

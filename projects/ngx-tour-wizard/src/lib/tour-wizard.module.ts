@@ -61,7 +61,7 @@ export const TOUR_WIZARD_PROVIDERS: Provider[] = [
 })
 export class TourWizardModule {
 
-    static forRoot(config?: TourWizardOptions): ModuleWithProviders {
+    static forRoot(config?: TourWizardOptions): ModuleWithProviders<TourWizardModule> {
         return {
             ngModule: TourWizardModule,
             providers: [
