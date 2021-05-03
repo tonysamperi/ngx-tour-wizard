@@ -196,3 +196,6 @@
 * Improved appearance
 * Refactor and cleanup
 * Created a proper demo and demo site inspired to ngx-popperjs
+
+#8.0.3
+* Dependencies updated
