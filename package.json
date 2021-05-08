@@ -51,7 +51,7 @@
     "codelyzer": "~6.0.1",
     "gulp": "~4.0.2",
     "gulp-sass": "~4.1.0",
-    "ng-packagr": "~5.7.1",
+    "ng-packagr": "~10.1.1",
     "node-sass-tilde-importer": "^1.0.2",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
