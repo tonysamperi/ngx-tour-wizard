@@ -40,7 +40,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     anchorUnregister$: Subject<string> = new Subject<string>();
 
     private _stepIndex: number = void 0;
-    private _subsCtrl$: Subject<boolean> = new Subject<boolean>();
+    private _subsCtrl$: Subject<void> = new Subject<void>();
     private _tourStatus: TourWizardState = TourWizardState.OFF;
 
     constructor(@Inject("TOUR_WIZARD_DEFAULTS") private _config: TourWizardOptions) {
@@ -66,7 +66,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     }
 
     end(): void {
-        this._subsCtrl$.next(!0);
+        this._subsCtrl$.next();
         this.navigating = !1;
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
@@ -193,7 +193,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     resume(): void {
         this._tourStatus = TourWizardState.ON;
         this._showStep(this.currentStep);
-        this.resume$.next();
+        this.resume$.next(this.currentStep);
     }
 
     start(): void {
@@ -203,7 +203,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
     startAt(stepId: number | string): void {
         this._tourStatus = TourWizardState.ON;
         this._goToStep(this._loadStep(stepId));
-        this.start$.next();
+        this.start$.next(this.currentStep);
     }
 
     unregister(anchorId: string): void {

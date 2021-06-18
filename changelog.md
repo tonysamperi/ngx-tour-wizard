@@ -209,3 +209,6 @@
 
 #11.0.0
 * Updated deps for Angular 11
+
+#12.0.0
+* Updated deps for Angular 12
