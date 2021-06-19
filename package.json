@@ -8,7 +8,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng build && gulp postBuild",
-    "build:demo": "ng build ngx-tour-wrap --configuration=production",
+    "build:demo": "ng build ngx-tour-wrap --configuration=production baseHref=",
     "sass:lib": "gulp build:scss",
     "pack:lib": "gulp pack",
     "publish:lib": "npm publish ./dist/ngx-tour-wizard",
