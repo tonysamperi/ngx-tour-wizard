@@ -8,6 +8,9 @@ Desktop.ini
 # VS Code
 .vscode/*
 
+# angular cache
+.angular
+
 # JetBrains
 .idea
 .project

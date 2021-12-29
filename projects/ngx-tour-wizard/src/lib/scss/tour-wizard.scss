@@ -1,4 +1,4 @@
-@import "~ngx-popperjs/scss/theme";
+@import "node_modules/ngx-popperjs/scss/theme";
 @import "tour-wizard-vars";
 
 @include ngx-popperjs-theme($tour-popper-color, $tour-popper-text-color, $tour-popper-width, $tour-default-zindex + $tour-zindex-factor);

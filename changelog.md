@@ -217,3 +217,6 @@
 * Allowing all minor versions of Angular 12
 * Updated min version of ngx-popperjs
 * Fixed viewport-utils version
+
+#13.0.0
+* Updated to Angular 13.x
