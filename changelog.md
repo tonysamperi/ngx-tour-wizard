@@ -212,3 +212,8 @@
 
 #12.0.0
 * Updated deps for Angular 12
+
+#12.1.0
+* Allowing all minor versions of Angular 12
+* Updated min version of ngx-popperjs
+* Fixed viewport-utils version
