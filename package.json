@@ -11,8 +11,8 @@
     "build:demo": "ng build ngx-tour-wrap --configuration=production baseHref=",
     "sass:lib": "gulp build:scss",
     "pack:lib": "gulp pack",
-    "publish:lib": "npm publish ./dist/ngx-tour-wizard",
-    "publish:lib:beta": "npm publish ./dist/ngx-tour-wizard --tag beta"
+    "publish": "npm publish ./dist/ngx-tour-wizard",
+    "publish:beta": "npm publish ./dist/ngx-tour-wizard --tag beta"
   },
   "keywords": [
     "Angular",
