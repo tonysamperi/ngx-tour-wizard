@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wrap",
-  "version": "13.0.0",
+  "version": "13.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -15,11 +15,11 @@
     "publish:beta": "npm publish ./dist/ngx-tour-wizard --tag beta"
   },
   "keywords": [
+    "Angular 13",
     "Angular",
-    "Angular12",
-    "Tour",
+    "UI Tour",
     "Intro.js",
-    "Wizard",
+    "ngx-tour",
     "Tour Wizard"
   ],
   "private": true,

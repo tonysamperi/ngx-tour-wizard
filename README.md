@@ -1,12 +1,15 @@
 # ngxTourWizard
 
+A cool Angular8+ module for intro tours!
+NgxTourWizard a highly customizable library. Popper are made with NgxPopperjs.
+
 [![npm](https://img.shields.io/npm/v/ngx-tour-wizard.svg?style=flat-square)](https://www.npmjs.com/package/ngx-tour-wizard) 
 [![npm](https://img.shields.io/npm/dm/ngx-tour-wizard.svg?style=flat-square)](https://www.npmjs.com/package/ngx-tour-wizard) 
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/tonysamperi/ngx-tour-wizard/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/tonysamperi/ngx-tour-wizard.svg?branch=master)](https://travis-ci.org/tonysamperi/ngx-tour-wizard)
 [![Size](https://img.shields.io/bundlephobia/min/ngx-tour-wizard)](https://unpkg.com/ngx-tour-wizard@8.0.0/bundles/ngx-tour-wizard.umd.js)
 
-A cool Angular8+ module for intro tours!
+
 
 # Before starting
 

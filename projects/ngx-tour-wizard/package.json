@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "13.0.0",
+  "version": "13.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/tonysamperi/ngx-tour-wizard"
@@ -19,11 +19,11 @@
     "rxjs": "^7.5.1"
   },
   "keywords": [
+    "Angular 13",
     "Angular",
-    "Angular12",
-    "Tour",
+    "UI Tour",
     "Intro.js",
-    "Wizard",
+    "ngx-tour",
     "Tour Wizard"
   ],
   "license": "MIT",

@@ -220,3 +220,9 @@
 
 #13.0.0
 * Updated to Angular 13.x
+
+#13.0.1
+* Version bump
+
+#13.0.2
+* Improve readme preview for NPM
