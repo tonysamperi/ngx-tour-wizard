@@ -8,14 +8,16 @@ import {
     OnInit,
     ViewContainerRef
 } from "@angular/core";
-
+import {SmpDomService} from "@ngx-tonysamperi/dom";
+//
 import {TourWizardPopperComponent} from "../tour-wizard-popper/tour-wizard-popper.component";
 import {TourWizardStep} from "../tour-wizard-models/tour-wizard.model";
 import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
-import {TourWizardDomService} from "../tour-wizard-services/tour-wizard-dom.service";
 import {TourWizardKboardComponent} from "../tour-wizard-kboard/tour-wizard-kboard.component";
 import {TourWizardOverlayComponent} from "../tour-wizard-overlay/tour-wizard-overlay.component";
 import {inViewport, inViewportBottom, inViewportTop, JsViewportSides} from "js-viewport-utils";
+//
+import {timer} from "rxjs";
 
 const remoteAnchorShowClassname: string = "tour-wizard-anchor-show";
 
@@ -52,7 +54,7 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
     constructor(private _elRef: ElementRef,
                 private _resolver: ComponentFactoryResolver,
                 private _tourWizardService: TourWizardService,
-                private _tourWizardDomService: TourWizardDomService,
+                private _tourWizardDomService: SmpDomService,
                 private _viewContainerRef: ViewContainerRef) {
         // Prevents adding layers multiple times
         if (this._id === 1) {
@@ -64,9 +66,9 @@ export class TourWizardAnchorDirective implements OnInit, OnDestroy {
                 {
                     comp: TourWizardOverlayComponent,
                     key: "TourWizardOverlayComponent",
-                    targetSelector: this._tourWizardService.backdropTarget
+                    target: this._tourWizardService.backdropTarget
                 }
-            ], this._tourWizardService.appendDelay);
+            ], void 0, timer(this._tourWizardService.appendDelay));
         }
     }
 

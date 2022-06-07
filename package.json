@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wrap",
-  "version": "13.0.2",
+  "version": "13.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -41,6 +41,7 @@
     "@angular/platform-browser-dynamic": "^13.0.3",
     "@angular/router": "^13.0.3",
     "@popperjs/core": "^2.11.0",
+    "@ngx-tonysamperi/dom": "^13.0.0",
     "@types/lodash": "^4.14.178",
     "js-viewport-utils": "^3.0.0",
     "lodash": "^4.17.21",

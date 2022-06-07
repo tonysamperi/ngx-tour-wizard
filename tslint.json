@@ -180,7 +180,7 @@
           "export",
           "const"
         ],
-        "format": "PascalCase",
+        "format": ["UPPER_CASE"],
         "prefix": "tourWizard"
       },
       // require exported constant variables that are initialized with functions to be camelCase
