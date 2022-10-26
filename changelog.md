@@ -1,7 +1,6 @@
 #13.1.2
 * Improved readme
 
-
 #13.1.1
 * Added required dependencies to dependencies, instead of peerDependencies, because it doesn't make sense having to install them  
 * Inverted changelog
