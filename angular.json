@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "tour",
       "schematics": {},
       "targets": {
         "build": {
@@ -40,6 +40,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "baseHref": "",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -163,5 +164,7 @@
       }
     }
   },
-  "defaultProject": "ngx-tour-wizard"
+  "cli": {
+    "analytics": false
+  }
 }

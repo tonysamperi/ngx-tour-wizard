@@ -10,6 +10,7 @@ import {Subject} from "rxjs";
 export class TourWizardAppComponent implements OnInit {
 
     firstAnchor: string = "FOO_1";
+    year: number = new Date().getFullYear();
 
     private _fooTwo$: Subject<boolean> = new Subject();
     private _fooThree$: Subject<boolean> = new Subject();

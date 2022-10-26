@@ -9,5 +9,5 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(TourWizardTestModule)
-.catch(err => console.log(err));
+    .catch(err => console.log(err));
 

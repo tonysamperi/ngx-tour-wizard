@@ -1,3 +1,6 @@
+#14.0.0
+* Upgrade for Angular 14! 🎉
+
 #13.1.2
 * Improved readme
 

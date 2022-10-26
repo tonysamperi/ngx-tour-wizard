@@ -23,9 +23,8 @@ import {TourWizardModule} from "ngx-tour-wizard";
             }
         })
     ],
-    entryComponents: [TourWizardAppComponent],
     declarations: [TourWizardAppComponent],
-    bootstrap: [TourWizardAppComponent],
+    bootstrap: [TourWizardAppComponent]
 })
 export class TourWizardTestModule {
 }

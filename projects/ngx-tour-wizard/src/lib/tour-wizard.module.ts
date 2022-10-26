@@ -44,11 +44,6 @@ export const TOUR_WIZARD_PROVIDERS: Provider[] = [
         TourWizardKboardComponent,
         TourWizardOverlayComponent
     ],
-    entryComponents: [
-        TourWizardPopperComponent,
-        TourWizardKboardComponent,
-        TourWizardOverlayComponent
-    ],
     exports: [
         TourWizardPopperComponent,
         TourWizardAnchorDirective,
