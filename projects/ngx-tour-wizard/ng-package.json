@@ -3,5 +3,11 @@
   "dest": "../../dist/ngx-tour-wizard",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "@popperjs/core",
+    "js-viewport-utils",
+    "lodash",
+    "ngx-popperjs"
+  ]
 }

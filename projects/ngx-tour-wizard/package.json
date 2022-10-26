@@ -1,6 +1,6 @@
 {
   "name": "ngx-tour-wizard",
-  "version": "13.1.0",
+  "version": "13.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/tonysamperi/ngx-tour-wizard"
@@ -12,11 +12,13 @@
   "peerDependencies": {
     "@angular/common": "^13.0.3",
     "@angular/core": "^13.0.3",
+    "rxjs": "^7.5.1"
+  },
+  "dependencies": {
     "@popperjs/core": "^2.11.0",
     "js-viewport-utils": "^3.0.0",
     "lodash": "^4.17.21",
-    "ngx-popperjs": "^13.0.0",
-    "rxjs": "^7.5.1"
+    "ngx-popperjs": "^13.0.0"
   },
   "keywords": [
     "Angular 13",

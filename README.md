@@ -9,8 +9,6 @@ NgxTourWizard a highly customizable library. Popper are made with NgxPopperjs.
 [![Build Status](https://travis-ci.org/tonysamperi/ngx-tour-wizard.svg?branch=master)](https://travis-ci.org/tonysamperi/ngx-tour-wizard)
 [![Size](https://img.shields.io/bundlephobia/min/ngx-tour-wizard)](https://unpkg.com/ngx-tour-wizard@8.0.0/bundles/ngx-tour-wizard.umd.js)
 
-
-
 # Before starting
 
 ##IMPORTANT for IE
@@ -26,10 +24,15 @@ As you may know directives don't have a "Styles" property.
 So it's impossible to let them style your markup,
 **unless** you include an external CSS.
 
-For this purpose the style of directives is compiled in
+For this purpose you can import prebuild themes for NgxTourWizard...
 
-* /styles/ngx-tour-wizard.css
-* /styles/ngx-tour-wizard.scss
+...in SASS style, where you can edit variables (it's very straight forward so read the source)
+
+`@import "node_modules/ngx-tour-wizard/scss/tour-wizard.scss";`
+
+...or in CSS style (and you can always override everything you want)
+
+ `@import "node_modules/ngx-tour-wizard/css/tour-wizard.css";`
 
 Be sure of including at least one of these in your styles.css / styles.scss
 to get the basic style
@@ -88,16 +91,16 @@ Once your library is imported, you can use its components, directives and pipes 
 <h1>
   {{title}}
 </h1>
-<span class="tour-wizard-button tour-wizard-text-gloria"
-          (click)="startTour()">
+<span (click)="startTour()">
     Start tour
 </span>
-<any class="tour-wizard-text-gloria" tourWizardAnchor="FOO_1">MY ANCHOR 1 </any>
-<any class="tour-wizard-text-gloria" tourWizardAnchor="FOO_2">MY ANCHOR 2 </any>
-<any class="tour-wizard-text-gloria" tourWizardAnchor="FOO_3">MY ANCHOR 3</any>
+<any tourWizardAnchor="FOO_1">MY ANCHOR 1 </any>
+<any tourWizardAnchor="FOO_2">MY ANCHOR 2 </any>
+<any tourWizardAnchor="FOO_3">MY ANCHOR 3</any>
 ```
 
 ```js
+import { TourWizardService, TourWizardStep } from 'ngx-tour-wizard';
 // SOME CONTENT
 constructor(private _tourWizardService: TourWizardService) {
 }

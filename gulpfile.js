@@ -9,16 +9,24 @@ function logEnd(msg) {
 }
 
 const gulp = require("gulp"),
-    path = require("path"),
+    {join} = require("path"),
     exec = require("child_process").exec,
     sass = require("gulp-sass"),
-    tildeImporter = require("node-sass-tilde-importer")
+    tildeImporter = require("node-sass-tilde-importer"),
+    bump = require("gulp-bump")
 ;
 
 const libName = "ngx-tour-wizard";
-const rootFolder = path.join(__dirname);
-const srcFolder = path.join(rootFolder, `projects/${libName}/src/lib`);
-const distFolder = path.join(rootFolder, `dist/${libName}`);
+const rootFolder = join(__dirname);
+const srcFolder = join(rootFolder, `projects/${libName}/src/lib`);
+const distFolder = join(rootFolder, `dist/${libName}`);
+const doBump = (type) => {
+    return Promise.all(["./", join(rootFolder, "projects", libName)].map((p) => {
+        return gulp.src(join(p, "package.json"))
+        .pipe(bump({type}))
+        .pipe(gulp.dest(p));
+    }));
+};
 
 //TS
 const taskNames = {
@@ -30,16 +38,28 @@ const taskNames = {
     doSass: "doSass"
 };
 
+gulp.task("bump:patch", () => {
+    return doBump("patch");
+});
+
+gulp.task("bump:minor", () => {
+    return doBump("minor");
+});
+
+gulp.task("bump:major", () => {
+    return doBump("major");
+});
+
 gulp.task(taskNames.doSass, (cb) => {
     logStart(taskNames.doSass);
     // SASS BUILD SCSS SOURCES
     gulp.src([
-        path.join(srcFolder, "scss/tour-wizard.scss"),
+        join(srcFolder, "scss/tour-wizard.scss"),
     ])
     .pipe(sass({
         importer: tildeImporter
     }))
-    .pipe(gulp.dest(path.join(distFolder, "css")))
+    .pipe(gulp.dest(join(distFolder, "css")))
     .on("end", () => {
         logEnd(taskNames.doSass);
         cb();
@@ -49,9 +69,9 @@ gulp.task(taskNames.doSass, (cb) => {
 gulp.task(taskNames.copySassSources, (cb) => {
     // COPY SCSS SOURCES
     return gulp.src([
-        path.join(srcFolder, "scss/*.scss"),
+        join(srcFolder, "scss/*.scss"),
     ])
-    .pipe(gulp.dest(path.join(distFolder, "scss")))
+    .pipe(gulp.dest(join(distFolder, "scss")))
     .on("end", () => {
         logEnd(taskNames.copySassSources);
         cb();
@@ -61,8 +81,8 @@ gulp.task(taskNames.copySassSources, (cb) => {
 gulp.task(taskNames.mdsCopy, (cb) => {
     logStart(taskNames.mdsCopy);
     return gulp.src([
-        path.join(rootFolder, "changelog.md"),
-        path.join(rootFolder, "README.md")
+        join(rootFolder, "changelog.md"),
+        join(rootFolder, "README.md")
     ])
     .pipe(gulp.dest(distFolder))
     .on("end", () => {
