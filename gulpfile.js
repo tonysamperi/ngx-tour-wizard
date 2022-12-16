@@ -11,24 +11,18 @@ function logEnd(msg) {
 const gulp = require("gulp"),
     {join} = require("path"),
     exec = require("child_process").exec,
-    sass = require("gulp-sass"),
+    sass = require("gulp-sass")(require('sass')),
     tildeImporter = require("node-sass-tilde-importer"),
-    bump = require("gulp-bump")
+    {inc} = require("semver"),
+    log = require("plugin-log"),
+    {obj} = require("through2")
 ;
 
 const libName = "ngx-tour-wizard";
 const rootFolder = join(__dirname);
 const srcFolder = join(rootFolder, `projects/${libName}/src/lib`);
 const distFolder = join(rootFolder, `dist/${libName}`);
-const doBump = (type) => {
-    return Promise.all(["./", join(rootFolder, "projects", libName)].map((p) => {
-        return gulp.src(join(p, "package.json"))
-        .pipe(bump({type}))
-        .pipe(gulp.dest(p));
-    }));
-};
 
-//TS
 const taskNames = {
     copySassSources: "copySassSources",
     ngBuild: "ngBuild",
@@ -36,6 +30,25 @@ const taskNames = {
     pack: "pack",
     postBuild: "postBuild",
     doSass: "doSass"
+};
+
+const doBump = (type) => {
+    return Promise.all(["./", join(rootFolder, "projects", libName)].map((p) => {
+        return gulp.src(join(p, "package.json"))
+        .pipe(obj((file, enc, cb) => {
+            const pkgData = JSON.parse(file.contents.toString());
+            const prevVersion = pkgData.version;
+            pkgData.version = inc(prevVersion, type);
+            file.contents = Buffer.from(JSON.stringify(pkgData, null, 4));
+            log(
+                "Bumped", log.colors.cyan(prevVersion),
+                "to", log.colors.magenta(pkgData.version),
+                "with type:", log.colors.cyan(type)
+            );
+            cb(null, file);
+        }))
+        .pipe(gulp.dest(p));
+    }));
 };
 
 gulp.task("bump:patch", () => {
@@ -48,6 +61,22 @@ gulp.task("bump:minor", () => {
 
 gulp.task("bump:major", () => {
     return doBump("major");
+});
+
+gulp.task("build++", () => {
+    return gulp.src(join(__dirname, "package.json"))
+    .pipe(obj((file, enc, cb) => {
+        const pkgData = JSON.parse(file.contents.toString());
+        const prevBuild = pkgData.build;
+        pkgData.build++;
+        file.contents = Buffer.from(JSON.stringify(pkgData, null, 4));
+        log(
+            "Increased", log.colors.cyan(prevBuild),
+            "to", log.colors.magenta(pkgData.build)
+        );
+        cb(null, file);
+    }))
+    .pipe(gulp.dest(__dirname))
 });
 
 gulp.task(taskNames.doSass, (cb) => {
