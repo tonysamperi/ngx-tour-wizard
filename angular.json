@@ -3,104 +3,6 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-tour-wrap": {
-      "root": "",
-      "sourceRoot": "src",
-      "projectType": "application",
-      "prefix": "tour",
-      "schematics": {},
-      "targets": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/ngx-tour-wrap",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": [],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "projects/ngx-tour-wizard/src/lib/scss"
-              ]
-            }
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "baseHref": "",
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "ngx-tour-wrap:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "ngx-tour-wrap:build:production"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ngx-tour-wrap:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "ngx-tour-wizard": {
       "root": "projects/ngx-tour-wizard",
       "sourceRoot": "projects/ngx-tour-wizard/src",
@@ -128,6 +30,126 @@
             "tsConfig": [
               "projects/ngx-tour-wizard/tsconfig.lib.json",
               "projects/ngx-tour-wizard/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-tour-wizard-repo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngx-tour-wizard-repo",
+      "sourceRoot": "projects/ngx-tour-wizard-repo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-tour-wizard-repo",
+            "index": "projects/ngx-tour-wizard-repo/src/index.html",
+            "main": "projects/ngx-tour-wizard-repo/src/main.ts",
+            "polyfills": "projects/ngx-tour-wizard-repo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-tour-wizard-repo/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/ngx-tour-wizard-repo/src/favicon.ico",
+              "projects/ngx-tour-wizard-repo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-tour-wizard-repo/src/styles.scss"
+            ]
+          },
+          "configurations": {
+            "dev": {
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-tour-wizard-repo/src/environments/environment.ts",
+                  "with": "projects/ngx-tour-wizard-repo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kb",
+                  "maximumError": "15kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-tour-wizard-repo:build"
+          },
+          "configurations": {
+            "development": {
+              "browserTarget": "ngx-tour-wizard-repo:build:dev"
+            },
+            "production": {
+              "browserTarget": "ngx-tour-wizard-repo:build:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-tour-wizard-repo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-tour-wizard-repo/src/test.ts",
+            "polyfills": "projects/ngx-tour-wizard-repo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-tour-wizard-repo/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-tour-wizard-repo/karma.conf.js",
+            "assets": [
+              "projects/ngx-tour-wizard-repo/src/favicon.ico",
+              "projects/ngx-tour-wizard-repo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-tour-wizard-repo/src/styles.scss"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-tour-wizard-repo/tsconfig.app.json",
+              "projects/ngx-tour-wizard-repo/tsconfig.spec.json",
+              "projects/ngx-tour-wizard-repo/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"

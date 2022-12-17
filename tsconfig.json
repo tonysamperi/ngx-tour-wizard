@@ -3,9 +3,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "declaration": false,
-    "module": "ES2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -14,13 +16,21 @@
       "node_modules/@types"
     ],
     "lib": [
-      "ES2015",
+      "es2018",
       "dom"
     ],
     "paths": {
       "ngx-tour-wizard": [
-		"projects/ngx-tour-wizard/src/public_api.ts"
+		"projects/ngx-tour-wizard/src/public-api"
 	  ]
     }
-  }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
+  "exclude": [
+    "_node_modules",
+    "node_modules"
+  ]
 }

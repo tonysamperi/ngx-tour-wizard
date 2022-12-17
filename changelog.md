@@ -1,3 +1,6 @@
+#14.1.0
+* Removed lodash dependency
+
 #14.0.1
 * Version bump
 

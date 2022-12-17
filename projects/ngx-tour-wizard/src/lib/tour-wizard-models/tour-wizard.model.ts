@@ -1,4 +1,4 @@
-import {NgxPopperjsPlacements} from "ngx-popperjs";
+import {NgxPopperjsPlacements, NgxPopperjsOptions} from "ngx-popperjs";
 import {ComponentRef, TemplateRef} from "@angular/core";
 import {Subject} from "rxjs";
 
@@ -17,6 +17,7 @@ export interface TourWizardOptions {
     popperDefaults?: TourWizardPopperSettings;
 }
 
+// tslint:disable-next-line:naming-convention
 export const tourWizardDefaults: TourWizardOptions = {
     backdropEnabled: true,
     backdropTarget: "body",
@@ -64,7 +65,7 @@ export interface TourWizardPopperSettings {
     ariaDescribe?: string;
     applyClass?: string;
     applyArrowClass?: string;
-    styles?: Object;
+    styles?: NgxPopperjsOptions["styles"];
     appendTo?: string;
 }
 

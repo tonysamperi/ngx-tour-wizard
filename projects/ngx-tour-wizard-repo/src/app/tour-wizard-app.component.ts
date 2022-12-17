@@ -1,13 +1,20 @@
 import {Component, OnInit} from "@angular/core";
+//
 import {TourWizardService, TourWizardStep} from "ngx-tour-wizard";
+//
+import pkg from "../../../../package.json";
 import {Subject} from "rxjs";
 
 @Component({
     selector: "tour-wizard-app",
     templateUrl: "tour-wizard-app.component.html",
-    styleUrls: ["./tour-wizard-app.component.scss"],
+    styleUrls: ["./tour-wizard-app.component.scss"]
 })
 export class TourWizardAppComponent implements OnInit {
+
+    get buildRef(): string {
+        return `${pkg.version}-build-${pkg.build}`;
+    }
 
     firstAnchor: string = "FOO_1";
     year: number = new Date().getFullYear();

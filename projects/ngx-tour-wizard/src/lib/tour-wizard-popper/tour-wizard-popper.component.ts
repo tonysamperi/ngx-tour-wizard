@@ -5,8 +5,6 @@ import {NgxPopperjsContentComponent, NgxPopperjsPlacements} from "ngx-popperjs";
 import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
 import {TourWizardPopperFace, TourWizardPopperSettings, TourWizardStep} from "../tour-wizard-models/tour-wizard.model";
 import {TourWizardButtons} from "../tour-wizard-models/tour-wizard-buttons.model";
-//
-import {merge} from "lodash";
 
 @Component({
     selector: "tour-wizard-popper-component",
@@ -33,7 +31,11 @@ export class TourWizardPopperComponent implements OnDestroy {
 
     applySettings(settings: TourWizardPopperSettings = {}) {
         // Always start from defaults and add specific settings
-        merge(this.tourWizardPopper.popperOptions, this.tourWizardService.popperDefaults, settings);
+        this.tourWizardPopper.popperOptions = {
+            ...this.tourWizardPopper.popperOptions,
+            ...this.tourWizardService.popperDefaults,
+            ...settings
+        };
     }
 
     hidePopper(): void {

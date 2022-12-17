@@ -7,10 +7,9 @@ import {
     TourWizardStep,
     TourWizardPopperSettings
 } from "../tour-wizard-models/tour-wizard.model";
-import {merge as mergeStatic, Subject, Observable} from "rxjs";
+import {merge, Subject, Observable} from "rxjs";
 import {map, takeUntil} from "rxjs/operators";
 import {Inject} from "@angular/core";
-import {merge, cloneDeep, findIndex} from "lodash";
 
 @Injectable()
 export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
@@ -50,9 +49,12 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this.isHotKeysEnabled = !!_config.keyboardEnabled;
             this.additionalViewports = _config.additionalViewports || [];
             this.appendDelay = _config.appendDelay || 0;
-            merge(this.popperDefaults, _config.popperDefaults || {});
+            this.popperDefaults = {
+                ...this.popperDefaults,
+                ..._config.popperDefaults
+            };
         }
-        this.events$ = mergeStatic(
+        this.events$ = merge(
             this.stepShow$.pipe(map(value => ({name: "stepShow", value} as TourWizardEvent))),
             this.stepHide$.pipe(map(value => ({name: "stepHide", value} as TourWizardEvent))),
             this.start$.pipe(map(value => ({name: "start", value} as TourWizardEvent))),
@@ -70,7 +72,10 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
         this.navigating = !1;
         this._tourStatus = TourWizardState.OFF;
         this._hideStep(this.currentStep);
-        const currentStepBak = cloneDeep(this.currentStep);
+        // Clone before data gets destroyed
+        const currentStepBak = {
+            ...this.currentStep
+        };
         this._voidTour();
         this.end$.next(currentStepBak);
     }
@@ -271,7 +276,7 @@ export class TourWizardService<T extends TourWizardStep = TourWizardStep> {
             this._hideStep(this.currentStep);
         }
         this.currentStep = step;
-        this._stepIndex = findIndex(this.steps, (s) => s.anchorId === step.anchorId);
+        this._stepIndex = this.steps.findIndex((s) => s.anchorId === step.anchorId);
         this._showStep(this.currentStep);
     }
 

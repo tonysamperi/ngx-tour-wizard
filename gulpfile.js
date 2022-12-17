@@ -11,11 +11,12 @@ function logEnd(msg) {
 const gulp = require("gulp"),
     {join} = require("path"),
     exec = require("child_process").exec,
-    sass = require("gulp-sass")(require('sass')),
-    tildeImporter = require("node-sass-tilde-importer"),
+    sass = require("sass"),
     {inc} = require("semver"),
     log = require("plugin-log"),
-    {obj} = require("through2")
+    {obj} = require("through2"),
+    {pathToFileURL} = require('url'),
+    {existsSync} = require("fs")
 ;
 
 const libName = "ngx-tour-wizard";
@@ -85,14 +86,31 @@ gulp.task(taskNames.doSass, (cb) => {
     gulp.src([
         join(srcFolder, "scss/tour-wizard.scss"),
     ])
-    .pipe(sass({
-        importer: tildeImporter
+    .pipe(obj((file, enc, cb) => {
+        const compiled = sass.compile(join(srcFolder, "scss/tour-wizard.scss"), {
+            importers: [
+                {
+                    findFileUrl(url) {
+                        const useMatch = join(__dirname, "node_modules", url, "_index.scss");
+                        const isMatch = existsSync(useMatch);
+                        if (isMatch) {
+                            return pathToFileURL(useMatch);
+                        }
+                        return null;
+                    }
+                }
+            ]
+        });
+        file.contents = Buffer.from(compiled.css);
+        log(log.colors.magenta("SASS"), log.colors.cyan("compiled"));
+        cb(null, file);
     }))
     .pipe(gulp.dest(join(distFolder, "css")))
     .on("end", () => {
         logEnd(taskNames.doSass);
         cb();
     });
+
 });
 
 gulp.task(taskNames.copySassSources, (cb) => {
@@ -132,7 +150,7 @@ gulp.task(taskNames.pack, (cb) => {
 });
 
 //MAIN
-gulp.task(taskNames.postBuild,  gulp.series(taskNames.doSass, taskNames.copySassSources, taskNames.mdsCopy, (cb, err) => {
+gulp.task(taskNames.postBuild, gulp.series(taskNames.doSass, taskNames.copySassSources, taskNames.mdsCopy, (cb, err) => {
     logEnd(taskNames.postBuild);
     cb(err);
 }));

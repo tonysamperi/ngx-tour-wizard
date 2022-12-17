@@ -2,12 +2,11 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ngx-tour-wizard",
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public-api.ts"
   },
   "allowedNonPeerDependencies": [
     "@popperjs/core",
     "js-viewport-utils",
-    "lodash",
     "ngx-popperjs"
   ]
 }

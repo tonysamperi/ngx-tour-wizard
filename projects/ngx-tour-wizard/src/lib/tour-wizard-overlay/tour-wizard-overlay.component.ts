@@ -2,7 +2,6 @@ import {Component, ElementRef} from "@angular/core";
 import {TourWizardService} from "../tour-wizard-services/tour-wizard.service";
 import {TourWizardEvent, TourWizardOverlayStyle} from "../tour-wizard-models/tour-wizard.model";
 //
-import {extend} from "lodash";
 import {debounceTime} from "rxjs/operators";
 import {fromEvent} from "rxjs";
 
@@ -70,14 +69,14 @@ export class TourWizardOverlayComponent {
         if (!rect) {
             return this._deleteStyles();
         }
-        this.topStyle = extend({}, {
+        this.topStyle = Object.assign({}, {
             width: `calc(100% - ${rect.left}px`,
             top: "initial",
             bottom: `calc(100% - ${rect.top + window.pageYOffset}px)`,
             left: `${rect.left}px`,
             // "background-color": `rgba(255, 0, 0, 0.5)`
         });
-        this.rightStyle = extend({}, {
+        this.rightStyle = Object.assign({}, {
             height: `calc(100% - ${rect.top + window.pageYOffset}px)`,
             width: `calc(100% - ${rect.left + rect.width}px`,
             //
@@ -85,7 +84,7 @@ export class TourWizardOverlayComponent {
             left: `${rect.left + rect.width}px`,
             // "background-color": `rgba(0, 255, 0, 0.5)`
         });
-        this.bottomStyle = extend({}, {
+        this.bottomStyle = Object.assign({}, {
             height: `calc(100% - ${rect.top + window.pageYOffset + rect.height}px)`,
             //
             top: `${rect.top + rect.height + window.pageYOffset}px`,
@@ -93,7 +92,7 @@ export class TourWizardOverlayComponent {
             // "background-color": `rgba(0, 0, 255, 0.5)`,
             left: "auto"
         });
-        this.leftStyle = extend({}, {
+        this.leftStyle = Object.assign({}, {
             top: "auto",
             right: `calc(100% - ${rect.left}px)`,
             // "background-color": `rgba(120, 120, 0, 0.5)`,
