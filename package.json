@@ -1,5 +1,5 @@
 {
-    "name": "ngx-tour-wrap",
+    "name": "ngx-tour-wizard-repo",
     "version": "14.1.0",
     "build": 2,
     "scripts": {
@@ -9,7 +9,7 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build": "ng build ngx-tour-wizard && gulp postBuild",
-        "build:demo": "ng build ngx-tour-wrap --configuration=production",
+        "build:demo": "ng build ngx-tour-wizard-repo --configuration=production",
         "sass:lib": "gulp build:scss",
         "pack:lib": "gulp pack",
         "publish": "npm publish ./dist/ngx-tour-wizard",

@@ -1,4 +1,4 @@
-# ngxTourWizard
+# ngx-tour-wizard
 
 A cool Angular8+ module for intro tours!
 NgxTourWizard a highly customizable library. Popper are made with NgxPopperjs.
@@ -99,36 +99,39 @@ Once your library is imported, you can use its components, directives and pipes 
 <any tourWizardAnchor="FOO_3">MY ANCHOR 3</any>
 ```
 
-```js
+```typescript
 import { TourWizardService, TourWizardStep } from 'ngx-tour-wizard';
-// SOME CONTENT
-constructor(private _tourWizardService: TourWizardService) {
-}
-    
-ngOnInit(): void {
-    this._tourWizardService.initialize([
-        {
-            anchorId: "FOO_1",
-            content: "Some text for FOO 1",
-            title: "First"
-        },
-        {
-            anchorId: "FOO_2",
-            content: "Some other stuff for FOO 2",
-            title: "Second"
-        },
-        {
-            anchorId: "FOO_3",
-            content: "Let's finish this up!!!",
-            title: "Third"
-        },
-    ] as TourWizardStep[]);
+
+export class MyComponent {
+
+    constructor(private _tourWizardService: TourWizardService) {
+    }
+
+    ngOnInit(): void {
+        this._tourWizardService.initialize([
+            {
+                anchorId: "FOO_1",
+                content: "Some text for FOO 1",
+                title: "First"
+            },
+            {
+                anchorId: "FOO_2",
+                content: "Some other stuff for FOO 2",
+                title: "Second"
+            },
+            {
+                anchorId: "FOO_3",
+                content: "Let's finish this up!!!",
+                title: "Third"
+            },
+        ] as TourWizardStep[]);
+    }
+
+    startTour(): void {
+        this._tourWizardService.start();
+    }
 }
 
- startTour(): void {
-    this._tourWizardService.start();
-}
-// SOME OTHER CONTENT
 ```
 
 Versioning
@@ -159,3 +162,4 @@ so you shouldn't need to do anything additional when using these files normally.
 * Optional pause on click outside
 * Add option to remove backdrop and kboard on end?
 * Disable tour on route change??
+* Disable scrolling between 2 steps?
