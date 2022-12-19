@@ -83,6 +83,7 @@
                   "with": "projects/ngx-tour-wizard-repo/src/environments/environment.prod.ts"
                 }
               ],
+              "baseHref": "",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
