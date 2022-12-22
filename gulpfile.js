@@ -16,7 +16,8 @@ const gulp = require("gulp"),
     log = require("plugin-log"),
     {obj} = require("through2"),
     {pathToFileURL} = require('url'),
-    {existsSync} = require("fs")
+    {existsSync} = require("fs"),
+    generator = require("@tonysamperi/ts-autoexports")
 ;
 
 const libName = "ngx-tour-wizard";
@@ -25,6 +26,7 @@ const srcFolder = join(rootFolder, `projects/${libName}/src/lib`);
 const distFolder = join(rootFolder, `dist/${libName}`);
 
 const taskNames = {
+    autoexports: "autoexports",
     copySassSources: "copySassSources",
     ngBuild: "ngBuild",
     mdsCopy: "mdsCopy",
@@ -136,6 +138,17 @@ gulp.task(taskNames.mdsCopy, (cb) => {
         logEnd(taskNames.mdsCopy);
         cb();
     });
+});
+
+gulp.task(taskNames.autoexports, () => {
+
+    return Promise.all(["components", "directives", "models", "services", "shared"].map((p) => {
+        return generator.autoExports(join(srcFolder, p), {
+            lineFeed: "\r\n",
+            fileName: "public.ts",
+            quotemark: "double"
+        });
+    }));
 });
 
 // PACK

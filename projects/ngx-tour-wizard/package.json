@@ -1,6 +1,6 @@
 {
     "name": "ngx-tour-wizard",
-    "version": "14.1.0",
+    "version": "15.0.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/tonysamperi/ngx-tour-wizard"
@@ -10,14 +10,14 @@
         "email": "github@tonysamperi.it"
     },
     "peerDependencies": {
-        "@angular/common": "^14.0.0",
-        "@angular/core": "^14.0.0",
+        "@angular/common": "^15.0.0",
+        "@angular/core": "^15.0.0",
         "rxjs": "^7.5.1"
     },
     "dependencies": {
         "@popperjs/core": "^2.11.0",
         "js-viewport-utils": "^3.0.0",
-        "ngx-popperjs": "^14.0.0"
+        "ngx-popperjs": "^15.0.0"
     },
     "keywords": [
         "Angular 14",

@@ -75,7 +75,7 @@ You can optionally use the `forRoot()` method and pass tourWizardDefaults as fol
 ```js
 // ...
 providers: [
-    TourWizardModule.forRoot({
+    NgxTourWizardModule.forRoot({
         backdropTarget: ".my-selector",
         backdropEnabled: true,
         keyboardEnabled: false
@@ -163,3 +163,4 @@ so you shouldn't need to do anything additional when using these files normally.
 * Add option to remove backdrop and kboard on end?
 * Disable tour on route change??
 * Disable scrolling between 2 steps?
+* Async content? 

@@ -181,7 +181,7 @@
           "const"
         ],
         "format": ["UPPER_CASE"],
-        "prefix": "tourWizard"
+        "prefix": "NGX_TOUR_WIZARD_"
       },
       // require exported constant variables that are initialized with functions to be camelCase
       {
@@ -232,13 +232,13 @@
       {
         "type": "type",
         "format": "PascalCase",
-        "prefix": "TourWizard"
+        "prefix": "NgxTourWizard"
       },
       // abstract classes must have the prefix "Abstract". The following part of the name must be valid PascalCase
       {
         "type": "class",
         "modifiers": "export",
-        "prefix": "TourWizard"
+        "prefix": "NgxTourWizard"
       },
       // enum members must be in camelCase. Without this config, enumMember would inherit UPPER_CASE from public static const property
       {

@@ -2,15 +2,15 @@ import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
-import {TourWizardAppComponent} from "./tour-wizard-app.component";
-import {TourWizardModule} from "ngx-tour-wizard";
+import {NgxTourWizardAppComponent} from "./app.component";
+import {NgxTourWizardModule} from "ngx-tour-wizard";
 
 @NgModule({
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         // TourWizardModule,
-        TourWizardModule.forRoot({
+        NgxTourWizardModule.forRoot({
             backdropTarget: ".pippo",
             backdropEnabled: true,
             keyboardEnabled: true,
@@ -23,8 +23,8 @@ import {TourWizardModule} from "ngx-tour-wizard";
             }
         })
     ],
-    declarations: [TourWizardAppComponent],
-    bootstrap: [TourWizardAppComponent]
+    declarations: [NgxTourWizardAppComponent],
+    bootstrap: [NgxTourWizardAppComponent]
 })
-export class TourWizardTestModule {
+export class TourWizardAppModule {
 }

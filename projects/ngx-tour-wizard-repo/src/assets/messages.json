@@ -1,0 +1,17 @@
+{
+  "messages": [
+    {
+      "text": "⭐ 22/12/2022: published V15! Check it out!",
+      "opts": {
+        "loop": true
+      }
+    },
+    {
+      "text": "If you're liking ngx-tourwizard, checkout <a href='https://tonysamperi.github.io/ngx-popperjs' target='_blank'>ngx-popperjs</a>!",
+      "opts": {
+        "loop": false,
+        "delay": 80
+      }
+    }
+  ]
+}
