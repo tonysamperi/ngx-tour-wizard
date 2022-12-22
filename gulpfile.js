@@ -16,8 +16,7 @@ const gulp = require("gulp"),
     log = require("plugin-log"),
     {obj} = require("through2"),
     {pathToFileURL} = require('url'),
-    {existsSync} = require("fs"),
-    generator = require("@tonysamperi/ts-autoexports")
+    {existsSync} = require("fs")
 ;
 
 const libName = "ngx-tour-wizard";
@@ -141,6 +140,8 @@ gulp.task(taskNames.mdsCopy, (cb) => {
 });
 
 gulp.task(taskNames.autoexports, () => {
+    // Require only if necessary, because this module can't be instaled in CI ;)
+    const generator = require("@tonysamperi/ts-autoexports");
 
     return Promise.all(["components", "directives", "models", "services", "shared"].map((p) => {
         return generator.autoExports(join(srcFolder, p), {
