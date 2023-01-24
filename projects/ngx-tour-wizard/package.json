@@ -5,9 +5,11 @@
         "type": "git",
         "url": "https://github.com/tonysamperi/ngx-tour-wizard"
     },
+    "homepage": "https://tonysamperi.github.io/ngx-tour-wizard",
     "author": {
         "name": "Tony Samperi",
-        "email": "github@tonysamperi.it"
+        "email": "github@tonysamperi.it",
+        "url": "https://tonysamperi.github.io"
     },
     "peerDependencies": {
         "@angular/common": "^15.0.0",
