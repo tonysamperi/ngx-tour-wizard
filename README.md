@@ -1,7 +1,7 @@
 # ngx-tour-wizard
 
-A cool Angular8+ module for intro tours!
-NgxTourWizard a highly customizable library. Popper are made with NgxPopperjs.
+A cool Angular 8+ module for intro tours!
+*ngx-tour-wizard* a highly customizable library. Popper are made with NgxPopperjs.
 
 [![npm](https://img.shields.io/npm/v/ngx-tour-wizard.svg?style=flat-square)](https://www.npmjs.com/package/ngx-tour-wizard) 
 [![npm](https://img.shields.io/npm/dm/ngx-tour-wizard.svg?style=flat-square)](https://www.npmjs.com/package/ngx-tour-wizard) 
@@ -24,7 +24,7 @@ As you may know directives don't have a "Styles" property.
 So it's impossible to let them style your markup,
 **unless** you include an external CSS.
 
-For this purpose you can import prebuild themes for NgxTourWizard...
+For this purpose you can import prebuild themes for ngx-tour-wizard...
 
 ...in SASS style, where you can edit variables (it's very straight forward so read the source)
 
@@ -52,7 +52,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import what you need from ngx-mat-lib
-import { TourWizardModule } from 'ngx-tour-wizard';
+import { NgxTourWizardModule } from 'ngx-tour-wizard';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,7 @@ import { TourWizardModule } from 'ngx-tour-wizard';
     BrowserModule,
 
     // Specify the import
-    TourWizardModule
+    NgxTourWizardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -135,7 +135,7 @@ export class MyComponent {
 ```
 
 Versioning
-NgxTourWizard will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered with the following format:
+ngx-tour-wizard will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered with the following format:
 
 <major>.<minor>.<patch>
 

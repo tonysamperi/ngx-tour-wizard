@@ -1,7 +1,7 @@
 {
     "name": "ngx-tour-wizard-repo",
-    "version": "15.0.0",
-    "build": 2,
+    "version": "15.0.1",
+    "build": 3,
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -28,9 +28,11 @@
         "type": "git",
         "url": "https://github.com/tonysamperi/ngx-tour-wizard"
     },
+    "homepage": "https://tonysamperi.github.io/ngx-tour-wizard",
     "author": {
         "name": "Tony Samperi",
-        "email": "github@tonysamperi.it"
+        "email": "github@tonysamperi.it",
+        "url": "https://tonysamperi.github.io"
     },
     "dependencies": {
         "@angular/animations": "^15.0.0",
@@ -68,7 +70,7 @@
         "tslint-consistent-codestyle": "^1.16.0",
         "typescript": "~4.8.4"
     },
-    "peerDependencies": {
+    "optionalDependencies": {
         "@tonysamperi/ts-autoexports": "^1.0.5"
     }
 }

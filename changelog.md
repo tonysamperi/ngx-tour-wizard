@@ -1,3 +1,9 @@
+#15.0.1
+* Version bump
+
+#15.0.0
+* Upgrade for Angular 15! 🎉
+
 #14.1.0
 * Removed lodash dependency
 
