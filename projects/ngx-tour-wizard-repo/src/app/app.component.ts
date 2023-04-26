@@ -31,14 +31,14 @@ export class NgxTourWizardAppComponent implements OnInit {
 
     ngOnInit(): void {
         this._initTour();
-        this._getMessages();
+        this._getMessages("[pop-messages]");
     }
 
     startTour(): void {
         this._tourWizardService.start();
     }
 
-    private _getMessages(): void {
+    private _getMessages(wrapperSelector: string): void {
         ajax.get(`./assets/messages.json`)
             .pipe(
                 switchMap((resp: AjaxResponse<any>) => {
@@ -51,7 +51,7 @@ export class NgxTourWizardAppComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.messages.forEach(({text, opts = {}}, i: number) => {
-                        const tw = new TypeWriter(`[pop-messages] li:nth-child(${i + 1})`, {
+                        const tw = new TypeWriter(`${wrapperSelector} li:nth-child(${i + 1})`, {
                             strings: !!opts.loop ? [text] : void 0,
                             autoStart: !!opts.loop,
                             loop: !!opts.loop,
