@@ -1,6 +1,6 @@
 {
     "name": "ngx-tour-wizard-repo",
-    "version": "15.0.1",
+    "version": "16.0.0",
     "build": 3,
     "scripts": {
         "ng": "ng",
