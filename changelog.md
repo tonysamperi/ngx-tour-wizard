@@ -1,3 +1,6 @@
+#16.0.0
+* Upgrade for Angular 16! 🎉
+
 #15.0.1
 * Version bump
 
