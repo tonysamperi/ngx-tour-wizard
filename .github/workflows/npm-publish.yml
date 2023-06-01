@@ -16,17 +16,19 @@ jobs:
           node-version: 18.10
       - name: Init checks
         run: |
-            - pkgname=ngx-tour-wizard
-            - pkgversion=$(node -p -e "require('./projects/$pkgname/package.json').version")
-            - echo detected project v $pkgversion
-            - latestpkgversion=$(npm view ${pkgname} version)
-            - echo detected latest v $latestpkgversion
-            - >-
-            if [ pkgversion == latestpkgversion ]; then {
+            pkgname=ngx-tour-wizard
+            pkgversion=$(node -p -e "require('./projects/$pkgname/package.json').version")
+            echo detected project v $pkgversion
+            latestpkgversion=$(npm view ${pkgname} version)
+            echo detected latest v $latestpkgversion
+            if [ pkgversion == latestpkgversion ]; then
                 echo "Version already published!"
-            }
+                exit 1;
+            else
+              echo "Version mismatch, we can proceed"
+            fi
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-optional --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Save build output
