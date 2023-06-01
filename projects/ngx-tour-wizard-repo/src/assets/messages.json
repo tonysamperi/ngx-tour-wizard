@@ -1,6 +1,12 @@
 {
   "messages": [
     {
+      "text": "⭐ 01/06/2023: published V16! Check it out!",
+      "opts": {
+        "loop": true
+      }
+    },
+    {
       "text": "⭐ 22/12/2022: published V15! Check it out!",
       "opts": {
         "loop": true
