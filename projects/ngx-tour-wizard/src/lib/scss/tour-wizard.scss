@@ -1,5 +1,5 @@
-@use "ngx-popperjs" as ngx-popperjs;
+@use "ngx-float-ui" as ngx-float-ui;
 
 @import "tour-wizard-vars";
 
-@include ngx-popperjs.ngx-popperjs-theme($tour-popper-color, $tour-popper-text-color, $tour-popper-width, $tour-default-zindex + $tour-zindex-factor);
+@include ngx-float-ui.ngx-float-ui-theme($tour-popper-color, $tour-popper-text-color, $tour-popper-width, $tour-default-zindex + $tour-zindex-factor);
