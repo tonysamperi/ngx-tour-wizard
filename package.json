@@ -59,7 +59,7 @@
         "@angular/compiler-cli": "^16.0.0",
         "@angular/language-service": "^16.0.0",
         "@types/node": "^14.18.1",
-        "gulp": "^4.0.2",
+        "gulp": "^5.0.0",
         "ng-packagr": "^16.0.0",
         "plugin-log": "^0.1.0",
         "semver": "^7.3.8",
