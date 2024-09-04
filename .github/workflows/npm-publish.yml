@@ -47,7 +47,7 @@ jobs:
           node-version: 18.13.0
           registry-url: https://registry.npmjs.org/
       - name: Download a single artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: dist-artifact
           path: dist
