@@ -60,7 +60,7 @@
         "@angular/language-service": "^16.0.0",
         "@types/node": "^14.18.1",
         "gulp": "^5.0.0",
-        "ng-packagr": "^16.0.0",
+        "ng-packagr": "^20.1.0",
         "plugin-log": "^0.1.0",
         "semver": "^7.3.8",
         "through2": "^4.0.2",
